@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>cashierMoneyTable</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="2" class="colorW">
+      <div>
+        <ion-button expand="full" routerLink="/cashier-order-table">ตาราง Order</ion-button>
+      </div>
+      <div>
+        <ion-button expand="full" routerLink="/cashier-money-table">เก็บงิน</ion-button>
+      </div>
+      <div>
+        <app-test></app-test>
+      </div>
+    </ion-col>
+    <ion-col size="10">
+      <div>
+        <ion-card class="colorW">
+          <h2 class="center">ตารางชำระเงิน</h2>
+          <table>
+            <tr>
+              <td>รหัส Order</td>
+              <td>โต๊ะที่</td>
+              <td>วันที่</td>
+              <td>เวลา</td>
+              <td>ดู</td>
+              <td>สถานะ</td>
+            </tr>
+            <tr>
+              <td>Od0001</td>
+              <td>A1</td>
+              <td>วันที่</td>
+              <td>เวลา</td>
+              <td>
+                <ion-button (click)="gotoBillDetail()">ดู</ion-button>
+              </td>
+              <td>
+                จ่ายแล้ว
+              </td>
+            </tr>
+            <tr>
+              <td>Od0001</td>
+              <td>A1</td>
+              <td>วันที่</td>
+              <td>เวลา</td>
+              <td>
+                <ion-button (click)="gotoBillDetail()">ดู</ion-button>
+              </td>
+              <td>
+                จ่ายแล้ว
+              </td>
+            </tr>
+          </table>
+        </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

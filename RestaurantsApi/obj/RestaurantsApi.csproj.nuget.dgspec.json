@@ -1,30 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Work\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj": {}
+    "D:\\Project\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj": {}
   },
   "projects": {
-    "D:\\Work\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj": {
+    "D:\\Project\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Work\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj",
+        "projectUniqueName": "D:\\Project\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj",
         "projectName": "RestaurantsApi",
-        "projectPath": "D:\\Work\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\Work\\Restaurants\\RestaurantsApi\\obj\\",
+        "projectPath": "D:\\Project\\Restaurants\\RestaurantsApi\\RestaurantsApi.csproj",
+        "packagesPath": "C:\\Users\\namet\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\Restaurants\\RestaurantsApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\namet\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -57,6 +55,10 @@
               "target": "Package",
               "version": "[2.2.0, )",
               "autoReferenced": true
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.0.0-rc4, )"
             }
           },
           "imports": [

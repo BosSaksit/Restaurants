@@ -24,3 +24,93 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+table {
+    width: 100%;
+  }
+  
+  td,
+  tr {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  ion-label {
+    font-size: 20px;
+  }
+  
+  .input1{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 15px;
+    height: 50px;
+    margin: auto;
+  }
+  
+  ion-input td{
+    text-align: center;
+  }
+  
+  ion-select,
+  ion-datetime,
+  ion-select-option,
+  ion-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 15px;
+    height: 50px;
+    margin: auto;
+  }
+  
+  .invalid {
+      border: 1px solid red;
+  }
+  
+  .invalid-msg{
+      color: red;
+  }
+  
+  .center{
+      text-align: center;
+  }
+  
+  .left{
+    text-align: left;
+  }
+  
+  ion-content{
+    --background: rgb(242, 241, 241);
+  }
+  
+  .colorW{
+    background: white;
+    box-shadow: 2px 2px 5px grey;
+    padding: 10px;
+    height: 200rem;
+
+  }
+
+  .headcontent{
+    background-color:gray; 
+    color: white; 
+    height: 50px; 
+    padding: 10px;
+
+}
+
+.invalid{
+  border: 1px solid red;
+}
+
+.invalid-msg{   
+  color: red;
+}
+  

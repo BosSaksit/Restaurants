@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>ownerAddUser</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row color="primary" justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div text-center>
+          <h3>เพิ่มพนักงาน</h3>
+        </div>
+        <ion-card class="colorw">
+          <form [formGroup]="dataUser" (ngSubmit)="addDataUser()">
+
+            <ion-item [class.invalid]="submit && f.userId.errors">
+              <ion-label>รหัสพนักงาน</ion-label>
+              <ion-input placeholder="รหัสพนักงาน" formControlName="userId"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.userId.errors">
+              <span class="invalid-msg">
+                กรุณากรอกรหัสพนักงาน
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.userName.errors">
+              <ion-label>ชื่อพนักงาน</ion-label>
+              <ion-input placeholder="ชื่อพนักงาน" formControlName="userName"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.userName.errors">
+              <span class="invalid-msg">
+                กรุณากรอกชื่อพนักงาน
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.userType.errors">
+              <ion-label>เลือกตำแหน่ง</ion-label>
+              <ion-select placeholder="เลือกตำแหน่ง" formControlName="userType">
+                <ion-select-option value="อาหาร">เชฟ</ion-select-option>
+                <ion-select-option value="เครื่องดื่ม">พนักงานเสริฟ</ion-select-option>
+                <ion-select-option value="เครื่องดื่ม">พนักงานเสริฟ</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.userType.errors">
+              <span class="invalid-msg">
+                กรุณาเลือกตำแหน่ง
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.usernameLog.errors">
+              <ion-label>Username</ion-label>
+              <ion-input placeholder="Username" formControlName="usernameLog"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.usernameLog.errors">
+              <span class="invalid-msg">
+                กรุณากรอกUsername
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.userpassLog.errors">
+              <ion-label>Password</ion-label>
+              <ion-input placeholder="Password" formControlName="userpassLog"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.userpassLog.errors">
+              <span class="invalid-msg">
+                กรุณากรอกPassword
+              </span>
+            </ion-item>
+
+            <ion-button expand="full" type="submit">เพิ่ม</ion-button>
+          </form>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

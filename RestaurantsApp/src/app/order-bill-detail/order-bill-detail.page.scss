@@ -1,0 +1,27 @@
+table {
+  width: 100%;
+}
+
+td,
+tr {
+  text-align: center;
+  padding: 8px;
+}
+
+.colorW {
+  --background: white;
+}
+
+.center {
+  text-align: center;
+}
+
+.red {
+  background: red;
+  height: 100%;
+}
+
+.green {
+  background: green;
+  height: auto;
+}

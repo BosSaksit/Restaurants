@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>OrderList</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2 class="center">รายการ Order</h2>
+  <ion-card class="colorW" padding>
+    <table>
+      <tr>
+        <td>รหัสบิล</td>
+        <td>โต๊ะที่</td>
+        <td>จำนวนคน</td>
+        <td>แก้ไข</td>
+        <td>ดูข้อมูลOrder</td>
+        <td>บิล</td>
+      </tr>
+      <tr *ngFor="let o of dataOrder">
+        <td>{{o.billId}}</td>
+        <td>{{o.tableNumber}}</td>
+        <td>{{o.amountCustomer}}</td>
+        <td>
+          <ion-button (click)="gotoEditOrder()">แก้ไข</ion-button>
+        </td>
+        <td>
+          <ion-button (click)="getDataOrderById(o.billId)">ดู</ion-button>
+        </td>
+        <td>
+          <ion-button (click)="gotoBillDetail()">ข้อมูลบิล</ion-button>
+        </td>
+      </tr>
+
+    </table>
+  </ion-card>
+</ion-content>

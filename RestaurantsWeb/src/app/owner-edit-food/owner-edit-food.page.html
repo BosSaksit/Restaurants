@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>owner-edit-food</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row color="primary" justify-content-center>
+      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+        <div text-center *ngIf="buttonStatus == 1">
+          <h3>ดูข้อมูล</h3>
+        </div>
+
+        <div text-center *ngIf="buttonStatus == 2">
+          <h3>แก้ไข</h3>
+        </div>
+        <ion-card class="colorw">
+          <form [formGroup]="dataFood" (ngSubmit)="editDataFood()">
+
+            <ion-item [class.invalid]="submit && f.foodType.errors" [disabled]="isValidSL"> 
+              <ion-label>เลือกอาหาร/เครื่องดื่ม</ion-label>
+              <ion-select placeholder="เลือกอาหาร/เครื่องดื่ม" formControlName="foodType" >
+                <ion-select-option value="อาหาร">อาหาร</ion-select-option>
+                <ion-select-option value="เครื่องดื่ม">เครื่องดื่ม</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.foodType.errors">
+              <span class="invalid-msg">
+                กรุณากรอกประเภทอาหาร
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.foodId.errors">
+              <ion-label>รหัสอาหาร</ion-label>
+              <ion-input placeholder="รหัสอาหาร" formControlName="foodId" [readonly]="isValid"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.foodId.errors">
+              <span class="invalid-msg">
+                กรุณากรอกรหัสอาหาร
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.foodName.errors">
+              <ion-label>ชื่ออาหาร</ion-label>
+              <ion-input placeholder="ชื่ออาหาร" formControlName="foodName" [readonly]="isValid"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.foodName.errors">
+              <span class="invalid-msg">
+                กรุณากรอกชื่ออาหาร
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.foodCost.errors">
+              <ion-label>ต้นทุน</ion-label>
+              <ion-input type="number" placeholder="ต้นทุน" formControlName="foodCost" [readonly]="isValid"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.foodCost.errors">
+              <span class="invalid-msg">
+                กรุณากรอกต้นทุน
+              </span>
+            </ion-item>
+
+            <ion-item [class.invalid]="submit && f.foodPrice.errors">
+              <ion-label>ราคาขาย</ion-label>
+              <ion-input type="number" placeholder="ราคาขาย" formControlName="foodPrice" [readonly]="isValid"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="submit && f.foodPrice.errors">
+              <span class="invalid-msg">
+                กรุณากรอกราคาขาย
+              </span>
+            </ion-item>
+
+            <div class="button colorw" padding *ngIf="buttonStatus == 1">
+              <ion-button size="large" expand="block" (click)="change()">แก้ไข</ion-button>
+            </div>
+    
+            <div class="button colorw" padding *ngIf="buttonStatus == 2">
+              <ion-button size="large" expand="block" type="submit">บันทึก</ion-button>
+            </div>
+          </form>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

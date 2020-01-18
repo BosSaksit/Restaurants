@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>userList</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="2" class="colorW">
+      <div>
+        <ion-button expand="full" routerLink="/owner-dashboard">Dashboard</ion-button>
+      </div>
+      <div>
+        <ion-button expand="full" routerLink="/food-list">จัดการอาหาร</ion-button>
+      </div>
+      <div>
+        <ion-button expand="full" routerLink="/user-list">จัดการพนักงาน</ion-button>
+      </div>
+      <div>
+        <app-test></app-test>
+      </div>
+   
+    </ion-col>
+    <ion-col size="10">
+      <div>
+        <ion-card class="colorW">
+          <h2 class="center">รายชื่อพนักงาน</h2>
+          <ion-button routerLink="/owner-add-user">เพิ่มพนักงาน</ion-button>
+          <table>
+          <tr>
+            <td>รหัสพนักงาน</td>
+            <td>ชื่อ</td>
+            <td>ตำแหน่ง</td>
+            <td>ดู</td>
+            <td>แก้ไข</td>
+            <td>ลบ</td>
+          </tr>
+          <tr *ngFor="let u of dataUser">
+            <td>{{u.userId}}</td>
+            <td>{{u.userName}}</td>
+            <td>{{u.userType}}</td>
+            <td>
+              <ion-button color="light" (click)="gotoDetailUser(u.userId)">ดู</ion-button>
+            </td>
+            <td>
+              <ion-button color="warning" (click)="gotoEditUser(u.userId)">แก้ไข</ion-button>
+            </td>
+            <td>
+              <ion-button color="danger" (click)="deleteDataUser(u.userId)">ลบ</ion-button>
+            </td>
+            
+          </tr>
+  
+        </table>
+      </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-content>

@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>cookOrderDetail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2 class="center">ข้อมูล Order</h2>
+  <ion-card class="colorW" padding>
+    <h3>รหัส Order :</h3>
+    <h3>โต๊ะที่ :</h3>
+    <table>
+      <tr>
+        <td>รายการ</td>
+        <td>หมายเหตุ</td>
+        <td>จำนวน</td>
+        <td>เสริฟ</td>
+        <td>สถานะ</td>
+      </tr>
+      <tr>
+        <td>กระเพาหมูกรอบ</td>
+        <td>ไม่เผ็ด</td>
+        <td>1</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+        <td>เสริฟแล้ว</td>
+      </tr>
+      <tr>
+        <td>กระเพาไก่</td>
+        <td>เผ็ดๆ</td>
+        <td>1</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+        <td>กำลังทำ</td>
+      </tr>
+      <tr>
+        <td>ข้าวสวย</td>
+        <td></td>
+        <td>2</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+        <td>เสริฟแล้ว</td>
+      </tr>
+    </table>
+  </ion-card>
+</ion-content>

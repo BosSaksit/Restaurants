@@ -1,0 +1,23 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { CookOrderTablePageRoutingModule } from './cook-order-table-routing.module';
+
+import { CookOrderTablePage } from './cook-order-table.page';
+import { ComponentsModule } from "../logout/components.module";
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    CookOrderTablePageRoutingModule,
+    ComponentsModule
+  ],
+  declarations: [CookOrderTablePage]
+})
+export class CookOrderTablePageModule {}

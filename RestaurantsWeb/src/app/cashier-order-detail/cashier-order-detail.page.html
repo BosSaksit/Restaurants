@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>cashierOrderDetail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="2" class="colorW">
+      <div>
+        <ion-button expand="full" routerLink="/cashier-order-table">ตาราง Order</ion-button>
+      </div>
+      <div>
+        <ion-button expand="full" routerLink="/cashier-money-table">เก็บงิน</ion-button>
+      </div>
+      <div>
+        <app-test></app-test>
+      </div>
+
+    </ion-col>
+    <ion-col size="10">
+      <div>
+        <ion-card class="colorW">
+          <h2 class="center">ข้อมูล Order</h2>
+          <h2>รหัส Order :</h2>
+          <h2>โต๊ะที่ :</h2>
+
+          <table>
+            <tr>
+              <td>รายการ</td>
+              <td>จำนวน</td>
+              <td>หมายเหตุ</td>
+              <td>สถานะ</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="left">อาหาร</td>
+            </tr>
+            <tr>
+              <td>ข้าวผัดหมู</td>
+              <td>1</td>
+              <td>เผ็ดๆ</td>
+              <td>กำลังทำ</td>
+            </tr>
+
+            <tr>
+              <td>กระเพาหมู</td>
+              <td>1</td>
+              <td>เผ็ดๆ</td>
+              <td>กำลังทำ</td>
+            </tr>
+
+            <tr>
+              <td>ข้าวสวย</td>
+              <td>2</td>
+              <td>เผ็ดๆ</td>
+              <td>กำลังทำ</td>
+            </tr>
+
+            <tr>
+              <td colspan="5" class="left">น้ำ</td>
+            </tr>
+            <tr>
+              <td>โค้ก</td>
+              <td>1</td>
+              <td></td>
+              <td>กำลังทำ</td>
+            </tr>
+
+            <tr>
+              <td>น้ำแข็ง</td>
+              <td>1</td>
+              <td></td>
+              <td>กำลังทำ</td>
+            </tr>
+
+            <tr>
+              <td colspan="5" class="left">ของหวาน</td>
+            </tr>
+            <tr>
+              <td>เฉาก๊วย</td>
+              <td>1</td>
+              <td></td>
+              <td>กำลังทำ</td>
+          
+            </tr>
+          </table>
+          <ion-button>แก้ไข</ion-button>
+        </ion-card>
+      </div>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>

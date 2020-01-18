@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-label>เมนูน้ำ</ion-label>
+      </ion-col>
+      <ion-col style="text-align: right;">
+        <app-logout></app-logout>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+  <h2 class="center">รายการ Order บาร์น้ำ</h2>
+  <ion-card class="colorW" padding>
+    <table>
+      <tr>
+        <td>รหัส Order</td>
+        <td>โต๊ะที่</td>
+        <td>จำนวนคน</td>
+        <td>สถานะ</td>
+        <td>ดูข้อมูล</td>
+      </tr>
+      <tr>
+        <td>Od0001</td>
+        <td>A1</td>
+        <td>4</td>
+        <td>กำลังทำ</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">ดู</ion-button>
+        </td>
+      </tr>
+      <tr>
+        <td>Od0002</td>
+        <td>A2</td>
+        <td>8</td>
+        <td>เสริฟแล้ว</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">ดู</ion-button>
+        </td>
+      </tr>
+    </table>
+  </ion-card>
+</ion-content>

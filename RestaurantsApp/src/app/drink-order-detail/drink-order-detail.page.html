@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>drinkOrderDetail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2 class="center">ข้อมูล Order</h2>
+  <ion-card class="colorW" padding>
+    <h3>รหัส Order :</h3>
+    <h3>โต๊ะที่ :</h3>
+    <table>
+      <tr>
+        <td>รายการ</td>
+        <td>หมายเหตุ</td>
+        <td>จำนวน</td>
+        <td>เสริฟ</td>
+      </tr>
+      <tr>
+        <td>น้ำเปล่า</td>
+        <td></td>
+        <td>1</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+      </tr>
+      <tr>
+        <td>น้ำโค้ก</td>
+        <td></td>
+        <td>1</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+      </tr>
+      <tr>
+        <td>เบียร์ช้าง</td>
+        <td></td>
+        <td>2</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+      </tr>
+      <tr>
+        <td>น้ำแข็ง</td>
+        <td></td>
+        <td>1</td>
+        <td>
+          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+        </td>
+      </tr>
+    </table>
+  </ion-card>
+</ion-content>

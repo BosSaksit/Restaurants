@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>loginPage</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+      <ion-row color="primary" justify-content-center style="margin-top:150px;" >
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div text-center>
+            <h3>Login</h3>
+          </div>
+          <div padding>
+            <ion-input class="input1" type="text" placeholder="Username" [(ngModel)]="user"></ion-input><br>
+            <ion-input class="input1" type="password" placeholder="Password" [(ngModel)]="pass"></ion-input>
+          </div>
+          <div padding>
+            <ion-button size="large" expand="block" (click)="goLogin()">Login</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
