@@ -10,6 +10,7 @@ namespace RestaurantsApi.Models
         public int FoodProfit { get; set; }
         public int FoodPriceTotal { get; set; }
         public string FoodType { get; set; }
+         public string FoodStatus { get; set; }
 
     }
 }

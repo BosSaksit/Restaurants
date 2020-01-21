@@ -12,6 +12,7 @@ namespace RestaurantsApi.Models
         public int MoneyReceived { get; set; }
         public int MoneyCommute { get; set; }
         public string OrderDate { get; set; }
+        public string OrderStatus { get; set; }
         public User[] OrderReceived { get; set; }
 
     }

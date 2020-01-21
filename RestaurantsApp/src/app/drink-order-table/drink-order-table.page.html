@@ -23,22 +23,13 @@
         <td>สถานะ</td>
         <td>ดูข้อมูล</td>
       </tr>
-      <tr>
-        <td>Od0001</td>
-        <td>A1</td>
-        <td>4</td>
+      <tr *ngFor="let o of dataOrder">
+        <td>{{o.orderId}}</td>
+        <td>{{o.tableNumber}}</td>
+        <td>{{o.amountCustomer}}</td>
         <td>กำลังทำ</td>
         <td>
-          <ion-button (click)="gotoDetailOrder()">ดู</ion-button>
-        </td>
-      </tr>
-      <tr>
-        <td>Od0002</td>
-        <td>A2</td>
-        <td>8</td>
-        <td>เสริฟแล้ว</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">ดู</ion-button>
+          <ion-button (click)="gotoDetailOrder(o.billId)">ดู</ion-button>
         </td>
       </tr>
     </table>

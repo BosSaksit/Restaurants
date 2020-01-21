@@ -18,19 +18,24 @@
         <td>แก้ไข</td>
         <td>ดูข้อมูลOrder</td>
         <td>บิล</td>
+        <td>ยกเลิก</td>
+
       </tr>
       <tr *ngFor="let o of dataOrder">
         <td>{{o.billId}}</td>
         <td>{{o.tableNumber}}</td>
         <td>{{o.amountCustomer}}</td>
         <td>
-          <ion-button (click)="gotoEditOrder()">แก้ไข</ion-button>
+          <ion-button color="warning" (click)="gotoEditOrder()">แก้ไข</ion-button>
         </td>
         <td>
-          <ion-button (click)="getDataOrderById(o.billId)">ดู</ion-button>
+          <ion-button color="light" (click)="getDataOrderById(o.billId)">ดู</ion-button>
         </td>
         <td>
-          <ion-button (click)="gotoBillDetail()">ข้อมูลบิล</ion-button>
+          <ion-button color="tertiary" (click)="gotoBillDetail()">ข้อมูลบิล</ion-button>
+        </td>
+        <td>
+          <ion-button color="danger" >ยกเลิก Order</ion-button>
         </td>
       </tr>
 

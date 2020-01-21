@@ -13,15 +13,16 @@ namespace RestaurantsApi.Controllers
     {
 
         public static List<Food> dataFood = new List<Food>{
-            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร"},
-            new Food{FoodId = "F0002",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร"},
-            new Food{FoodId = "F0003",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร"},
-            new Food{FoodId = "F0004",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร"},
-            new Food{FoodId = "F0005",FoodName="โค้ก",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม"},
-            new Food{FoodId = "F0006",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร"},
-            new Food{FoodId = "F0007",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม"},
+            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0002",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0003",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0004",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0005",FoodName="โค้ก",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0006",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0007",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
 
         };
+
 
         [HttpGet]
         public ActionResult<IEnumerable<Food>> GetDataFood()

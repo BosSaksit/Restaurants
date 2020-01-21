@@ -5,5 +5,4 @@ export class user {
     usernameLog: string;
     userpassLog: string;
 
-
 }

@@ -11,8 +11,8 @@ namespace RestaurantsApi.Controllers {
     public class OrderController : ControllerBase {
 
         public static List<Food> dataFood = new List<Food> {
-            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร"},
-            new Food{FoodId = "F0002",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม"},
+            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus="กำลังทำ"},
+            new Food{FoodId = "F0002",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus="เสริฟแล้ว"},
       
 
         };
@@ -23,8 +23,8 @@ namespace RestaurantsApi.Controllers {
         };
 
         public static List<Order> dataOrder = new List<Order> {
-            new Order { BillId = "B0001", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 50, MoneyReceived = 100, MoneyCommute = 50, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray()},
-            new Order { BillId = "B0002", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 50, MoneyReceived = 100, MoneyCommute = 50, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray()}
+            new Order { BillId = "B0001", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 0, MoneyReceived = 0, MoneyCommute = 0, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray(), OrderStatus="ยังไม่ชำระ"},
+            new Order { BillId = "B0002", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 0, MoneyReceived = 0, MoneyCommute = 0, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray(), OrderStatus="ชำระแล้ว"}
 
 
         };
@@ -55,7 +55,9 @@ namespace RestaurantsApi.Controllers {
                 MoneyReceived = orderData.MoneyReceived,
                 MoneyCommute = orderData.MoneyCommute,
                 OrderDate = orderData.OrderDate,
+                OrderStatus = "ยังไม่ชำระ",
                 OrderReceived = orderData.OrderReceived
+                
             };
             dataOrder.Add(order);
             return orderData;
@@ -84,11 +86,35 @@ namespace RestaurantsApi.Controllers {
             return order;
         }
 
-        // [HttpDelete("{id}")]
-        // public void DeleteFood(string id)
-        // {
-        //     var d = dataFood.FirstOrDefault(it => it.FoodId == id.ToString());
-        //     dataFood.Remove(d);            
-        // }
+           [HttpPut("{id}")]
+        public Order OrderPayment(string id, [FromBody] Order orderData)
+        {
+            var _id = dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
+            var order = new Order
+            {
+                BillId = id.ToString(),
+                OrderId = orderData.OrderId,
+                TableNumber = orderData.TableNumber,
+                FoodOrder = orderData.FoodOrder,
+                AmountCustomer = orderData.AmountCustomer,
+                TotalMoneyOrder = orderData.TotalMoneyOrder,
+                MoneyReceived = orderData.MoneyReceived,
+                MoneyCommute = orderData.MoneyCommute,
+                OrderDate = orderData.OrderDate,
+                OrderStatus = "ชำระเงินแล้ว",
+                OrderReceived = orderData.OrderReceived
+
+            };
+            dataOrder.Remove(_id);
+            dataOrder.Add(order);
+            return order;
+        }
+
+        [HttpDelete("{id}")]
+        public void CancelOrder(string id)
+        {
+            var d = dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
+            dataOrder.Remove(d);            
+        }
     }
 }

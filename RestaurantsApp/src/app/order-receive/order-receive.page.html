@@ -31,7 +31,7 @@
       <div class="colorW">
         <h3 class="center">รายการอาหาร</h3>
         <ion-row>
-          <ion-col *ngFor="let m of dataMenu2" size="2">
+          <ion-col *ngFor="let m of dataMenu" size="2">
             <ion-card (click)="addFoodList(m)">
               <img src="/assets/p1.jfif" alt="Italian Trulli">
               <ion-card-content>
@@ -54,13 +54,13 @@
           </tr>
           <tr *ngFor="let o of foodorder;let i = index">
             <td>{{o.foodName}}</td>
-            <td>{{o.foodAmount}}</td>
+            <td [(ngModel)]="o.amoutFood[i]">  <ion-icon color="success" name="remove" (click)="remove()"></ion-icon><ion-icon color="success"  name="add" (click)="add(o.amoutFood[i])"></ion-icon></td>
             <td>{{o.foodPriceTotal}}</td>
           </tr>
           <tr>
             <td>รวม</td>
             <td></td>
-            <td></td>
+            <td>{{totalMoneyOrder}}</td>
           </tr>
 
         </table>

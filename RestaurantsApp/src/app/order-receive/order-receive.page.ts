@@ -13,7 +13,7 @@ import { Form, FormGroup } from '@angular/forms';
 })
 export class OrderReceivePage implements OnInit {
 
-  dataMenu2:food[]=[];
+  dataMenu2: food[] = [];
   dataMenu: food;
   statusoc: any;
 
@@ -29,11 +29,12 @@ export class OrderReceivePage implements OnInit {
   foodorder: any;
 
   totalMoneyOrder: number = 0;
+  amoutFood: number = 0;
 
   constructor(public alertController: AlertController,
     public resApi: ResApiService) {
 
-      this.getDataFoodFilter();
+    this.getDataFoodFilter();
 
   }
 
@@ -48,10 +49,27 @@ export class OrderReceivePage implements OnInit {
     console.log(this.dataOrderToCashier);
     this.dataOrderToCashier.foodOrder.push(id);
     console.log(this.dataOrderToCashier.foodOrder[0].foodPrice);
-
+    
     this.totalMoneyOrder += this.dataOrderToCashier.foodOrder[0].foodPrice;
     console.log(this.totalMoneyOrder);
 
+  }
+
+  add(get){
+    console.log(get);
+    
+    this.amoutFood +=1;
+    
+    console.log(this.amoutFood);
+   
+
+  }
+
+  remove(){
+    if (this.amoutFood > 0) {
+      this.amoutFood -= 1;
+      console.log(this.amoutFood);
+    }
   }
 
   async addOrderToCashier() {
@@ -83,7 +101,7 @@ export class OrderReceivePage implements OnInit {
           this.dataOrderToCashier.tableNumber = data.table;
           this.dataOrderToCashier.amountCustomer = data.cus;
           this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
-          console.log(it);
+            console.log(it);
           })
         }
       }],

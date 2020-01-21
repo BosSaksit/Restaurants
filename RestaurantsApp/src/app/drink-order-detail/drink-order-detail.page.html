@@ -19,38 +19,15 @@
         <td>จำนวน</td>
         <td>เสริฟ</td>
       </tr>
-      <tr>
-        <td>น้ำเปล่า</td>
-        <td></td>
-        <td>1</td>
+      <tr *ngFor="let o of foodorder">
+        <td>{{o.foodName}}</td>
+        <td>ไม่เผ็ด</td>
+        <td>{{o.foodAmout}}</td>
         <td>
           <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
         </td>
       </tr>
-      <tr>
-        <td>น้ำโค้ก</td>
-        <td></td>
-        <td>1</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
-        </td>
-      </tr>
-      <tr>
-        <td>เบียร์ช้าง</td>
-        <td></td>
-        <td>2</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
-        </td>
-      </tr>
-      <tr>
-        <td>น้ำแข็ง</td>
-        <td></td>
-        <td>1</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
-        </td>
-      </tr>
+      
     </table>
   </ion-card>
 </ion-content>

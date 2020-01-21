@@ -10,7 +10,8 @@ export class order {
     totalMoneyOrder:number;
     moneyReceived:number;
     moneyCommute:number;
-    orderDate:Date;
+    orderDate:string;
+    orderStatus:string;
     orderReceived:user [];
 
 }

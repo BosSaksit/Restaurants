@@ -51,11 +51,9 @@ export class OrderListPage implements OnInit {
     });
   }
 
-  getDataOrderById(billId) {
-    this.resApi.getDataOrderById(billId).subscribe(it => {
-      console.log(it);
+  getDataOrderById(id) {
+    this.router.navigate(['/order-detail', { idbill: id }]);
 
-    })
   }
 
 }

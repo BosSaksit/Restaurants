@@ -24,33 +24,18 @@
             <td>จำนวน</td>
             <td>ราคา</td>
           </tr>
-          <tr>
-            <td>กระเพาหมูกรอบ</td>
+
+          <tr *ngFor="let o of foodorder">
+            <td>{{o.foodName}}</td>
             <td >
               <ion-input></ion-input>
             </td>
-            <td>1</td>
-            <td>50</td>
+            <td>{{o.foodAmount}}</td>
+            <td>{{o.foodPrice}}</td>
           </tr>
-          <tr>
-            <td>กระเพาหมูกรอบ</td>
-            <td>
-              <ion-input></ion-input>
-            </td>
-            <td>1</td>
-            <td>60</td>
-          </tr>
-          <tr>
-            <td>กระเพาหมูกรอบ</td>
-            <td>
-              <ion-input></ion-input>
-            </td>
-            <td>1</td>
-            <td>70</td>
-          </tr>
+          
           <tr>
             <td colspan="3">ราคารวม</td>
-          
             <td>280</td>
           </tr>
         </table>

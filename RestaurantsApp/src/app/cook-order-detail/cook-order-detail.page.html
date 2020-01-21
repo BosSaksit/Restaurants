@@ -20,28 +20,10 @@
         <td>เสริฟ</td>
         <td>สถานะ</td>
       </tr>
-      <tr>
-        <td>กระเพาหมูกรอบ</td>
+      <tr *ngFor="let o of foodorder">
+        <td>{{o.foodName}}</td>
         <td>ไม่เผ็ด</td>
-        <td>1</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
-        </td>
-        <td>เสริฟแล้ว</td>
-      </tr>
-      <tr>
-        <td>กระเพาไก่</td>
-        <td>เผ็ดๆ</td>
-        <td>1</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
-        </td>
-        <td>กำลังทำ</td>
-      </tr>
-      <tr>
-        <td>ข้าวสวย</td>
-        <td></td>
-        <td>2</td>
+        <td>{{o.foodAmout}}</td>
         <td>
           <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
         </td>

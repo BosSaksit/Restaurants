@@ -7,5 +7,7 @@ export class food {
     foodProfit: number;
     foodPriceTotal: number;
     foodType: string;
+    foodStatus: string;
+
 
 }
