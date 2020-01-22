@@ -15,6 +15,7 @@ export class OrderReceivePage implements OnInit {
 
   dataMenu2: food[] = [];
   dataMenu: food;
+  foodToOrderList:food[] = [];
   statusoc: any;
 
 
@@ -30,6 +31,9 @@ export class OrderReceivePage implements OnInit {
 
   totalMoneyOrder: number = 0;
   amoutFood: number = 0;
+  amoutFood2:number [] = [];
+
+  totalPrice:number = 0;
 
   constructor(public alertController: AlertController,
     public resApi: ResApiService) {
@@ -43,34 +47,43 @@ export class OrderReceivePage implements OnInit {
     this.getDataOrder();
   }
 
-  addFoodList(id) {
-    console.log(id);
-    console.log("Before push");
-    console.log(this.dataOrderToCashier);
-    this.dataOrderToCashier.foodOrder.push(id);
-    console.log(this.dataOrderToCashier.foodOrder[0].foodPrice);
-    
-    this.totalMoneyOrder += this.dataOrderToCashier.foodOrder[0].foodPrice;
-    console.log(this.totalMoneyOrder);
+  addFoodToOrderList(m){
+    this.foodToOrderList.push(m);
+    console.log(this.foodToOrderList);
+    this.dataOrderToCashier.foodOrder.push(m);
 
   }
 
-  add(get){
-    console.log(get);
-    
-    this.amoutFood +=1;
-    
-    console.log(this.amoutFood);
-   
+  add(i){
+    // console.log(i);
+    // console.log(this.foodorder[i].foodAmount);
+    this.foodorder[i].foodAmount +=1;
+    console.log(this.foodorder[i].foodAmount);
+    this.foodorder[i].foodPriceTotal = this.foodorder[i].foodPrice * this.foodorder[i].foodAmount;
+    console.log(this.foodorder[i].foodPriceTotal);
+    this.orderPriceFood();
+  
+  };
 
-  }
-
-  remove(){
-    if (this.amoutFood > 0) {
-      this.amoutFood -= 1;
-      console.log(this.amoutFood);
+  orderPriceFood(){
+    for (let i = 0; i < this.foodToOrderList.length; i++) {
+      this.totalMoneyOrder += parseInt(this.foodorder[i].foodPriceTotal);
+      console.log(this.totalMoneyOrder);
+      
     }
+
   }
+
+
+  minus(i){
+    if (this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount <0) {
+      this.foodorder[i].foodAmount = 0;
+    }else{
+    console.log(this.foodorder[i].foodAmount);
+    this.foodorder[i].foodAmount -=1;
+    console.log(this.foodorder[i].foodAmount);
+  }
+}
 
   async addOrderToCashier() {
     const alert = await this.alertController.create({
@@ -127,7 +140,7 @@ export class OrderReceivePage implements OnInit {
       console.log(this.dataOrderToCashier.foodOrder);
       this.foodorder = this.dataOrderToCashier.foodOrder;
       console.log(this.foodorder);
-      console.log(this.dataOrder[0].foodOrder[0].foodName);
+      // console.log(this.dataOrder[0].foodOrder[0].foodName);
 
     });
   }

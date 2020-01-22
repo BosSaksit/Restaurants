@@ -11,9 +11,7 @@ namespace RestaurantsApi.Controllers {
     public class OrderController : ControllerBase {
 
         public static List<Food> dataFood = new List<Food> {
-            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus="กำลังทำ"},
-            new Food{FoodId = "F0002",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus="เสริฟแล้ว"},
-      
+            
 
         };
 
