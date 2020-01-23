@@ -57,18 +57,22 @@ export class OrderReceivePage implements OnInit {
   add(i){
     // console.log(i);
     // console.log(this.foodorder[i].foodAmount);
+
     this.foodorder[i].foodAmount +=1;
     console.log(this.foodorder[i].foodAmount);
     this.foodorder[i].foodPriceTotal = this.foodorder[i].foodPrice * this.foodorder[i].foodAmount;
     console.log(this.foodorder[i].foodPriceTotal);
-    this.orderPriceFood();
   
   };
 
   orderPriceFood(){
+    this.totalMoneyOrder = 0;
     for (let i = 0; i < this.foodToOrderList.length; i++) {
       this.totalMoneyOrder += parseInt(this.foodorder[i].foodPriceTotal);
       console.log(this.totalMoneyOrder);
+      if(this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount <0){
+        this.foodorder[i].foodPrice = 0;
+      }
       
     }
 
@@ -78,10 +82,13 @@ export class OrderReceivePage implements OnInit {
   minus(i){
     if (this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount <0) {
       this.foodorder[i].foodAmount = 0;
+      this.foodorder[i].foodPrice = 0;
     }else{
     console.log(this.foodorder[i].foodAmount);
     this.foodorder[i].foodAmount -=1;
     console.log(this.foodorder[i].foodAmount);
+    this.foodorder[i].foodPrice = 0;
+
   }
 }
 
@@ -113,6 +120,7 @@ export class OrderReceivePage implements OnInit {
         handler: data => {
           this.dataOrderToCashier.tableNumber = data.table;
           this.dataOrderToCashier.amountCustomer = data.cus;
+          this.dataOrderToCashier.totalMoneyOrder = this.totalMoneyOrder;
           this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
             console.log(it);
           })

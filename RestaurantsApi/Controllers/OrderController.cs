@@ -36,6 +36,7 @@ namespace RestaurantsApi.Controllers {
         public ActionResult<Order> GetDataOrderById(string id)
         {
             return dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
+
         }
 
         [HttpPost]
@@ -113,6 +114,14 @@ namespace RestaurantsApi.Controllers {
         {
             var d = dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
             dataOrder.Remove(d);            
+        }
+
+        [HttpDelete("{idbill}/{idfood}")]
+            public void CancelMenuList(string idbill ,string idfood)
+        {
+            var d = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
+            var d2 = dataFood.FirstOrDefault(it => it.FoodId == idfood.ToString());
+            dataFood.Remove(d2);            
         }
     }
 }

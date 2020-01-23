@@ -52,29 +52,17 @@
             <th>จำนวน</th>
             <th>ราคา</th>
           </tr>
-            <tr *ngFor="let o of foodorder;let i = index">
-              <td>{{o.foodName}}</td>
-              <td>
-                <ion-item lines="none">
-                  <ion-col size="3">
-                    <ion-button fill="outline" (click)="minus(i)">-</ion-button>
-                  </ion-col>
-                  <ion-col size="6">
-                    <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input>
-                  </ion-col>
-                  <ion-col size="3">
-                    <ion-button fill="outline" (click)="add(i)">+</ion-button>
-                  </ion-col>
-
-                </ion-item>
-                <!-- <ion-icon color="success" name="remove" (click)="remove()"></ion-icon> -->
-                <!-- <ion-label>{{amoutFood}}</ion-label> -->
-                <!-- <ion-label>{{o.foodAmount}}</ion-label> -->
-                <!-- <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input> -->
-                <!-- <ion-icon color="success"  name="add" (click)="add(o.foodAmount,i)"></ion-icon> -->
-              </td>
-              <td>{{o.foodPriceTotal}}</td>
-            </tr>
+          <tr *ngFor="let o of foodorder;let i = index">
+            <td>{{o.foodName}}</td>
+            <td>
+              <ion-item lines="none">
+              <ion-button class="btnSize"  fill="outline" (click)="minus(i)">-</ion-button>
+              <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input>
+              <ion-button class="btnSize" fill="outline" (click)="add(i)">+</ion-button>
+            </ion-item>
+            </td>
+            <td>{{o.foodPriceTotal}}</td>
+          </tr>
           <tr>
             <td>รวม</td>
             <td></td>

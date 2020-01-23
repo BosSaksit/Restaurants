@@ -90,6 +90,10 @@ export class ResApiService {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
   }
 
+  public cancelMenuList(Id) {
+    return this.http.delete<order>(ResApiService.host + 'Order/AddDataOrder/'+ Id);
+  }
+
   // public EditDataUser(Id: string, data) {
   //   return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
   // }

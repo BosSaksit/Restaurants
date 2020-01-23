@@ -31,7 +31,8 @@ const routes: Routes = [
   {
     path: 'drink-order-detail',
     loadChildren: () => import('./drink-order-detail/drink-order-detail.module').then( m => m.DrinkOrderDetailPageModule)
-  },  {
+  },
+  {
     path: 'cook-order-table',
     loadChildren: () => import('./cook-order-table/cook-order-table.module').then( m => m.CookOrderTablePageModule)
   },
