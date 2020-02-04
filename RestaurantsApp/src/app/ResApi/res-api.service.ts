@@ -73,7 +73,7 @@ export class ResApiService {
   // user
 
   
-  // user
+  // order
   public getDataOrder() {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrder');
   }
@@ -81,10 +81,6 @@ export class ResApiService {
   public getDataOrderById(Id: string) {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrderById/' + Id);
   }
-
-  // public login(user) {
-  //   return this.http.get<user>(ResApiService.host + 'User/login/' + user);
-  // }
 
   public addDataOrderToCashier(data: order) {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
@@ -98,8 +94,14 @@ export class ResApiService {
   //   return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
   // }
 
-  // public DeleteDataUser(Id: string) {
-  //   return this.http.delete<user>(ResApiService.host + 'User/DeleteUser/' + Id);
-  // }
-  // user
+  public cancelOrder(Id: string) {
+    return this.http.delete<order>(ResApiService.host + 'Order/CancelOrder/' + Id);
+  }
+  // order
+
+  //cook
+   public cookSendFood(Id: string, data) {
+    return this.http.put<order>(ResApiService.host + 'User/EditDataUser/' + Id, data);
+  }
+  //cook
 }

@@ -5,7 +5,7 @@ export class order {
     billId: string;
     orderId: string;
     tableNumber: string;
-    foodOrder: food [];
+    foodOrder: food []=[];
     amountCustomer:number;
     totalMoneyOrder:number;
     moneyReceived:number;

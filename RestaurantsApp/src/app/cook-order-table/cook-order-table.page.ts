@@ -13,6 +13,7 @@ export class CookOrderTablePage implements OnInit {
   constructor(public router: Router, public resApi: ResApiService) { }
 
   dataOrder: order;
+  cookOrder: order[] = [];
 
   ngOnInit() {
     this.getDataOrder();
@@ -26,13 +27,24 @@ export class CookOrderTablePage implements OnInit {
     this.resApi.getDataOrder().subscribe(it => {
       this.dataOrder = it;
       console.log(this.dataOrder);
-      // this.dataorder2 = this.dataOrder[0];
-      // console.log(this.dataorder2.foodOrder);
-      // this.foodorder = this.dataorder2.foodOrder;
-      // console.log(this.foodorder);
-      // console.log(this.dataOrder[0].foodOrder[0].foodName);
-
     });
   }
+
+  // getDataFoodFilter() {
+  //   this.resApi.getDataFood().subscribe((it) => {
+  //     this.dataMenu = it;
+  //     for (var i in it) {
+  //       this.dataMenu2[i] = this.dataMenu[i];
+  //       console.log(this.dataMenu2);
+
+  //     }
+  //   });
+  // }
+
+  // yourFunction() {
+  //   this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == this.statusoc);
+  //   console.log(this.dataMenu2);
+  //   console.log(this.statusoc);
+  // }
 
 }

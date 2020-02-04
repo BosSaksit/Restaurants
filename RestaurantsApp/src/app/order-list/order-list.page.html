@@ -17,7 +17,6 @@
         <td>จำนวนคน</td>
         <td>แก้ไข</td>
         <td>ดูข้อมูลOrder</td>
-        <td>บิล</td>
         <td>ยกเลิก</td>
 
       </tr>
@@ -32,10 +31,7 @@
           <ion-button color="light" (click)="getDataOrderById(o.billId)">ดู</ion-button>
         </td>
         <td>
-          <ion-button color="tertiary" (click)="gotoBillDetail()">ข้อมูลบิล</ion-button>
-        </td>
-        <td>
-          <ion-button color="danger" >ยกเลิก Order</ion-button>
+          <ion-button color="danger" (click)="cancelOrder(o.billId)">ยกเลิก Order</ion-button>
         </td>
       </tr>
 

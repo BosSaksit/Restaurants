@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResApiService } from '../ResApi/res-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { order } from '../Models/order';
+import { food } from '../Models/food';
 
 @Component({
   selector: 'app-cook-order-detail',
@@ -10,34 +11,51 @@ import { order } from '../Models/order';
 })
 export class CookOrderDetailPage implements OnInit {
 
-  idbill:any;
-  orderData:order;
-  dataOrderToCashier:order;
-  foodorder:any;
-  constructor(public resApi:ResApiService,public activate:ActivatedRoute) {
+  idbill: any;
+  orderData: order;
+  dataOrderToCashier: order;
+  foodorder: order[] = [];
+  orderCook: any;
+  orderCookx: food;
+
+
+  constructor(public resApi: ResApiService, public activate: ActivatedRoute) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idbill);
     this.getOrderById();
-    
-   }
+
+  }
 
   ngOnInit() {
   }
 
-  getOrderById(){
-    this.resApi.getDataOrderById(this.idbill).subscribe(it =>{
+  getOrderById() {
+    this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
-      console.log(this.orderData);
-      this.dataOrderToCashier = this.orderData;
-      console.log(this.dataOrderToCashier.foodOrder);
-      this.foodorder = this.dataOrderToCashier.foodOrder;
-      console.log(this.foodorder);
-      
-      // this.foodorder = this.dataOrderToCashier.foodOrder;
-      // console.log(this.foodorder);
-      // console.log(this.dataOrder[0].foodOrder[0].foodName);
-      
+      console.log(this.orderData.foodOrder);
+
+      for (let index = 0; index < Object.keys(this.orderData).length; index++) {
+
+      }
+      this.orderCook = this.orderData.foodOrder.filter(it => it.foodType == "อาหาร");
+      console.log(this.orderCook);
     });
+  }
+
+  cookSendFood(i) {
+    this.orderCookx = i;
+    for (let index = 0; index < Object.keys(this.orderCookx).length; index++) {
+      if (this.orderCookx[index].foodStatus == null) {
+        this.orderCookx[index].foodStatus = "เสริฟแล้ว";
+      }
+    }
+    console.log(this.orderCookx.foodStatus);
+
+
+
+
+
+
   }
 
 }

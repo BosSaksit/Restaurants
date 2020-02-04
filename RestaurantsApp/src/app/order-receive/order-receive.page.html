@@ -43,7 +43,7 @@
       </div>
     </ion-col>
 
-    <ion-col *ngIf="foodorder != null" size="4" class="center">
+    <ion-col size="4" class="center">
       <div class="colorW">
         <h3 class="center">รายการ</h3>
         <table>
@@ -55,11 +55,11 @@
           <tr *ngFor="let o of foodorder;let i = index">
             <td>{{o.foodName}}</td>
             <td>
-              <ion-item lines="none">
-              <ion-button class="btnSize"  fill="outline" (click)="minus(i)">-</ion-button>
-              <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input>
-              <ion-button class="btnSize" fill="outline" (click)="add(i)">+</ion-button>
-            </ion-item>
+              <ion-item lines="none" text-center>
+                <ion-button class="btnSize1" fill="outline" (click)="minus(i)">-</ion-button>
+                <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input>
+                <ion-button class="btnSize1" fill="outline" (click)="add(i)">+</ion-button>
+              </ion-item>
             </td>
             <td>{{o.foodPriceTotal}}</td>
           </tr>
@@ -70,8 +70,12 @@
           </tr>
 
         </table>
-        <ion-button class="center" (click)="orderPriceFood()">รวมเงิน</ion-button>
-        <ion-button class="center" (click)="addOrderToCashier()">ส่งอาหาร</ion-button>
+        <div *ngIf="btnStatus == 1">
+          <ion-button class="center" (click)="orderPriceFood()">รวมเงิน</ion-button>
+        </div>
+        <div *ngIf="btnStatus == 2">
+          <ion-button color="success" class="center" (click)="addOrderToCashier()">ส่งอาหาร</ion-button>
+        </div>
         <ion-button class="center" [routerLink]="['/order-list']">ตะกร้า</ion-button>
 
       </div>

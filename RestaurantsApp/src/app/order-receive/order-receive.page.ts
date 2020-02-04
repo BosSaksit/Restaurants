@@ -4,6 +4,7 @@ import { ResApiService } from '../ResApi/res-api.service';
 import { food } from '../Models/food';
 import { order } from '../Models/order';
 import { Form, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class OrderReceivePage implements OnInit {
 
   dataMenu2: food[] = [];
   dataMenu: food;
-  foodToOrderList:food[] = [];
+  foodToOrderList: food[] = [];
   statusoc: any;
 
 
@@ -31,14 +32,19 @@ export class OrderReceivePage implements OnInit {
 
   totalMoneyOrder: number = 0;
   amoutFood: number = 0;
-  amoutFood2:number [] = [];
+  amoutFood2: number[] = [];
 
-  totalPrice:number = 0;
+  totalPrice: number = 0;
+
+  btnStatus: any;
 
   constructor(public alertController: AlertController,
-    public resApi: ResApiService) {
+    public resApi: ResApiService,
+    public router: Router) {
 
-    this.getDataFoodFilter();
+    // this.getDataFoodFilter();
+
+    this.btnStatus = 1;
 
   }
 
@@ -47,50 +53,49 @@ export class OrderReceivePage implements OnInit {
     this.getDataOrder();
   }
 
-  addFoodToOrderList(m){
+  addFoodToOrderList(m) {
+    console.log(m.foodId);
     this.foodToOrderList.push(m);
     console.log(this.foodToOrderList);
     this.dataOrderToCashier.foodOrder.push(m);
+    this.btnStatus = 1;
 
   }
 
-  add(i){
+  add(i) {
     // console.log(i);
     // console.log(this.foodorder[i].foodAmount);
 
-    this.foodorder[i].foodAmount +=1;
+    this.foodorder[i].foodAmount += 1;
     console.log(this.foodorder[i].foodAmount);
     this.foodorder[i].foodPriceTotal = this.foodorder[i].foodPrice * this.foodorder[i].foodAmount;
     console.log(this.foodorder[i].foodPriceTotal);
-  
+    this.btnStatus = 1;
+
+
   };
 
-  orderPriceFood(){
+  orderPriceFood() {
     this.totalMoneyOrder = 0;
     for (let i = 0; i < this.foodToOrderList.length; i++) {
       this.totalMoneyOrder += parseInt(this.foodorder[i].foodPriceTotal);
       console.log(this.totalMoneyOrder);
-      if(this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount <0){
-        this.foodorder[i].foodPrice = 0;
-      }
-      
+      this.btnStatus = 2;
     }
-
   }
 
-
-  minus(i){
-    if (this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount <0) {
+  minus(i) {
+    if (this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount < 0) {
       this.foodorder[i].foodAmount = 0;
       this.foodorder[i].foodPrice = 0;
-    }else{
-    console.log(this.foodorder[i].foodAmount);
-    this.foodorder[i].foodAmount -=1;
-    console.log(this.foodorder[i].foodAmount);
-    this.foodorder[i].foodPrice = 0;
+    } else {
+      console.log(this.foodorder[i].foodAmount);
+      this.foodorder[i].foodAmount -= 1;
+      console.log(this.foodorder[i].foodAmount);
+      this.foodorder[i].foodPrice = 0;
 
+    }
   }
-}
 
   async addOrderToCashier() {
     const alert = await this.alertController.create({
@@ -123,6 +128,7 @@ export class OrderReceivePage implements OnInit {
           this.dataOrderToCashier.totalMoneyOrder = this.totalMoneyOrder;
           this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
             console.log(it);
+            this.router.navigate(['/order-list'])
           })
         }
       }],
@@ -155,16 +161,16 @@ export class OrderReceivePage implements OnInit {
 
 
 
-  getDataFoodFilter() {
-    this.resApi.getDataFood().subscribe((it) => {
-      this.dataMenu = it;
-      for (var i in it) {
-        this.dataMenu2[i] = this.dataMenu[i];
-        console.log(this.dataMenu2);
+  // getDataFoodFilter() {
+  //   this.resApi.getDataFood().subscribe((it) => {
+  //     this.dataMenu = it;
+  //     for (var i in it) {
+  //       this.dataMenu2[i] = this.dataMenu[i];
+  //       console.log(this.dataMenu2);
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
 
   yourFunction() {
     this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == this.statusoc);

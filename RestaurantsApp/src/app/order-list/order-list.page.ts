@@ -14,10 +14,13 @@ export class OrderListPage implements OnInit {
   dataOrder: order;
   dataorder2: order;
   foodorder: food[] = [];
-  constructor(public router: Router, public resApi: ResApiService) { }
+  constructor(public router: Router, public resApi: ResApiService) {
+
+   }
 
   ngOnInit() {
     this.getDataOrder();
+
   }
 
   gotoDetailOrder() {
@@ -27,9 +30,7 @@ export class OrderListPage implements OnInit {
 
   gotoBillDetail(id) {
     console.log(id);
-
     // this.router.navigate(['/order-bill-detail',{idbill:id}]);
-
 
   }
 
@@ -46,7 +47,7 @@ export class OrderListPage implements OnInit {
       console.log(this.dataorder2.foodOrder);
       this.foodorder = this.dataorder2.foodOrder;
       console.log(this.foodorder);
-      console.log(this.dataOrder[0].foodOrder[0].foodName);
+      // console.log(this.dataOrder[0].foodOrder[0].foodName);
 
     });
   }
@@ -54,6 +55,14 @@ export class OrderListPage implements OnInit {
   getDataOrderById(id) {
     this.router.navigate(['/order-detail', { idbill: id }]);
 
+  }
+
+  cancelOrder(id){    
+    this.resApi.cancelOrder(id).subscribe(it =>{
+      console.log(it);
+      this.getDataOrder();
+
+    });
   }
 
 }

@@ -11,7 +11,7 @@ namespace RestaurantsApi.Controllers {
     public class OrderController : ControllerBase {
 
         public static List<Food> dataFood = new List<Food> {
-            
+       
 
         };
 
@@ -21,10 +21,7 @@ namespace RestaurantsApi.Controllers {
         };
 
         public static List<Order> dataOrder = new List<Order> {
-            new Order { BillId = "B0001", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 0, MoneyReceived = 0, MoneyCommute = 0, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray(), OrderStatus="ยังไม่ชำระ"},
-            new Order { BillId = "B0002", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 0, MoneyReceived = 0, MoneyCommute = 0, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray(), OrderStatus="ชำระแล้ว"}
-
-
+            new Order { BillId = "B0001", OrderId = "O0001", TableNumber = "A1", FoodOrder = dataFood.ToArray (), AmountCustomer = 2, TotalMoneyOrder = 0, MoneyReceived = 0, MoneyCommute = 0, OrderDate = "2019-12-14T16:05:28.607+07:00", OrderReceived = dataUser.ToArray(), OrderStatus="ยังไม่ชำระเงิน"},
         };
 
         [HttpGet]
@@ -54,7 +51,7 @@ namespace RestaurantsApi.Controllers {
                 MoneyReceived = orderData.MoneyReceived,
                 MoneyCommute = orderData.MoneyCommute,
                 OrderDate = orderData.OrderDate,
-                OrderStatus = "ยังไม่ชำระ",
+                OrderStatus = "ยังไม่ชำระเงิน",
                 OrderReceived = orderData.OrderReceived
                 
             };
@@ -113,15 +110,45 @@ namespace RestaurantsApi.Controllers {
         public void CancelOrder(string id)
         {
             var d = dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
-            dataOrder.Remove(d);            
+            dataOrder.Remove(d); 
+        
+        }
+
+        
+        [HttpPut("{id}")]
+        public Order CookSendFood(string id, [FromBody] Order orderData)
+        {
+            var _id = dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
+            var order = new Order
+            {
+                BillId = id.ToString(),
+                OrderId = orderData.OrderId,
+                TableNumber = orderData.TableNumber,
+                FoodOrder = orderData.FoodOrder,
+                AmountCustomer = orderData.AmountCustomer,
+                TotalMoneyOrder = orderData.TotalMoneyOrder,
+                MoneyReceived = orderData.MoneyReceived,
+                MoneyCommute = orderData.MoneyCommute,
+                OrderDate = orderData.OrderDate,
+                OrderReceived = orderData.OrderReceived
+
+            };
+            dataOrder.Remove(_id);
+            dataOrder.Add(order);
+            return order;
         }
 
         [HttpDelete("{idbill}/{idfood}")]
             public void CancelMenuList(string idbill ,string idfood)
         {
-            var d = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
-            var d2 = dataFood.FirstOrDefault(it => it.FoodId == idfood.ToString());
-            dataFood.Remove(d2);            
+            var idb = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
+            var dataf = idb.FoodOrder.ToList();
+            Console.WriteLine(dataf);
+            var idf = dataFood.FirstOrDefault(it => it.FoodId == idfood.ToString());
+
+            dataFood.Remove(idf);
+                
         }
     }
 }
+ 

@@ -10,33 +10,30 @@ import { order } from '../Models/order';
 })
 export class DrinkOrderDetailPage implements OnInit {
 
-  idbill:any;
-  orderData:order;
-  dataOrderToCashier:order;
-  foodorder:any;
+  idbill: any;
+  orderData: order;
+  dataOrderToCashier: order;
+  foodorder: any;
+  orderCook: any;
 
-  constructor(public activate:ActivatedRoute,public resApi:ResApiService) {
+  constructor(public activate: ActivatedRoute, public resApi: ResApiService) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idbill);
     this.getOrderById();
-   }
+  }
 
   ngOnInit() {
   }
 
-  getOrderById(){
-    this.resApi.getDataOrderById(this.idbill).subscribe(it =>{
+  getOrderById() {
+    this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
-      console.log(this.orderData);
-      this.dataOrderToCashier = this.orderData;
-      console.log(this.dataOrderToCashier.foodOrder);
-      this.foodorder = this.dataOrderToCashier.foodOrder;
-      console.log(this.foodorder);
-      
-      // this.foodorder = this.dataOrderToCashier.foodOrder;
-      // console.log(this.foodorder);
-      // console.log(this.dataOrder[0].foodOrder[0].foodName);
-      
+      console.log(this.orderData.tableNumber);
+
+      for (let index = 0; index < Object.keys(this.orderData).length; index++) {
+        this.orderCook = this.orderData.foodOrder.filter(it => it.foodType == "เครื่องดื่ม");
+        console.log(this.orderCook);
+      }
     });
   }
 

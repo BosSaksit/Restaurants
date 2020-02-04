@@ -20,14 +20,14 @@
         <td>เสริฟ</td>
         <td>สถานะ</td>
       </tr>
-      <tr *ngFor="let o of foodorder">
+      <tr *ngFor="let o of orderCook">
         <td>{{o.foodName}}</td>
-        <td>ไม่เผ็ด</td>
-        <td>{{o.foodAmout}}</td>
+        <td></td>
+        <td>{{o.foodAmount}}</td>
         <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
+          <ion-button (click)="cookSendFood(o)">เสริฟ</ion-button>
         </td>
-        <td>เสริฟแล้ว</td>
+        <td>{{o.foodStatus}}</td>
       </tr>
     </table>
   </ion-card>

@@ -9,9 +9,11 @@
 
 <ion-content padding>
   <h2 class="center">ข้อมูล Order</h2>
-  <ion-card class="colorW" padding>
-    <h3>รหัส Order :</h3>
+  <ion-card class="colorW" padding >
+    <div>
+    <h3>รหัส Order : </h3>
     <h3>โต๊ะที่ :</h3>
+  </div>
     <table>
       <tr>
         <td>รายการ</td>
@@ -19,7 +21,7 @@
         <td>จำนวน</td>
         <td>เสริฟ</td>
       </tr>
-      <tr *ngFor="let o of foodorder">
+      <tr *ngFor="let o of orderCook">
         <td>{{o.foodName}}</td>
         <td>ไม่เผ็ด</td>
         <td>{{o.foodAmout}}</td>
@@ -27,7 +29,6 @@
           <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
         </td>
       </tr>
-      
     </table>
   </ion-card>
 </ion-content>
