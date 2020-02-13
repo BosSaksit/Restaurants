@@ -1,7 +1,23 @@
-.colorW{
-    background: white;
-    height: 500vh;
-    box-shadow: 2px 2px 5px grey;
-    padding: 10px;
-  }
+table {
+  width: 100%;
+}
+
+td,
+tr {
+  text-align: center;
+  padding: 8px;
+  font-size: 15px;
+}
+
+.cardColor{
+  text-align: center;
+  background-color: lightseagreen;
+  color: white;
   
+}
+
+.colorW {
+  background: white;
+  box-shadow: 2px 2px 5px grey;
+}
+

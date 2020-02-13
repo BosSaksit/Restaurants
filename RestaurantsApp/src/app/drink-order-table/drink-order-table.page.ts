@@ -12,12 +12,19 @@ export class DrinkOrderTablePage implements OnInit {
 
   constructor(public router:Router,public resApi:ResApiService) { }
 
-  dataOrder:order
+  dataOrder:order;
+  cookStatus:any;
 
   ngOnInit() {
     this.getDataOrder();
 
   }
+
+  ionViewWillEnter(){
+    this.getDataOrder();
+    this.checkStatusFood();
+  }
+
 
   gotoDetailOrder(id){
     this.router.navigate(['/drink-order-detail',{idbill:id}]);
@@ -28,13 +35,24 @@ export class DrinkOrderTablePage implements OnInit {
     this.resApi.getDataOrder().subscribe(it => {
       this.dataOrder = it;
       console.log(this.dataOrder);
-      // this.dataorder2 = this.dataOrder[0];
-      // console.log(this.dataorder2.foodOrder);
-      // this.foodorder = this.dataorder2.foodOrder;
-      // console.log(this.foodorder);
-      // console.log(this.dataOrder[0].foodOrder[0].foodName);
-
     });
+  }
+
+  checkStatusFood() {
+    this.resApi.getDataOrder().subscribe(it => {
+      this.dataOrder = it;
+      console.log(this.dataOrder);
+      for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+        if (this.dataOrder[index].foodOrder[index].foodStatus != "") {
+          this.dataOrder[index].orderStatusFood = this.dataOrder[index].foodOrder[index].foodStatus;
+
+        } else {
+          console.log("data null");
+
+        }
+      }
+    });
+
   }
 
 }

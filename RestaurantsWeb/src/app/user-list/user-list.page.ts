@@ -42,7 +42,7 @@ export class UserListPage implements OnInit {
   }
 
   deleteDataUser(id) {
-    this.resApi.DeleteDataUser(id).subscribe(it => {
+    this.resApi.deleteDataUser(id).subscribe(it => {
       console.log();
       this.getDataUser();
     })

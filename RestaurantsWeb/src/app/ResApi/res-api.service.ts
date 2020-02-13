@@ -12,7 +12,7 @@ export class ResApiService {
   public static host: string = "https://localhost:5001/api/";
 
   public status: any;
-  public statusLogin:any;
+  public statusLogin: any;
 
   constructor(public http: HttpClient) { }
 
@@ -29,11 +29,11 @@ export class ResApiService {
     return this.http.post<food>(ResApiService.host + 'Food/AddDataFood/', data);
   }
 
-  public EditDataFood(Id: string, data) {
+  public editDataFood(Id: string, data) {
     return this.http.put<food>(ResApiService.host + 'Food/EditDataFood/' + Id, data);
   }
 
-  public DeleteDataFood(Id: string) {
+  public deleteDataFood(Id: string) {
     return this.http.delete<food>(ResApiService.host + 'Food/DeleteFood/' + Id);
   }
   // food
@@ -55,39 +55,44 @@ export class ResApiService {
     return this.http.post<user>(ResApiService.host + 'User/AddDataUser/', data);
   }
 
-  public EditDataUser(Id: string, data) {
+  public editDataUser(Id: string, data) {
     return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
   }
 
-  public DeleteDataUser(Id: string) {
+  public deleteDataUser(Id: string) {
     return this.http.delete<user>(ResApiService.host + 'User/DeleteUser/' + Id);
   }
   // user
 
-    // user
-    public getDataOrder() {
-      return this.http.get<order>(ResApiService.host + 'Order/GetDataOrder');
-    }
-  
-    public getDataOrderById(Id: string) {
-      return this.http.get<order>(ResApiService.host + 'Order/GetDataOrderById/' + Id);
-    }
-  
-    // public login(user) {
-    //   return this.http.get<user>(ResApiService.host + 'User/login/' + user);
-    // }
-  
-    public addDataOrderToCashier(data: order) {
-      return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
-    }
-  
-    // public EditDataUser(Id: string, data) {
-    //   return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
-    // }
-  
-    // public DeleteDataUser(Id: string) {
-    //   return this.http.delete<user>(ResApiService.host + 'User/DeleteUser/' + Id);
-    // }
-    // user
+  // user
+  public getDataOrder() {
+    return this.http.get<order>(ResApiService.host + 'Order/GetDataOrder');
+  }
+
+  public getDataOrderById(Id: string) {
+    return this.http.get<order>(ResApiService.host + 'Order/GetDataOrderById/' + Id);
+  }
+
+  // public login(user) {
+  //   return this.http.get<user>(ResApiService.host + 'User/login/' + user);
+  // }
+
+  public addDataOrderToCashier(data: order) {
+    return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
+  }
+
+  // public EditDataUser(Id: string, data) {
+  //   return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
+  // }
+
+  // public DeleteDataUser(Id: string) {
+  //   return this.http.delete<user>(ResApiService.host + 'User/DeleteUser/' + Id);
+  // }
+
+  // casheir
+  public orderPayment(Id: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/OrderPayment/' + Id, data);
+  }
+  // casheir
 }
 

@@ -1,9 +1,13 @@
 export class food {
     foodId: string;
     foodName: string;
-    foodCost: number;
+    foodAmount:number;
+    foodCost:number
     foodPrice: number;
+    foodProfit: number;
+    foodPriceTotal: number;
     foodType: string;
+    foodStatus: string;
 
 
 }

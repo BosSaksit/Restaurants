@@ -12,13 +12,13 @@ export class ResApiService {
   public static host: string = "https://localhost:5001/api/";
 
   public status: any;
-  public statusLogin:any;
-  public userLogin ={
-    "userId":null,
-    "userName":null,
-    "userType":null,
-    "usernameLog":null,
-    "userpassLog":null
+  public statusLogin: any;
+  public userLogin = {
+    "userId": null,
+    "userName": null,
+    "userType": null,
+    "usernameLog": null,
+    "userpassLog": null
   }
 
 
@@ -37,11 +37,11 @@ export class ResApiService {
     return this.http.post<food>(ResApiService.host + 'Food/AddDataFood/', data);
   }
 
-  public EditDataFood(Id: string, data) {
+  public editDataFood(Id: string, data) {
     return this.http.put<food>(ResApiService.host + 'Food/EditDataFood/' + Id, data);
   }
 
-  public DeleteDataFood(Id: string) {
+  public deleteDataFood(Id: string) {
     return this.http.delete<food>(ResApiService.host + 'Food/DeleteFood/' + Id);
   }
   // food
@@ -63,16 +63,16 @@ export class ResApiService {
     return this.http.post<user>(ResApiService.host + 'User/AddDataUser/', data);
   }
 
-  public EditDataUser(Id: string, data) {
+  public editDataUser(Id: string, data) {
     return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
   }
 
-  public DeleteDataUser(Id: string) {
+  public deleteDataUser(Id: string) {
     return this.http.delete<user>(ResApiService.host + 'User/DeleteUser/' + Id);
   }
   // user
 
-  
+
   // order
   public getDataOrder() {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrder');
@@ -86,13 +86,13 @@ export class ResApiService {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
   }
 
-  public cancelMenuList(Id) {
-    return this.http.delete<order>(ResApiService.host + 'Order/AddDataOrder/'+ Id);
+  public editDataOrder(Id: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrder/' + Id, data);
   }
 
-  // public EditDataUser(Id: string, data) {
-  //   return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
-  // }
+  public cancelMenuList(Id) {
+    return this.http.delete<order>(ResApiService.host + 'Order/AddDataOrder/' + Id);
+  }
 
   public cancelOrder(Id: string) {
     return this.http.delete<order>(ResApiService.host + 'Order/CancelOrder/' + Id);
@@ -100,8 +100,14 @@ export class ResApiService {
   // order
 
   //cook
-   public cookSendFood(Id: string, data) {
-    return this.http.put<order>(ResApiService.host + 'User/EditDataUser/' + Id, data);
+  public cookSendFood(IdBill: string, IdFood: string) {
+    return this.http.get<order>(ResApiService.host + 'Order/CookSendOrder/' + IdBill + "/" + IdFood);
+  }
+  //cook
+
+  //cook
+  public drinkSendFood(IdBill: string, IdFood: string) {
+    return this.http.get<order>(ResApiService.host + 'Order/DrinkSendOrder/' + IdBill + "/" + IdFood);
   }
   //cook
 }

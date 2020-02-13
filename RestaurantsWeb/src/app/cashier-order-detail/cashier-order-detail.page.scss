@@ -1,7 +1,17 @@
-.colorW{
-    background: white;
-    height: 500vh;
-    box-shadow: 2px 2px 5px grey;
-    padding: 10px;
-  }
-  
+.colorW {
+  background: white;
+  box-shadow: 2px 2px 5px grey;
+  padding: 10px;
+}
+
+ion-select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid black;
+  border-radius: 4px;
+  resize: vertical;
+  font-size: 15px;
+  height: 50px;
+  margin: auto;
+  color: black;
+}

@@ -8,90 +8,51 @@
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <ion-col size="2" class="colorW">
-      <div>
-        <ion-button expand="full" routerLink="/cashier-order-table">ตาราง Order</ion-button>
-      </div>
-      <div>
-        <ion-button expand="full" routerLink="/cashier-money-table">เก็บงิน</ion-button>
-      </div>
-      <div>
-        <app-test></app-test>
-      </div>
+  <ion-card>
+    <ion-row class="cardColor">
+      <ion-col style="font-size: 25px;">โต๊ะที่ {{tableNumber}}</ion-col>
+    </ion-row>
+    <ion-row class="colorW">
+      <table>
+        <tr>
+          <td style="width: 150px;">รายการ</td>
+          <td>หมายเหตุ</td>
+          <td>สถานะ</td>
+          <td>จำนวน</td>
+          <td>ราคา</td>
+        </tr>
 
-    </ion-col>
-    <ion-col size="10">
-      <div>
-        <ion-card class="colorW">
-          <h2 class="center">ข้อมูล Order</h2>
-          <h2>รหัส Order :</h2>
-          <h2>โต๊ะที่ :</h2>
+        <tr *ngFor="let o of foodorder;let i = index">
+          <td>{{o.foodName}}</td>
+          <td>
+            <ion-input></ion-input>
+          </td>
+          <td>{{o.foodStatus}}</td>
+          <td>{{o.foodAmount}}</td>
+          <td>{{o.foodPriceTotal}}</td>
+        </tr>
 
-          <table>
-            <tr>
-              <td>รายการ</td>
-              <td>จำนวน</td>
-              <td>หมายเหตุ</td>
-              <td>สถานะ</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="left">อาหาร</td>
-            </tr>
-            <tr>
-              <td>ข้าวผัดหมู</td>
-              <td>1</td>
-              <td>เผ็ดๆ</td>
-              <td>กำลังทำ</td>
-            </tr>
+        <tr *ngIf="orderData != null;let i = index">
+          <td colspan="4">ราคารวม</td>
+          <td>{{totalMoneyOrderx}}</td>
+        </tr>
+      </table>
+    </ion-row>
+  </ion-card>
 
-            <tr>
-              <td>กระเพาหมู</td>
-              <td>1</td>
-              <td>เผ็ดๆ</td>
-              <td>กำลังทำ</td>
-            </tr>
-
-            <tr>
-              <td>ข้าวสวย</td>
-              <td>2</td>
-              <td>เผ็ดๆ</td>
-              <td>กำลังทำ</td>
-            </tr>
-
-            <tr>
-              <td colspan="5" class="left">น้ำ</td>
-            </tr>
-            <tr>
-              <td>โค้ก</td>
-              <td>1</td>
-              <td></td>
-              <td>กำลังทำ</td>
-            </tr>
-
-            <tr>
-              <td>น้ำแข็ง</td>
-              <td>1</td>
-              <td></td>
-              <td>กำลังทำ</td>
-            </tr>
-
-            <tr>
-              <td colspan="5" class="left">ของหวาน</td>
-            </tr>
-            <tr>
-              <td>เฉาก๊วย</td>
-              <td>1</td>
-              <td></td>
-              <td>กำลังทำ</td>
-          
-            </tr>
-          </table>
-          <ion-button>แก้ไข</ion-button>
-        </ion-card>
-      </div>
+  <ion-row padding>
+    <ion-col>
+      <ion-select placeholder="เลือกการชำระเงิน" [(ngModel)]="orderStatusPayment">
+        <ion-select-option value="เงินโอน">เงินโอน</ion-select-option>
+        <ion-select-option value="เงินสด">เงินสด</ion-select-option>
+      </ion-select>
     </ion-col>
   </ion-row>
 
+  <ion-row padding>
+    <ion-col>
+      <ion-button expand="full" (click)="Payment(orderData.orderId)">ชำระเงิน</ion-button>
+    </ion-col>
+  </ion-row>
 
 </ion-content>

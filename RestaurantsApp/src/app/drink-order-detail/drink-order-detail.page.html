@@ -8,27 +8,29 @@
 </ion-header>
 
 <ion-content padding>
-  <h2 class="center">ข้อมูล Order</h2>
-  <ion-card class="colorW" padding >
-    <div>
-    <h3>รหัส Order : </h3>
-    <h3>โต๊ะที่ :</h3>
-  </div>
-    <table>
-      <tr>
-        <td>รายการ</td>
-        <td>หมายเหตุ</td>
-        <td>จำนวน</td>
-        <td>เสริฟ</td>
-      </tr>
-      <tr *ngFor="let o of orderCook">
-        <td>{{o.foodName}}</td>
-        <td>ไม่เผ็ด</td>
-        <td>{{o.foodAmout}}</td>
-        <td>
-          <ion-button (click)="gotoDetailOrder()">เสริฟ</ion-button>
-        </td>
-      </tr>
-    </table>
+  <ion-card >
+    <ion-row class="cardColor">
+      <ion-col style="font-size: 25px;">โต๊ะที่</ion-col>
+    </ion-row>
+    <ion-row class="colorW">
+      <table>
+        <tr>
+          <td>รายการ</td>
+          <td>หมายเหตุ</td>
+          <td>จำนวน</td>
+          <td>เสริฟ</td>
+          <td>สถานะ</td>
+        </tr>
+        <tr *ngFor="let o of orderCook" >
+          <td>{{o.foodName}}</td>
+          <td></td>
+          <td>{{o.foodAmount}}</td>
+          <td *ngIf="orderCook != null">
+            <ion-button (click)="drinkSendFood(o)">เสริฟ</ion-button>
+          </td>
+          <td style="color: red;">{{o.foodStatus}}</td>
+        </tr>
+      </table>
+    </ion-row>
   </ion-card>
 </ion-content>

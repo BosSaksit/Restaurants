@@ -4,7 +4,8 @@ import { ResApiService } from '../ResApi/res-api.service';
 import { food } from '../Models/food';
 import { order } from '../Models/order';
 import { Form, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { user } from '../Models/user';
 
 
 @Component({
@@ -14,87 +15,166 @@ import { Router } from '@angular/router';
 })
 export class OrderReceivePage implements OnInit {
 
-  dataMenu2: food[] = [];
   dataMenu: food;
+  dataMenu2: any[] = [];
   foodToOrderList: food[] = [];
-  statusoc: any;
 
+  dataOrderBeforeToCashier = {
+    "billId": null,
+    "orderId": null,
+    "tableNumber": null,
+    "foodOrder": [],
+    "amountCustomer": 0,
+    "totalMoneyOrder": 0,
+    "moneyReceived": 0,
+    "moneyCommute": 0,
+    "orderDate": "",
+    "orderStatus": null,
+    "orderStatusPayment": null,
+    "orderStatusFood":null,
+    "orderReceived": []
+  };
 
-  dataOrder: order;
-  dataorder2: order;
-  dataOrderFood: order;
   dataOrderToCashier: order;
-
-  dataFood: food;
-  dataFoodx: food;
-
+  listDataOrder: order[];
   foodorder: any;
-
   totalMoneyOrder: number = 0;
-  amoutFood: number = 0;
-  amoutFood2: number[] = [];
-
-  totalPrice: number = 0;
-
   btnStatus: any;
+  idUser: any;
+
+  idBillEdit: any;
+  btnStatusEdit: any;
 
   constructor(public alertController: AlertController,
     public resApi: ResApiService,
-    public router: Router) {
+    public router: Router,
+    public activate: ActivatedRoute) {
 
-    // this.getDataFoodFilter();
-
+    this.resApi.getDataUserById(this.resApi.userLogin.userId).subscribe(it => {
+      console.log(it);
+      this.idUser = it;
+    });
     this.btnStatus = 1;
 
   }
 
   ngOnInit() {
     this.getDataMenu();
-    this.getDataOrder();
+    this.getDataFoodFilter();
+    this.listDataOrder = [];
+    this.dataOrderBeforeToCashier.foodOrder = [];
+    // this.getDataOrder();
   }
+
+  ionViewWillEnter() {
+    this.listDataOrder = [];
+    this.dataOrderBeforeToCashier.foodOrder = [];
+    this.totalMoneyOrder = 0;
+    this.btnStatus = 1;
+
+  }
+
+  getDataMenu() {
+    this.resApi.getDataFood().subscribe(it => {
+      this.dataMenu = it;
+      console.log(this.dataMenu);
+
+    });
+  }
+
 
   addFoodToOrderList(m) {
     console.log(m.foodId);
-    this.foodToOrderList.push(m);
-    console.log(this.foodToOrderList);
-    this.dataOrderToCashier.foodOrder.push(m);
+    m.foodAmount = 1;
+    console.log(m.foodAmount);
+    this.dataOrderBeforeToCashier.foodOrder.push(m);
+    console.log(this.dataOrderBeforeToCashier.foodOrder);
+    this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+    // var get = this.dataOrderBeforeToCashier.foodOrder.filter(it => it.foodId == m.foodId);
+    // console.log(get);
+    // if (this.dataOrderBeforeToCashier.foodOrder.length == 0) {
+    //   console.log("array empty");
+    //   this.dataOrderBeforeToCashier.foodOrder.push(m);
+    //   this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+    //   console.log(this.dataOrderBeforeToCashier.foodOrder);
+    //   console.log(this.listDataOrder);
+
+    // } else if (this.dataOrderBeforeToCashier.foodOrder.length > 0) {
+    //   var getdata = this.dataOrderBeforeToCashier.foodOrder.filter(it => it.foodId == m.foodId);
+    //   console.log(getdata);
+    //   if (getdata.length == 0) {
+    //     console.log("array null");
+    //     // this.dataOrderBeforeToCashier.foodOrder.push(m);
+    //     // this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+    //     console.log(this.dataOrderBeforeToCashier.foodOrder);
+    //     console.log(this.listDataOrder);
+    //   } else {
+
+    //     for (let index = 0; index < this.dataOrderBeforeToCashier.foodOrder.length; index++) {
+    //       if (this.dataOrderBeforeToCashier.foodOrder[index].foodId == m.foodId) {
+    //         console.log("array +1");
+    //         this.dataOrderBeforeToCashier.foodOrder[index].foodAmount += 1;
+    //         this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+    //       }
+
+    //     }
+    //   }
+    //   this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+    // }
+
+
+    // if (this.dataOrderBeforeToCashier.foodOrder[].foodId == this.dataOrderBeforeToCashier.foodOrder[m].foodId) {
+    //   this.dataOrderBeforeToCashier.foodOrder[m].foodAmount += 1;
+    // }
+
     this.btnStatus = 1;
 
+  }
+
+
+  gotoMarket() {
+    this.router.navigate(['/order-list']);
   }
 
   add(i) {
-    // console.log(i);
-    // console.log(this.foodorder[i].foodAmount);
-
-    this.foodorder[i].foodAmount += 1;
-    console.log(this.foodorder[i].foodAmount);
-    this.foodorder[i].foodPriceTotal = this.foodorder[i].foodPrice * this.foodorder[i].foodAmount;
-    console.log(this.foodorder[i].foodPriceTotal);
+    this.dataOrderBeforeToCashier.foodOrder[i].foodAmount += 1;
+    console.log(this.dataOrderBeforeToCashier.foodOrder);
+    this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal = this.dataOrderBeforeToCashier.foodOrder[i].foodPrice * this.dataOrderBeforeToCashier.foodOrder[i].foodAmount;
+    console.log(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
     this.btnStatus = 1;
-
-
-  };
-
-  orderPriceFood() {
-    this.totalMoneyOrder = 0;
-    for (let i = 0; i < this.foodToOrderList.length; i++) {
-      this.totalMoneyOrder += parseInt(this.foodorder[i].foodPriceTotal);
-      console.log(this.totalMoneyOrder);
-      this.btnStatus = 2;
-    }
   }
 
   minus(i) {
-    if (this.foodorder[i].foodAmount == 0 || this.foodorder[i].foodAmount < 0) {
-      this.foodorder[i].foodAmount = 0;
-      this.foodorder[i].foodPrice = 0;
+    if (this.dataOrderBeforeToCashier.foodOrder[i].foodAmount == 0 || this.dataOrderBeforeToCashier.foodOrder[i].foodAmount < 1) {
+      this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal = 0;
+      this.dataOrderBeforeToCashier.foodOrder[i].pop();
+      console.log(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
+      console.log(this.dataOrderBeforeToCashier.foodOrder);
+      console.log("aaaaa");
+
+
+      this.btnStatus = 1;
     } else {
-      console.log(this.foodorder[i].foodAmount);
-      this.foodorder[i].foodAmount -= 1;
-      console.log(this.foodorder[i].foodAmount);
-      this.foodorder[i].foodPrice = 0;
+      this.dataOrderBeforeToCashier.foodOrder[i].foodAmount -= 1;
+      this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal -= this.dataOrderBeforeToCashier.foodOrder[i].foodPrice;
+      console.log(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
+      this.btnStatus = 1;
+      console.log("bbbbb");
 
     }
+  }
+
+  orderPriceFood() {
+    this.totalMoneyOrder = 0;
+    for (let i = 0; i < this.dataOrderBeforeToCashier.foodOrder.length; i++) {
+      this.totalMoneyOrder += parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
+      console.log(this.totalMoneyOrder);
+      this.btnStatus = 2;
+    }
+    console.log(this.dataOrderBeforeToCashier);
+    this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrder;
+
+
   }
 
   async addOrderToCashier() {
@@ -123,12 +203,16 @@ export class OrderReceivePage implements OnInit {
       }, {
         text: 'Ok',
         handler: data => {
-          this.dataOrderToCashier.tableNumber = data.table;
-          this.dataOrderToCashier.amountCustomer = data.cus;
-          this.dataOrderToCashier.totalMoneyOrder = this.totalMoneyOrder;
+          this.dataOrderBeforeToCashier.tableNumber = data.table ;
+          this.dataOrderBeforeToCashier.amountCustomer = data.cus;
+          console.log(this.dataOrderBeforeToCashier);
+          this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+          console.log(this.dataOrderToCashier);
+          this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
+
           this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
             console.log(it);
-            this.router.navigate(['/order-list'])
+            this.router.navigate(['/order-list']);
           })
         }
       }],
@@ -138,45 +222,27 @@ export class OrderReceivePage implements OnInit {
 
   }
 
-  getDataMenu() {
-    this.resApi.getDataFood().subscribe(it => {
+  getDataFoodFilter() {
+    this.resApi.getDataFood().subscribe((it) => {
       this.dataMenu = it;
-      console.log(this.dataMenu);
+      for (var i in it) {
+        this.dataMenu2[i] = this.dataMenu[i];
+        // console.log(this.dataMenu2);
 
+      }
     });
   }
 
-  getDataOrder() {
-    this.resApi.getDataOrder().subscribe(it => {
-      this.dataOrder = it;
-      console.log(this.dataOrder);
-      this.dataOrderToCashier = this.dataOrder[0];
-      console.log(this.dataOrderToCashier.foodOrder);
-      this.foodorder = this.dataOrderToCashier.foodOrder;
-      console.log(this.foodorder);
-      // console.log(this.dataOrder[0].foodOrder[0].foodName);
-
-    });
-  }
-
-
-
-  // getDataFoodFilter() {
-  //   this.resApi.getDataFood().subscribe((it) => {
-  //     this.dataMenu = it;
-  //     for (var i in it) {
-  //       this.dataMenu2[i] = this.dataMenu[i];
-  //       console.log(this.dataMenu2);
-
-  //     }
-  //   });
-  // }
-
-  yourFunction() {
-    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == this.statusoc);
-    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType != this.statusoc);
+  foodFilter() {
+    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "อาหาร");
     console.log(this.dataMenu2);
-    console.log(this.statusoc);
+  }
+
+  drinkFilter() {
+    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "เครื่องดื่ม");
+    console.log(this.dataMenu2);
+
+
   }
 
 

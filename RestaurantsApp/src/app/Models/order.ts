@@ -5,13 +5,15 @@ export class order {
     billId: string;
     orderId: string;
     tableNumber: string;
-    foodOrder: food []=[];
-    amountCustomer:number;
-    totalMoneyOrder:number;
-    moneyReceived:number;
-    moneyCommute:number;
-    orderDate:string;
-    orderStatus:string;
-    orderReceived:user [];
+    foodOrder: food[];
+    amountCustomer: number;
+    totalMoneyOrder: number;
+    moneyReceived: number;
+    moneyCommute: number;
+    orderDate: string;
+    orderStatus: string;
+    orderStatusFood: string;
+    orderStatusPayment: string;
+    orderReceived: user[];
 
 }

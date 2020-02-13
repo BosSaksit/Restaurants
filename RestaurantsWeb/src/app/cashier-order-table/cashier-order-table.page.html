@@ -5,51 +5,48 @@
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <ion-col size="2" class="colorW">
-      <div>
-        <ion-label>{{stLogin}}</ion-label>
-      </div>
-      <div>
-        <ion-button expand="full" routerLink="/cashier-order-table">ตาราง Order</ion-button>
-      </div>
-      <div>
-        <ion-button expand="full" routerLink="/cashier-money-table">เก็บงิน</ion-button>
-      </div>
-      <div>
-        <app-test></app-test>
-      </div>
-   
-
-    </ion-col>
+  <ion-row padding>
     <ion-col size="10">
-      <div>
-        <ion-card class="colorW">
-          <h2 class="center">ตาราง Order</h2>
+      <ion-button expand="full" routerLink="/cashier-order-table">รายการออเดอร์</ion-button>
+    </ion-col>
+    <ion-col>
+      <app-test></app-test>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-row class="cardColor">
+          <ion-col style="font-size: 25px;">ตารางออเดอร์</ion-col>
+        </ion-row>
+        <ion-row class="colorW">
           <table>
             <tr>
-              <td>รหัส Order</td>
+              <td>รหัสออเดอร์</td>
               <td>โต๊ะที่</td>
               <td>จำนวนคน</td>
               <td>วันที่</td>
-              <td>ดู</td>
-              <td>ส่ง</td>
+              <td>สถานะออเดอร์</td>
+              <td>สถานะบิล</td>
+              <td>ชำระเงิน</td>
+
             </tr>
             <tr *ngFor="let o of listDataOrder">
               <td>{{o.orderId}}</td>
               <td>{{o.tableNumber}}</td>
               <td>{{o.amountCustomer}}</td>
               <td>{{o.orderDate | date:"dd/mm/yy"}}</td>
+              <td style="color: red;">{{o.orderStatusFood}}</td>
+              <td style="color: red;">{{o.orderStatus}}</td>
+              
               <td>
-                <ion-button (click)="gotoDetailOrder()">ดู</ion-button>
+                <ion-button color="secondary" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
               </td>
-              <td>
-                <ion-button (click)="gotoBillDetail()">ส่ง Order</ion-button>
-              </td>
+
             </tr>
           </table>
-        </ion-card>
-      </div>
+        </ion-row>
+      </ion-card>
     </ion-col>
   </ion-row>
 

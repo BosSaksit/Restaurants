@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResApiService } from '../ResApi/res-api.service';
 import { user } from '../Models/user';
+import { LoadingController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login-page',
@@ -10,11 +12,14 @@ import { user } from '../Models/user';
 })
 export class LoginPagePage implements OnInit {
 
-  constructor(public router:Router,public resApi:ResApiService) { }
+  constructor(public router:Router,
+    public resApi:ResApiService,
+    public loadingController: LoadingController) { }
 
   user: any = null;
   pass: any = null;
   datalogin:user;
+
 
   ngOnInit() {
   }
@@ -23,7 +28,7 @@ export class LoginPagePage implements OnInit {
     this.router.navigate(['/order-receive']);
   }
 
-  goLogin(){
+  goLogin(id){
     console.log(this.user);
     console.log(this.pass);
     
@@ -38,10 +43,7 @@ export class LoginPagePage implements OnInit {
       this.resApi.userLogin.userpassLog = this.datalogin.userpassLog;
 
       console.log(this.resApi.userLogin);
-      
-
-
-
+    
       if (this.user == null) {
         alert("กรุณากรอก Username");
       } 
@@ -50,7 +52,8 @@ export class LoginPagePage implements OnInit {
       }  
 
       if (this.user == this.datalogin.usernameLog && this.pass == this.datalogin.userpassLog && this.datalogin.userType == "พนักงานเสริฟ") {
-        this.router.navigate(['/order-receive']);
+        
+        this.router.navigate(['/order-receive',{iduser:id}]);
         this.resApi.statusLogin = this.datalogin.userType;
         console.log(this.resApi.statusLogin);
         
@@ -63,5 +66,6 @@ export class LoginPagePage implements OnInit {
 
     });
   }
+
 
 }

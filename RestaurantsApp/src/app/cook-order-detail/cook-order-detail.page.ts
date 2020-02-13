@@ -12,49 +12,65 @@ import { food } from '../Models/food';
 export class CookOrderDetailPage implements OnInit {
 
   idbill: any;
+  idfood: any;
   orderData: order;
   dataOrderToCashier: order;
   foodorder: order[] = [];
   orderCook: any;
-  orderCookx: food;
+  orderCookx: food[];
+
+  cookSendFoodx = {
+    "billId": null,
+    "orderId": null,
+    "tableNumber": null,
+    "foodOrder": [],
+    "amountCustomer": 0,
+    "totalMoneyOrder": 0,
+    "moneyReceived": 0,
+    "moneyCommute": 0,
+    "orderDate": "",
+    "orderStatus": null,
+    "orderReceived": []
+  };
 
 
   constructor(public resApi: ResApiService, public activate: ActivatedRoute) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idbill);
-    this.getOrderById();
-
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.getOrderById();
   }
 
   getOrderById() {
     this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
       console.log(this.orderData.foodOrder);
-
-      for (let index = 0; index < Object.keys(this.orderData).length; index++) {
-
-      }
       this.orderCook = this.orderData.foodOrder.filter(it => it.foodType == "อาหาร");
       console.log(this.orderCook);
     });
   }
 
   cookSendFood(i) {
-    this.orderCookx = i;
-    for (let index = 0; index < Object.keys(this.orderCookx).length; index++) {
-      if (this.orderCookx[index].foodStatus == null) {
-        this.orderCookx[index].foodStatus = "เสริฟแล้ว";
-      }
+    console.log(i);
+    this.idfood = i.foodId;
+    console.log(this.idfood);
+    if (i.foodStatus == "") {
+      console.log("yes");
+
+      this.resApi.cookSendFood(this.idbill, this.idfood).subscribe(it => {
+        console.log(it);
+        this.getOrderById();
+      });
+      
+
+    } else {
+      alert("เสริฟอาหารแล้ว");
     }
-    console.log(this.orderCookx.foodStatus);
-
-
-
-
-
 
   }
 

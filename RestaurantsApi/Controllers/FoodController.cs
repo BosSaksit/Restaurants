@@ -13,13 +13,13 @@ namespace RestaurantsApi.Controllers
     {
 
         public static List<Food> dataFood = new List<Food>{
-            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0002",FoodName="ไก่ทอด",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0003",FoodName="ลาบหมู",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0004",FoodName="หมูกรอบ",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0005",FoodName="โค้ก",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
-            new Food{FoodId = "F0006",FoodName="ส้มตำ",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0007",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0002",FoodName="ไก่ทอด",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0003",FoodName="ลาบหมู",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0004",FoodName="หมูกรอบ",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0005",FoodName="โค้ก",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0006",FoodName="ส้มตำ",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0007",FoodName="เบียร์ช้าง",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
 
         };
 
@@ -43,15 +43,20 @@ namespace RestaurantsApi.Controllers
             {
                 FoodId = foodData.FoodId,
                 FoodName = foodData.FoodName,
+                FoodAmount = foodData.FoodAmount,
                 FoodCost = foodData.FoodCost,
                 FoodPrice = foodData.FoodPrice,
-                FoodType = foodData.FoodType
+                FoodProfit = foodData.FoodProfit,
+                FoodPriceTotal = foodData.FoodPriceTotal,
+                FoodType = foodData.FoodType,
+                FoodStatus = foodData.FoodStatus,
+
             };
             dataFood.Add(food);
             return foodData;
         }
 
-              [HttpPut("{id}")]
+        [HttpPut("{id}")]
         public Food EditDataFood(string id, [FromBody] Food foodData)
         {
             var _id = dataFood.FirstOrDefault(it => it.FoodId == id.ToString());
@@ -59,9 +64,14 @@ namespace RestaurantsApi.Controllers
             {
                 FoodId = foodData.FoodId,
                 FoodName = foodData.FoodName,
+                FoodAmount = foodData.FoodAmount,
                 FoodCost = foodData.FoodCost,
                 FoodPrice = foodData.FoodPrice,
-                FoodType = foodData.FoodType
+                FoodProfit = foodData.FoodProfit,
+                FoodPriceTotal = foodData.FoodPriceTotal,
+                FoodType = foodData.FoodType,
+                FoodStatus = foodData.FoodStatus,
+
 
             };
             dataFood.Remove(_id);
@@ -73,7 +83,7 @@ namespace RestaurantsApi.Controllers
         public void DeleteFood(string id)
         {
             var d = dataFood.FirstOrDefault(it => it.FoodId == id.ToString());
-            dataFood.Remove(d);            
+            dataFood.Remove(d);
         }
     }
 }

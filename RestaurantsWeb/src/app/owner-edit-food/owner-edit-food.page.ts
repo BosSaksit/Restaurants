@@ -32,9 +32,13 @@ export class OwnerEditFoodPage implements OnInit {
     this.dataFood = this.formBuilder.group({
       'foodId': [null, Validators.required],
       'foodName': [null, Validators.required],
+      'foodAmount': [null, Validators.required],
       'foodCost': [null, Validators.required],
       'foodPrice': [null, Validators.required],
+      'foodProfit': [null, Validators.required],
+      'foodPriceTotal': [null, Validators.required],
       'foodType': [null, Validators.required],
+      'foodStatus': [null, Validators.required],
     });
 
     this.resApi.getDataFoodById(this.foodid).subscribe(it => {
@@ -60,7 +64,7 @@ export class OwnerEditFoodPage implements OnInit {
     this.dataFoddx = this.dataFood.value;
     console.log(this.dataFoddx);
 
-    this.resApi.EditDataFood(this.foodid, this.dataFoddx).subscribe(it => {
+    this.resApi.editDataFood(this.foodid, this.dataFoddx).subscribe(it => {
       console.log(it);
       this.router.navigate(['/food-list'])
     })

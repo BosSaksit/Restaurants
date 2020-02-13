@@ -5,59 +5,46 @@
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <ion-col size="2" class="colorW">
-      <div>
-        <ion-button expand="full" routerLink="/cashier-order-table">ตาราง Order</ion-button>
-      </div>
-      <div>
-        <ion-button expand="full" routerLink="/cashier-money-table">เก็บงิน</ion-button>
-      </div>
-      <div>
-        <app-test></app-test>
-      </div>
+  <ion-row padding>
+    <ion-col>
+      <ion-button expand="full" routerLink="/cashier-order-table">รายการออเดอร์</ion-button>
     </ion-col>
-    <ion-col size="10">
-      <div>
-        <ion-card class="colorW">
-          <h2 class="center">ตารางชำระเงิน</h2>
-          <table>
-            <tr>
-              <td>รหัส Order</td>
-              <td>โต๊ะที่</td>
-              <td>วันที่</td>
-              <td>เวลา</td>
-              <td>ดู</td>
-              <td>สถานะ</td>
-            </tr>
-            <tr>
-              <td>Od0001</td>
-              <td>A1</td>
-              <td>วันที่</td>
-              <td>เวลา</td>
-              <td>
-                <ion-button (click)="gotoBillDetail()">ดู</ion-button>
-              </td>
-              <td>
-                จ่ายแล้ว
-              </td>
-            </tr>
-            <tr>
-              <td>Od0001</td>
-              <td>A1</td>
-              <td>วันที่</td>
-              <td>เวลา</td>
-              <td>
-                <ion-button (click)="gotoBillDetail()">ดู</ion-button>
-              </td>
-              <td>
-                จ่ายแล้ว
-              </td>
-            </tr>
-          </table>
-        </ion-card>
-      </div>
+    <ion-col>
+      <ion-button expand="full" routerLink="/cashier-money-table">เก็บงิน</ion-button>
+    </ion-col>
+    <ion-col>
+      <app-test></app-test>
     </ion-col>
   </ion-row>
+
+  <ion-card>
+    <ion-row class="cardColor">
+      <ion-col style="font-size: 25px;">รายการเก็บเงิน</ion-col>
+    </ion-row>
+    <ion-row class="colorW">
+      <table>
+        <tr>
+          <td>รหัส Order</td>
+          <td>โต๊ะที่</td>
+          <td>จำนวนคน</td>
+          <td>สถานะบิล</td>
+          <td>สถานะออเดอร์</td>
+          <td>ชำระเงิน</td>
+
+        </tr>
+        <tr *ngFor="let o of dataOrder">
+          <td>{{o.orderId}}</td>
+          <td>{{o.tableNumber}}</td>
+          <td>{{o.amountCustomer}}</td>
+          <td>{{o.orderStatus}}</td>
+          <td>{{o.orderStatusFood}}</td>
+          <td>
+            <ion-button color="secondary" (click)="getDataOrderById()">ชำระเงิน</ion-button>
+          </td>
+        </tr>
+
+      </table>
+    </ion-row>
+  </ion-card>
 
 </ion-content>

@@ -41,7 +41,7 @@ export class FoodListPage implements OnInit {
   }
 
   deleteDataFood(id) {
-    this.resApi.DeleteDataFood(id).subscribe(it => {
+    this.resApi.deleteDataFood(id).subscribe(it => {
       console.log();
       this.getDataFood();
     })

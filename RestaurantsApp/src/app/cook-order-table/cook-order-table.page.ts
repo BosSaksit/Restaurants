@@ -13,10 +13,20 @@ export class CookOrderTablePage implements OnInit {
   constructor(public router: Router, public resApi: ResApiService) { }
 
   dataOrder: order;
+  dataOrderCheckStatus: order;
   cookOrder: order[] = [];
+
+  cookStatus: any;
 
   ngOnInit() {
     this.getDataOrder();
+    // this.checkStatusFood();
+  }
+
+  ionViewWillEnter() {
+    this.getDataOrder();
+    this.checkStatusFood();
+
   }
 
   gotoDetailOrder(id) {
@@ -28,6 +38,23 @@ export class CookOrderTablePage implements OnInit {
       this.dataOrder = it;
       console.log(this.dataOrder);
     });
+  }
+
+  checkStatusFood() {
+    this.resApi.getDataOrder().subscribe(it => {
+      this.dataOrder = it;
+      console.log(this.dataOrder);
+      for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+        if (this.dataOrder[index].foodOrder[index].foodStatus != "") {
+          this.dataOrder[index].orderStatusFood = this.dataOrder[index].foodOrder[index].foodStatus;
+
+        } else {
+          console.log("data null");
+
+        }
+      }
+    });
+
   }
 
   // getDataFoodFilter() {

@@ -60,6 +60,10 @@ const routes: Routes = [
     path: 'owner-edit-user',
     loadChildren: () => import('./owner-edit-user/owner-edit-user.module').then( m => m.OwnerEditUserPageModule)
   },
+  {
+    path: 'bill-payment-detail',
+    loadChildren: () => import('./bill-payment-detail/bill-payment-detail.module').then( m => m.BillPaymentDetailPageModule)
+  },
 
 ];
 

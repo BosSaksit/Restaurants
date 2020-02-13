@@ -17,8 +17,7 @@ export class OrderDetailPage implements OnInit {
   foodorder: any;
   totalMoneyOrderx: number;
   foodPriceTotal: any;
-  xxx: any;
-
+  tableNumber:any;
 
   constructor(public resApi: ResApiService, public activate: ActivatedRoute) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
@@ -27,26 +26,28 @@ export class OrderDetailPage implements OnInit {
   }
 
   ngOnInit() {
+    // this.checkStatusFood();
   }
 
   getOrderById() {
     this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
       console.log(this.orderData);
-      console.log(this.orderData.totalMoneyOrder);
       console.log(this.orderData.foodOrder);
+      this.tableNumber = this.orderData.tableNumber;
 
       for (let i = 0; i < this.orderData.foodOrder.length; i++) {
-        console.log(this.orderData.foodOrder[i].foodPriceTotal);
+        // console.log(this.orderData.foodOrder[i].foodPriceTotal);
         this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
-        console.log(this.orderData.foodOrder[i]);
+        // console.log(this.orderData.foodOrder[i]);
         this.foodorder = this.orderData.foodOrder;
         this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
-        console.log(this.totalMoneyOrderx);
-        console.log(this.foodorder);
-
       }
     });
   }
+
+  
+
+
 
 }

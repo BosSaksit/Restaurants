@@ -18,8 +18,12 @@ export class CashierOrderTablePage implements OnInit {
     this.getDataOrder();
   }
 
-  gotoDetailOrder() {
-    this.router.navigate(['/cashier-order-detail']);
+  ionViewWillEnter() {
+    this.checkStatusFood();
+  }
+
+  gotoDetailOrder(id) {
+    this.router.navigate(['/cashier-order-detail',{idbill:id}]);
   }
 
   getDataOrder() {
@@ -28,6 +32,23 @@ export class CashierOrderTablePage implements OnInit {
       console.log(this.listDataOrder);
       
 
+    });
+
+  }
+
+  checkStatusFood() {
+    this.resApi.getDataOrder().subscribe(it => {
+      this.listDataOrder = it;
+      console.log(this.listDataOrder);
+      for (let index = 0; index < Object.keys(this.listDataOrder).length; index++) {
+        if (this.listDataOrder[index].foodOrder[index].foodStatus != "") {
+          this.listDataOrder[index].orderStatusFood = this.listDataOrder[index].foodOrder[index].foodStatus;
+
+        } else {
+          console.log("data null");
+
+        }
+      }
     });
 
   }

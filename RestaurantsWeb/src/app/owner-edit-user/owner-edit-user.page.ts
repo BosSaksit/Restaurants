@@ -64,7 +64,7 @@ export class OwnerEditUserPage implements OnInit {
     this.userx = this.dataUser.value;
     console.log(this.userx);
 
-    this.resApi.EditDataUser(this.userid, this.userx).subscribe(it => {
+    this.resApi.editDataUser(this.userid, this.userx).subscribe(it => {
       console.log(it);
       this.router.navigate(['/user-list'])
     })

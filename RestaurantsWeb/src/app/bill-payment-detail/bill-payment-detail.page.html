@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>billPaymentDetail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+
+        <ion-row class="cardColor">
+          <ion-col style="font-size: 25px;">ร้านอะไรล่ะ</ion-col>
+        </ion-row>
+
+        <ion-row class="cardColor">
+          <ion-col style="font-size: 25px;">Bill Id</ion-col>
+        </ion-row>
+
+        <ion-row class="colorW">
+          <table>
+            <tr>
+              <td>รหัสอาหาร</td>
+              <td>ชื่ออาหาร</td>
+              <td>จำนวน</td>
+              <td>หน่วยละ</td>
+              <td>รวม</td>
+            </tr>
+            <tr *ngFor="let o of foodorder">
+              <td>{{o.foodId}}</td>
+              <td>{{o.foodName}}</td>
+              <td>{{o.foodAmount}} </td>
+              <td>{{o.foodPrice}}.-</td>
+              <td>{{o.foodPriceTotal}}.-</td>
+            </tr>
+            <tr>
+              <td>รวมเงินสุทธิ</td>
+              <td colspan="3" style="text-align: right;">{{totalMoneyOrderx}}</td>
+            </tr>
+            <tr>
+              <td>เงินที่ได้รับ</td>
+              <td colspan="3" style="text-align: right;">{{moneyReceived}}</td>
+            </tr>
+            <tr>
+              <td>เงินทอน</td>
+              <td colspan="3" style="text-align: right;">{{moneyCommute}}</td>
+            </tr>
+          </table>
+
+        </ion-row>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

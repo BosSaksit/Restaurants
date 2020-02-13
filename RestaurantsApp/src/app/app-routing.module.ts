@@ -39,7 +39,15 @@ const routes: Routes = [
   {
     path: 'cook-order-detail',
     loadChildren: () => import('./cook-order-detail/cook-order-detail.module').then( m => m.CookOrderDetailPageModule)
+  },  {
+    path: 'order-edit',
+    loadChildren: () => import('./order-edit/order-edit.module').then( m => m.OrderEditPageModule)
   },
+  {
+    path: 'bill-payment-detail',
+    loadChildren: () => import('./bill-payment-detail/bill-payment-detail.module').then( m => m.BillPaymentDetailPageModule)
+  },
+
 
 
 

@@ -90,12 +90,20 @@ ion-content{
 }
 
 .colorW{
-  --background: white;
   background: white;
   height: 100%;
   box-shadow: 2px 2px 5px grey;
   padding: 5px;
 }
+
+.cardColor{
+  --background: white;
+  text-align: center;
+  background-color: lightseagreen;
+  color: white;
+  padding: 2px;
+}
+
 
 
 
