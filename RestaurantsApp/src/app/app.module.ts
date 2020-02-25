@@ -9,11 +9,17 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    NgxPaginationModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -21,4 +27,4 @@ import { HttpClientModule } from "@angular/common/http";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

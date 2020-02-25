@@ -8,6 +8,8 @@ import { DrinkOrderTablePageRoutingModule } from './drink-order-table-routing.mo
 
 import { DrinkOrderTablePage } from './drink-order-table.page';
 import { ComponentsModule } from "../logout/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { ComponentsModule } from "../logout/components.module";
     FormsModule,
     IonicModule,
     DrinkOrderTablePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ],
   declarations: [DrinkOrderTablePage]
 })

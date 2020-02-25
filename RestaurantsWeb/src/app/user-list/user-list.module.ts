@@ -8,6 +8,8 @@ import { UserListPageRoutingModule } from './user-list-routing.module';
 
 import { UserListPage } from './user-list.page';
 import { ComponentsModule } from "../test/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { ComponentsModule } from "../test/components.module";
     FormsModule,
     IonicModule,
     UserListPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ],
   declarations: [UserListPage,]
 })

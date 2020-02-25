@@ -8,6 +8,8 @@ import { OrderListPageRoutingModule } from './order-list-routing.module';
 
 import { OrderListPage } from './order-list.page';
 import { ComponentsModule } from "../logout/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { ComponentsModule } from "../logout/components.module";
     FormsModule,
     IonicModule,
     OrderListPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ],
   declarations: [OrderListPage]
 })

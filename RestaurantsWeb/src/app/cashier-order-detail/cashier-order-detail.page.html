@@ -40,19 +40,23 @@
     </ion-row>
   </ion-card>
 
-  <ion-row padding>
+  <!-- <ion-row padding>
     <ion-col>
       <ion-select placeholder="เลือกการชำระเงิน" [(ngModel)]="orderStatusPayment">
         <ion-select-option value="เงินโอน">เงินโอน</ion-select-option>
         <ion-select-option value="เงินสด">เงินสด</ion-select-option>
       </ion-select>
     </ion-col>
-  </ion-row>
-
-  <ion-row padding>
+  </ion-row> -->
+<ion-row *ngIf="orderData != null">
+  <ion-col>
+    <ion-button expand="full" (click)="testModal(orderData.billId)">ชำระเงิน</ion-button>
+  </ion-col>
+</ion-row>
+  <!-- <ion-row padding>
     <ion-col>
       <ion-button expand="full" (click)="Payment(orderData.orderId)">ชำระเงิน</ion-button>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
 </ion-content>

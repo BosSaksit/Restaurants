@@ -8,6 +8,8 @@ import { FoodListPageRoutingModule } from './food-list-routing.module';
 
 import { FoodListPage } from './food-list.page';
 import { ComponentsModule } from "../test/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 @NgModule({
@@ -16,7 +18,8 @@ import { ComponentsModule } from "../test/components.module";
     FormsModule,
     IonicModule,
     FoodListPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ],
   declarations: [FoodListPage]
 })

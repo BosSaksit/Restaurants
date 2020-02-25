@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ResApiService } from '../ResApi/res-api.service';
 import { order } from '../Models/order';
 import { food } from '../Models/food';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-order-list',
@@ -11,12 +12,19 @@ import { food } from '../Models/food';
 })
 export class OrderListPage implements OnInit {
 
-  dataOrder: order;
-  dataorder2: order;
+  dataOrder: order[] = [];
+  dataorder2: any[] = [];
   foodorder: food[] = [];
-
+  xx: any[] = [];
+  yy: any[] = [];
   statusEdit: any;
-  constructor(public router: Router, public resApi: ResApiService) {
+  p: number = 1;
+
+  totalItem: number = 0;
+  constructor(public router: Router,
+    public resApi: ResApiService,
+    public alertController: AlertController,
+    public loadingController: LoadingController) {
 
   }
 
@@ -25,8 +33,8 @@ export class OrderListPage implements OnInit {
 
   }
 
-  ionViewWillEnter(){
-    this.checkStatusFood();
+  ionViewWillEnter() {
+    // this.checkStatusFood();
   }
 
   gotoDetailOrder() {
@@ -43,37 +51,27 @@ export class OrderListPage implements OnInit {
   gotoEditOrder(id) {
     console.log(id);
     // this.statusEdit = "1";
-    this.router.navigate(['/order-edit', { idbill: id}]);
+    this.router.navigate(['/order-edit', { idbill: id }]);
   }
 
   getDataOrder() {
     this.resApi.getDataOrder().subscribe(it => {
-      this.dataOrder = it;
-      console.log(this.dataOrder);
-      // this.dataorder2 = this.dataOrder[0];
-      // console.log(this.dataorder2.foodOrder);
-      // this.foodorder = this.dataorder2.foodOrder;
-      // console.log(this.foodorder);
-      // console.log(this.dataOrder[0].foodOrder[0].foodName);
 
-    });
-  }
+      for (let index = 0; index < Object.keys(it).length; index++) {
+        this.dataOrder[index] = it[index];
 
-  checkStatusFood() {
-    this.resApi.getDataOrder().subscribe(it => {
-      this.dataOrder = it;
-      console.log(this.dataOrder);
-      for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
-        if (this.dataOrder[index].foodOrder[index].foodStatus != "") {
-          this.dataOrder[index].orderStatusFood = this.dataOrder[index].foodOrder[index].foodStatus;
+        if (this.dataOrder[index].foodOrder[index].foodStatus != null) {
+          this.dataOrder[index].orderStatusTotal = this.dataOrder[index].foodOrder[index].foodStatus;
 
         } else {
           console.log("data null");
 
         }
       }
-    });
+      // this.dataorder2 = this.xx.sort((a, b) => a.tableNumber.localeCompare(b.tableNumber));
+      // console.log(this.dataorder2);
 
+    });
   }
 
   getDataOrderById(id) {
@@ -85,8 +83,46 @@ export class OrderListPage implements OnInit {
     this.resApi.cancelOrder(id).subscribe(it => {
       console.log(it);
       this.getDataOrder();
+      // this.alertConfirmCancelOrder();
+
 
     });
   }
+
+  // async alertConfirmCancelOrder() {
+  //   const alert = await this.alertController.create({
+  //     header: 'แจ้งเตือนการยกเลิกออเดอร์',
+  //     subHeader: 'ต้องการยกเลิกหรือไม่ ?',
+  //     buttons: [{
+  //       text: 'Cancel',
+  //       role: 'cancel',
+  //       cssClass: 'secondary',
+  //       handler: () => {
+  //         console.log('Cancel');
+  //       }
+  //     }, {
+  //       text: 'Ok',
+  //       handler: data => {
+  //         this.getDataOrder();
+  //         this.presentLoading();
+
+  //       }
+  //     }],
+
+  //   });
+  //   await alert.present();
+
+  // }
+
+  // async presentLoading() {
+  //   const loading = await this.loadingController.create({
+  //     message: 'Please wait...',
+  //     duration: 2000
+  //   });
+  //   await loading.present();
+
+  //   const { role, data } = await loading.onDidDismiss();
+  //   this.router.navigate(['/order-receive']);
+  // }
 
 }

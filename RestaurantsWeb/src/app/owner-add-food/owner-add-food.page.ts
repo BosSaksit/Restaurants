@@ -23,11 +23,11 @@ export class OwnerAddFoodPage implements OnInit {
     this.dataFood = this.formBuilder.group({
       'foodId': [null, Validators.required],
       'foodName': [null, Validators.required],
-      'foodAmount': [null, Validators.required],
+      'foodAmount': [1, Validators.required],
       'foodCost': [null, Validators.required],
       'foodPrice': [null, Validators.required],
       'foodProfit': [null, Validators.required],
-      'foodPriceTotal': [null, Validators.required],
+      'foodPriceTotal': [0, Validators.required],
       'foodType': [null, Validators.required],
       'foodStatus': [null, Validators.required],
     });
@@ -41,7 +41,15 @@ export class OwnerAddFoodPage implements OnInit {
   addDataFood() {
     this.submit = true;
     console.log(this.dataFood.value);
+    console.log(this.dataFood.value.foodPrice);
+    
+    this.dataFood.value.foodProfit = this.dataFood.value.foodPrice - this.dataFood.value.foodCost;
+    this.dataFood.value.foodPriceTotal = this.dataFood.value.foodPrice;
+    console.log(this.dataFood.value.foodPriceTotal);
+    
     this.food = this.dataFood.value;
+    console.log(food);
+    
     this.resApi.addDataFood(this.food).subscribe(it => {
       console.log(it);
       this.router.navigate(['/food-list'])

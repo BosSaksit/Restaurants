@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { food } from '../Models/food';
 import { order } from '../Models/order';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { ResApiService } from '../ResApi/res-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -26,10 +26,16 @@ export class OrderEditPage implements OnInit {
     "totalMoneyOrder": 0,
     "moneyReceived": 0,
     "moneyCommute": 0,
+    "discountPersen":0,
+    "discountBath":0,
+    "moneyDiscount":0,
     "orderDate": "",
+    "billTime": "",
     "orderStatus": null,
+    "orderStatusTotal": "",
     "orderStatusPayment": null,
-    "orderStatusFood":null,
+    "orderStatusFood": null,
+    "orderStatusDrink": null,
     "orderReceived": []
   };
 
@@ -41,14 +47,21 @@ export class OrderEditPage implements OnInit {
   idUser: any;
 
   idBillEdit: any;
+  idFoodEdit: any;
   btnStatusEdit: any;
+
+  table: any;
+  food: any;
+  drink: any;
+
   constructor(public alertController: AlertController,
     public resApi: ResApiService,
     public router: Router,
-    public activate: ActivatedRoute) {
+    public activate: ActivatedRoute,
+    public loadingController:LoadingController) {
     this.idBillEdit = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idBillEdit);
-    this.getDataEditOrder();
+    
     this.btnStatus = 1;
 
 
@@ -56,6 +69,13 @@ export class OrderEditPage implements OnInit {
 
   ngOnInit() {
     this.getDataMenu();
+    this.getDataEditOrder();
+  }
+
+  ionViewWillEnter() {
+    this.btnStatus = 1;
+    // this.getDataEditOrder();
+
   }
 
   getDataMenu() {
@@ -68,6 +88,7 @@ export class OrderEditPage implements OnInit {
 
   editFoodToOrderList(m) {
     console.log(m.foodId);
+    this.idFoodEdit = m.foodId;
     // this.foodToOrderList.push(m);
     this.dataOrderBeforeToCashier.foodOrder.push(m);
     console.log(this.dataOrderBeforeToCashier.foodOrder);
@@ -81,9 +102,14 @@ export class OrderEditPage implements OnInit {
   getDataEditOrder() {
     this.resApi.getDataOrderById(this.idBillEdit).subscribe(it => {
       this.dataOrderBeforeToCashier = it;
+      console.log(this.dataOrderBeforeToCashier.tableNumber);
+      this.table = this.dataOrderBeforeToCashier.tableNumber;
       for (let index = 0; index < Object.keys(this.dataOrderBeforeToCashier.foodOrder).length; index++) {
         this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+
       }
+
+
       // console.log(this.listDataOrder);
 
     })
@@ -91,6 +117,8 @@ export class OrderEditPage implements OnInit {
 
 
   add(i) {
+    console.log(i);
+
     this.dataOrderBeforeToCashier.foodOrder[i].foodAmount += 1;
     console.log(this.dataOrderBeforeToCashier.foodOrder);
     this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal = this.dataOrderBeforeToCashier.foodOrder[i].foodPrice * this.dataOrderBeforeToCashier.foodOrder[i].foodAmount;
@@ -118,11 +146,15 @@ export class OrderEditPage implements OnInit {
     for (let i = 0; i < this.dataOrderBeforeToCashier.foodOrder.length; i++) {
       this.totalMoneyOrder += parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
       console.log(this.totalMoneyOrder);
+
+      this.dataOrderBeforeToCashier.foodOrder[i].foodCostTotal = parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodAmount) * parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodCost);
+      // this.dataOrderBeforeToCashier.foodOrder[i].foodCost = this.foodCost;
+      this.dataOrderBeforeToCashier.foodOrder[i].foodProfitTotal = parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodAmount) * parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodProfit);
     }
     this.btnStatus = 2;
     console.log(this.dataOrderBeforeToCashier);
     this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrder;
-    this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
+    // this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
 
   }
 
@@ -148,8 +180,7 @@ export class OrderEditPage implements OnInit {
             console.log(it);
 
           })
-
-          this.router.navigate(['/order-list'])
+          this.presentLoading();
 
         }
       }],
@@ -159,27 +190,57 @@ export class OrderEditPage implements OnInit {
 
   }
 
+  cancelMenuInOrder(id) {
+    console.log(id);
+
+    this.resApi.cancelMenuList(this.idBillEdit, id).subscribe(it => {
+      console.log(it);
+      this.getDataEditOrder();
+      this.btnStatus = 1;
+
+
+    })
+  }
+
   getDataFoodFilter() {
     this.resApi.getDataFood().subscribe((it) => {
       this.dataMenu = it;
-      for (var i in it) {
-        this.dataMenu2[i] = this.dataMenu[i];
-        // console.log(this.dataMenu2);
-
-      }
     });
   }
 
   foodFilter() {
-    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "อาหาร");
-    console.log(this.dataMenu2);
+    this.food = "อาหาร";
+    console.log(this.food);
+    this.resApi.filterTypeMenu(this.food).subscribe(it => {
+      this.dataMenu = it;
+      console.log(it);
+
+    });
+
+
+    // this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "อาหาร");
+    // console.log(this.dataMenu2);
   }
 
   drinkFilter() {
-    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "เครื่องดื่ม");
-    console.log(this.dataMenu2);
+    this.drink = "เครื่องดื่ม";
+    console.log(this.drink);
+    this.resApi.filterTypeMenu(this.drink).subscribe(it => {
+      this.dataMenu = it;
+      console.log(it);
 
+    });
+  }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    this.router.navigate(['/order-receive']);
   }
 
 }

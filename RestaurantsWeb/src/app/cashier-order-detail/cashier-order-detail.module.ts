@@ -8,6 +8,7 @@ import { CashierOrderDetailPageRoutingModule } from './cashier-order-detail-rout
 
 import { CashierOrderDetailPage } from './cashier-order-detail.page';
 import { ComponentsModule } from "../test/components.module";
+import { PaymentPage } from "../modal/payment/payment.page";
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ComponentsModule } from "../test/components.module";
     CashierOrderDetailPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [CashierOrderDetailPage]
+  declarations: [CashierOrderDetailPage,PaymentPage],
+  entryComponents:[PaymentPage]
 })
 export class CashierOrderDetailPageModule {}

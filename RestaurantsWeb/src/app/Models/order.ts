@@ -10,10 +10,17 @@ export class order {
     moneyReceived: number;
     totalMoneyOrder: number;
     moneyCommute: number;
+    discountPersen:number;
+    discountBath:number;
+    moneyDiscount:number;
+    moneyDiscountTotal:number;
     orderDate: string;
+    billTime:string;
     orderStatus: string;
-    orderStatusFood: string;
+    orderStatusTotal:string;
     orderStatusPayment: string;
+    orderStatusFood: string;
+    orderStatusDrink:string;
     orderReceived: user[];
 
 }

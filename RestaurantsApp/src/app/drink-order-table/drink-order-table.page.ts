@@ -10,27 +10,28 @@ import { order } from '../Models/order';
 })
 export class DrinkOrderTablePage implements OnInit {
 
-  constructor(public router:Router,public resApi:ResApiService) { }
+  constructor(public router: Router, public resApi: ResApiService) { }
 
-  dataOrder:order;
-  cookStatus:any;
+  dataOrder: order;
+  cookStatus: any;
+  p: number = 1;
 
   ngOnInit() {
     this.getDataOrder();
 
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getDataOrder();
     this.checkStatusFood();
   }
 
 
-  gotoDetailOrder(id){
-    this.router.navigate(['/drink-order-detail',{idbill:id}]);
+  gotoDetailOrder(id) {
+    this.router.navigate(['/drink-order-detail', { idbill: id }]);
   }
 
-  
+
   getDataOrder() {
     this.resApi.getDataOrder().subscribe(it => {
       this.dataOrder = it;

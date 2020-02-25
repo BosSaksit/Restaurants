@@ -29,6 +29,10 @@ export class ResApiService {
     return this.http.get<food>(ResApiService.host + 'Food/GetDataFood');
   }
 
+  public filterTypeMenu(data: any) {    
+    return this.http.get<food>(ResApiService.host + 'Food/FilterTypeMenu/' + data);
+  }
+
   public getDataFoodById(Id: string) {
     return this.http.get<food>(ResApiService.host + 'Food/GetDataFoodById/' + Id);
   }
@@ -86,12 +90,13 @@ export class ResApiService {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
   }
 
-  public editDataOrder(Id: string, data) {
-    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrder/' + Id, data);
+  public editDataOrder(IdBill: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrder/' + IdBill, data);
   }
 
-  public cancelMenuList(Id) {
-    return this.http.delete<order>(ResApiService.host + 'Order/AddDataOrder/' + Id);
+  public cancelMenuList(IdBill: string, IdFood: string) {
+    
+    return this.http.delete<order>(ResApiService.host + 'Order/CancelMenuList/' + IdBill + "/" + IdFood);
   }
 
   public cancelOrder(Id: string) {

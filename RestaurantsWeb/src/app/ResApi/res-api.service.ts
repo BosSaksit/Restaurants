@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { food } from "../Models/food";
 import { user } from "../Models/user";
 import { order } from '../Models/order';
+import { summary } from '../Models/summary';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,7 @@ export class ResApiService {
   }
   // user
 
-  // user
+  // order
   public getDataOrder() {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrder');
   }
@@ -73,26 +74,39 @@ export class ResApiService {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrderById/' + Id);
   }
 
-  // public login(user) {
-  //   return this.http.get<user>(ResApiService.host + 'User/login/' + user);
-  // }
-
   public addDataOrderToCashier(data: order) {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
   }
+  // order
 
-  // public EditDataUser(Id: string, data) {
-  //   return this.http.put<user>(ResApiService.host + 'User/EditDataUser/' + Id, data);
-  // }
-
-  // public DeleteDataUser(Id: string) {
-  //   return this.http.delete<user>(ResApiService.host + 'User/DeleteUser/' + Id);
-  // }
 
   // casheir
   public orderPayment(Id: string, data) {
     return this.http.put<order>(ResApiService.host + 'Order/OrderPayment/' + Id, data);
   }
+
+  public getStatusOrderPayment() {
+    return this.http.get<order>(ResApiService.host + 'Order/GetStatusOrder');
+  }
   // casheir
+
+  // Summary
+  public addDataSummary(data: summary) {
+    return this.http.post<summary>(ResApiService.host + 'Summary/AddDataSummary/', data);
+  }
+
+  public getDataSummary() {
+    return this.http.get<summary>(ResApiService.host + 'Summary/GetDataSummary');
+  }
+
+  public getDataSummaryDay(day: string, month: string) {
+    return this.http.get<summary>(ResApiService.host + 'Summary/GetDataSummaryGetDay/' + day + "/" + month);
+  }
+
+  public getDataSummaryMonth() {
+    return this.http.get<summary>(ResApiService.host + 'Summary/GetDataSummaryGetMonth');
+  }
+  // Summary
+
 }
 

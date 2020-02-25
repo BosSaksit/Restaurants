@@ -1,54 +1,73 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>cashierOrderTable</ion-title>
+    <ion-row>
+      <ion-title>cashierOrderTable</ion-title>
+      <app-test></app-test>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row padding>
-    <ion-col size="10">
-      <ion-button expand="full" routerLink="/cashier-order-table">รายการออเดอร์</ion-button>
-    </ion-col>
-    <ion-col>
-      <app-test></app-test>
-    </ion-col>
-  </ion-row>
   <ion-row>
     <ion-col>
       <ion-card>
         <ion-row class="cardColor">
-          <ion-col style="font-size: 25px;">ตารางออเดอร์</ion-col>
+          <ion-col style="font-size: 25px;">ค้างชำระ</ion-col>
         </ion-row>
+
         <ion-row class="colorW">
-          <table>
-            <tr>
-              <td>รหัสออเดอร์</td>
-              <td>โต๊ะที่</td>
-              <td>จำนวนคน</td>
-              <td>วันที่</td>
-              <td>สถานะออเดอร์</td>
-              <td>สถานะบิล</td>
-              <td>ชำระเงิน</td>
-
-            </tr>
-            <tr *ngFor="let o of listDataOrder">
-              <td>{{o.orderId}}</td>
-              <td>{{o.tableNumber}}</td>
-              <td>{{o.amountCustomer}}</td>
-              <td>{{o.orderDate | date:"dd/mm/yy"}}</td>
-              <td style="color: red;">{{o.orderStatusFood}}</td>
-              <td style="color: red;">{{o.orderStatus}}</td>
-              
-              <td>
-                <ion-button color="secondary" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
-              </td>
-
-            </tr>
-          </table>
+          <ion-col size="3" *ngFor="let o of listDataOrder">
+            <ion-card>
+              <ion-row class="cardTable">
+                <ion-col style="font-size: 25px;">{{o.tableNumber}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-center>
+                  <ion-button color="light" (click)="gotoDetailBill(o.orderId)">ดูข้อมูล</ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-center>
+                  <ion-button color="success" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-col>
         </ion-row>
       </ion-card>
     </ion-col>
   </ion-row>
+
+  <!-- <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-row class="cardColor">
+          <ion-col style="font-size: 25px;">ชำระเงินแล้ว</ion-col>
+          
+        </ion-row>
+
+        <ion-row class="colorW">
+          <ion-col size="3" *ngFor="let o of listDataOrder">
+            <ion-card>
+              <ion-row class="cardTable">
+                <ion-col style="font-size: 25px;">{{o.tableNumber}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-center>
+                  <ion-button color="light" (click)="gotoDetailBill(o.orderId)">ดูข้อมูล</ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-center>
+                  <ion-button color="success" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+  </ion-row> -->
 
 
 </ion-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResApiService } from '../ResApi/res-api.service';
+import { order } from '../Models/order';
 
 @Component({
   selector: 'app-cashier-order-table',
@@ -9,7 +10,8 @@ import { ResApiService } from '../ResApi/res-api.service';
 })
 export class CashierOrderTablePage implements OnInit {
 
-  listDataOrder: any;
+  listDataOrder: order;
+
   constructor(public router: Router, public resApi: ResApiService) {
 
   }
@@ -19,38 +21,26 @@ export class CashierOrderTablePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.checkStatusFood();
+    // this.checkStatusFood();
   }
 
   gotoDetailOrder(id) {
-    this.router.navigate(['/cashier-order-detail',{idbill:id}]);
+    this.router.navigate(['/cashier-order-detail', { idbill: id }]);
+  }
+
+  gotoDetailBill(id) {
+    this.router.navigate(['/bill-payment-detail', { idb: id }]);
   }
 
   getDataOrder() {
-    this.resApi.getDataOrder().subscribe(it => {
+    this.resApi.getStatusOrderPayment().subscribe(it => {
       this.listDataOrder = it;
-      console.log(this.listDataOrder);
+      console.log(it);
       
+    })
 
-    });
-
-  }
-
-  checkStatusFood() {
-    this.resApi.getDataOrder().subscribe(it => {
-      this.listDataOrder = it;
-      console.log(this.listDataOrder);
-      for (let index = 0; index < Object.keys(this.listDataOrder).length; index++) {
-        if (this.listDataOrder[index].foodOrder[index].foodStatus != "") {
-          this.listDataOrder[index].orderStatusFood = this.listDataOrder[index].foodOrder[index].foodStatus;
-
-        } else {
-          console.log("data null");
-
-        }
-      }
-    });
 
   }
+
 
 }

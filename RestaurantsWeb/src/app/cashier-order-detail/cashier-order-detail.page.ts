@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ResApiService } from '../ResApi/res-api.service';
 import { order } from '../Models/order';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { summary } from '../Models/summary';
+import { PaymentPage } from "../modal/payment/payment.page";
 
 @Component({
   selector: 'app-cashier-order-detail',
@@ -18,8 +20,11 @@ export class CashierOrderDetailPage implements OnInit {
   foodPriceTotal: any;
   tableNumber: any;
   orderStatusPayment: any;
-  totalMoneyOrder:any;
-  moneyCommute:any;
+  totalMoneyOrder: any;
+  moneyCommute: any;
+
+  dataSummaryPayment: summary;
+  id:any;
 
   dataOrderBeforeToCashier = {
     "billId": null,
@@ -30,17 +35,25 @@ export class CashierOrderDetailPage implements OnInit {
     "totalMoneyOrder": 0,
     "moneyReceived": 0,
     "moneyCommute": 0,
+    "discountPersen": 0,
+    "discountBath": 0,
+    "moneyDiscount": 0,
+    "moneyDiscountTotal":0,
     "orderDate": "",
+    "billTime": "",
     "orderStatus": null,
+    "orderStatusTotal": "",
     "orderStatusPayment": null,
-    "orderStatusFood":null,
+    "orderStatusFood": null,
+    "orderStatusDrink": null,
     "orderReceived": []
   };
 
   constructor(public resApi: ResApiService,
     public activate: ActivatedRoute,
     public alertController: AlertController,
-    public router: Router) {
+    public router: Router,
+    public modal:ModalController) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idbill);
     this.getOrderById();
@@ -55,10 +68,10 @@ export class CashierOrderDetailPage implements OnInit {
   async Payment(id) {
     console.log(id);
     console.log(this.orderStatusPayment);
-    
+
     const alert = await this.alertController.create({
       header: 'ชำระเงิน โต๊ะ : ' + this.tableNumber,
-      subHeader: 'ยอดสุทธิ : ' + this.totalMoneyOrderx+" บาท",
+      subHeader: 'ยอดสุทธิ : ' + this.totalMoneyOrderx + " บาท",
       inputs: [{
         name: 'money',
         type: 'text',
@@ -78,18 +91,23 @@ export class CashierOrderDetailPage implements OnInit {
         handler: data => {
           this.moneyCommute = data.money - this.totalMoneyOrderx;
           console.log(this.moneyCommute);
-          
+
           console.log(id);
           this.dataOrderBeforeToCashier.orderStatusPayment = this.orderStatusPayment;
           this.dataOrderBeforeToCashier.moneyReceived = data.money;
           this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-          this.dataOrderToCashier = this.dataOrderBeforeToCashier
+          this.dataOrderToCashier = this.dataOrderBeforeToCashier;
           console.log(this.dataOrderToCashier);
-          
-          
-          this.resApi.orderPayment(this.idbill,this.dataOrderToCashier).subscribe(it =>{
-            console.log(it);
-            
+
+
+          this.resApi.orderPayment(this.idbill, this.dataOrderToCashier).subscribe(it => {
+            this.dataSummaryPayment = it;
+            console.log(this.dataSummaryPayment);
+            this.resApi.addDataSummary(this.dataSummaryPayment).subscribe(it => {
+              console.log(it);
+
+            })
+
           })
           this.router.navigate(['/bill-payment-detail', { idb: id }]);
         }
@@ -117,5 +135,18 @@ export class CashierOrderDetailPage implements OnInit {
         this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
       }
     });
+  }
+
+  async testModal(id){
+    console.log(id);
+    
+    const modal = await this.modal.create({
+      component:PaymentPage,
+      componentProps:{
+        id:id
+
+      }
+    });
+    return await modal.present();
   }
 }

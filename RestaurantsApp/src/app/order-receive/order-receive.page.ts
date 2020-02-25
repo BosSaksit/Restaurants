@@ -28,10 +28,16 @@ export class OrderReceivePage implements OnInit {
     "totalMoneyOrder": 0,
     "moneyReceived": 0,
     "moneyCommute": 0,
+    "discountPersen":0,
+    "discountBath":0,
+    "moneyDiscount":0,
     "orderDate": "",
+    "billTime": "",
     "orderStatus": null,
+    "orderStatusTotal": "",
     "orderStatusPayment": null,
-    "orderStatusFood":null,
+    "orderStatusFood": null,
+    "orderStatusDrink": null,
     "orderReceived": []
   };
 
@@ -45,6 +51,12 @@ export class OrderReceivePage implements OnInit {
   idBillEdit: any;
   btnStatusEdit: any;
 
+  foodCost: number = 0;
+  foodProfit: number = 0;
+
+  food: any;
+  drink: any;
+
   constructor(public alertController: AlertController,
     public resApi: ResApiService,
     public router: Router,
@@ -55,6 +67,9 @@ export class OrderReceivePage implements OnInit {
       this.idUser = it;
     });
     this.btnStatus = 1;
+
+
+    this.foodCost
 
   }
 
@@ -131,6 +146,13 @@ export class OrderReceivePage implements OnInit {
 
   }
 
+  cancelMenuInOrder(i){
+    console.log(i);
+    
+    this.dataOrderBeforeToCashier.foodOrder[i].pop;
+
+  }
+
 
   gotoMarket() {
     this.router.navigate(['/order-list']);
@@ -142,6 +164,9 @@ export class OrderReceivePage implements OnInit {
     this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal = this.dataOrderBeforeToCashier.foodOrder[i].foodPrice * this.dataOrderBeforeToCashier.foodOrder[i].foodAmount;
     console.log(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
     this.btnStatus = 1;
+
+    // console.log(this.foodCost);
+    // console.log(this.foodProfit);
   }
 
   minus(i) {
@@ -150,7 +175,6 @@ export class OrderReceivePage implements OnInit {
       this.dataOrderBeforeToCashier.foodOrder[i].pop();
       console.log(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
       console.log(this.dataOrderBeforeToCashier.foodOrder);
-      console.log("aaaaa");
 
 
       this.btnStatus = 1;
@@ -159,7 +183,6 @@ export class OrderReceivePage implements OnInit {
       this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal -= this.dataOrderBeforeToCashier.foodOrder[i].foodPrice;
       console.log(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
       this.btnStatus = 1;
-      console.log("bbbbb");
 
     }
   }
@@ -170,7 +193,12 @@ export class OrderReceivePage implements OnInit {
       this.totalMoneyOrder += parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodPriceTotal);
       console.log(this.totalMoneyOrder);
       this.btnStatus = 2;
+
+      this.dataOrderBeforeToCashier.foodOrder[i].foodCostTotal = parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodAmount) * parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodCost);
+      // this.dataOrderBeforeToCashier.foodOrder[i].foodCost = this.foodCost;
+      this.dataOrderBeforeToCashier.foodOrder[i].foodProfitTotal = parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodAmount) * parseInt(this.dataOrderBeforeToCashier.foodOrder[i].foodProfit);
     }
+
     console.log(this.dataOrderBeforeToCashier);
     this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrder;
 
@@ -203,7 +231,7 @@ export class OrderReceivePage implements OnInit {
       }, {
         text: 'Ok',
         handler: data => {
-          this.dataOrderBeforeToCashier.tableNumber = data.table ;
+          this.dataOrderBeforeToCashier.tableNumber = data.table;
           this.dataOrderBeforeToCashier.amountCustomer = data.cus;
           console.log(this.dataOrderBeforeToCashier);
           this.dataOrderToCashier = this.dataOrderBeforeToCashier;
@@ -222,28 +250,42 @@ export class OrderReceivePage implements OnInit {
 
   }
 
+
   getDataFoodFilter() {
     this.resApi.getDataFood().subscribe((it) => {
       this.dataMenu = it;
-      for (var i in it) {
-        this.dataMenu2[i] = this.dataMenu[i];
-        // console.log(this.dataMenu2);
 
-      }
     });
   }
 
   foodFilter() {
-    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "อาหาร");
-    console.log(this.dataMenu2);
+    this.food = "อาหาร";
+    console.log(this.food);
+    this.resApi.filterTypeMenu(this.food).subscribe(it => {
+      this.dataMenu = it;
+      console.log(it);
+
+    });
+
+
+    // this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "อาหาร");
+    // console.log(this.dataMenu2);
   }
 
   drinkFilter() {
-    this.dataMenu2 = this.dataMenu2.filter(it => it.foodType == "เครื่องดื่ม");
-    console.log(this.dataMenu2);
+    this.drink = "เครื่องดื่ม";
+    console.log(this.drink);
+    this.resApi.filterTypeMenu(this.drink).subscribe(it => {
+      this.dataMenu = it;
+      console.log(it);
+
+    });
 
 
   }
+
+
+
 
 
 }

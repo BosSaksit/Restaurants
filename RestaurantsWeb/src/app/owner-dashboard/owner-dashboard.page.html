@@ -1,127 +1,102 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ownerDashboard</ion-title>
+    <ion-row>
+      <ion-title>ownerDashboard</ion-title>
+      <app-test></app-test>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-row>
-    <ion-col size="2" class="colorW">
-      <div>
-        <ion-button expand="full" routerLink="/owner-dashboard">Dashboard</ion-button>
-      </div>
-      <div>
-        <ion-button expand="full" routerLink="/food-list">จัดการอาหาร</ion-button>
-      </div>
-      <div>
-        <ion-button expand="full" routerLink="/user-list">จัดการพนักงาน</ion-button>
-      </div>
-      <div>
-        <app-test></app-test>
-      </div>
-   
+    <ion-col>
+      <ion-button expand="full" routerLink="/owner-dashboard">Dashboard</ion-button>
     </ion-col>
-    <ion-col size="10">
-      <div>
-        <ion-card class="colorW">
-          <div>
-            <h2 class="center">Dashboard</h2>
-            <ion-row>
-              <ion-col size="4">
-                <ion-datetime displayFormat="D MMMM YYYY" placeholder="วันที่"></ion-datetime>
-              </ion-col>
-              <ion-col>
-                <ion-button>ค้นหา</ion-button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-card class="cardSize">ต้นทุน
-                  <ion-row class="margin">
-                    <ion-col>
-                      50,000 บาท
-                    </ion-col>
-                  </ion-row>
-                </ion-card>
-
-              </ion-col>
-
-              <ion-col>
-                <ion-card class="cardSize">ขายได้
-                  <ion-row class="margin">
-                    <ion-col>
-                      150,000 บาท
-                    </ion-col>
-                  </ion-row>
-                </ion-card>
-              </ion-col>
-
-              <ion-col>
-                <ion-card class="cardSize">กำไร
-                  <ion-row class="margin">
-                    <ion-col>
-                      100,000 บาท
-                    </ion-col>
-                  </ion-row>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="center" >
-              <ion-col>
-                <ion-card style="font-size: 20px;">
-                  <ion-row class="headcontent">
-                    5 อันดับเมนูขายดี
-                  </ion-row>
-                  <ion-row > 
-                    <ion-col >
-                      ผัดเผ็ดหมูป่า<br>
-                      กระเพาหมูกรอบ<br>
-                      ข้าวผัด<br>
-                      อะไรดี<br>
-                      วะ<br>
-                    </ion-col>
-                  </ion-row>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-
-            <table>
-              <tr>
-                <td>วันที่/เดือน/ปี</td>
-                <td>ต้นทุน</td>
-                <td>ขายได้</td>
-                <td>กำไร</td>
-                <td>ดูข้อมูล</td>
-            
-              </tr>
-              <tr>
-                <td>01/01/2020</td>
-                <td>1500</td>
-                <td>3000</td>
-                <td>1500</td>
-                <td>
-                  <ion-button (click)="gotoDetailDateBill()">ดู</ion-button>
-                </td>
-          
-
-              </tr>
-              <tr>
-                <td>02/01/2020</td>
-                <td>4000</td>
-                <td>8000</td>
-                <td>4000</td>
-                <td>
-                  <ion-button (click)="gotoDetailDateBill()">ดู</ion-button>
-                </td>
-             
-
-              </tr>
-            </table>
-          </div>
-
-        </ion-card>
-      </div>
+    <ion-col>
+      <ion-button expand="full" routerLink="/food-list">จัดการอาหาร</ion-button>
     </ion-col>
+    <ion-col>
+      <ion-button expand="full" routerLink="/user-list">จัดการพนักงาน</ion-button>
+    </ion-col>
+
   </ion-row>
+
+  <ion-card>
+    <ion-row class="cardColor">
+      <ion-col style="font-size: 25px;">สรุป</ion-col>
+    </ion-row>
+    <ion-row class="colorW">
+      <ion-col>
+        <ion-datetime displayFormat="D" placeholder="วันที่" [(ngModel)]="day"></ion-datetime>
+      </ion-col>
+      <ion-col>
+        <ion-datetime displayFormat="MMMM" placeholder="เดือน" [(ngModel)]="month"></ion-datetime>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="filterDataSummaryDate(day,month)">ค้นหา</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="colorW">
+      <ion-col>
+        <ion-card class="cardSize">
+          <ion-row class="cardCost">
+            <ion-col>
+              ต้นทุน
+            </ion-col>
+          </ion-row>
+          <ion-row class="margin">
+            <ion-col>
+              {{foodCost}} บาท
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="cardSize">
+          <ion-row class="cardRecive">
+            <ion-col>
+              ขายได้
+            </ion-col>
+          </ion-row>
+          <ion-row class="margin">
+            <ion-col>
+              {{foodPriceTotal}} บาท
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="cardSize">
+          <ion-row class="cardProfit">
+            <ion-col>
+              กำไร
+            </ion-col>
+          </ion-row>
+          <ion-row class="margin">
+            <ion-col>
+              {{foodProfit}} บาท
+            </ion-col>
+          </ion-row>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- 
+    <ion-card style="font-size: 20px;">
+      <ion-row class="headcontent">
+        5 อันดับเมนูขายดี
+      </ion-row>
+      <ion-col>
+        ผัดเผ็ดหมูป่า<br>
+        กระเพาหมูกรอบ<br>
+        ข้าวผัด<br>
+        อะไรดี<br>
+        วะ<br>
+      </ion-col>
+    </ion-card> -->
+
+  </ion-card>
+
+
+
 </ion-content>

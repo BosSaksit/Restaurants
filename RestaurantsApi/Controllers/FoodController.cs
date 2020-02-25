@@ -13,16 +13,43 @@ namespace RestaurantsApi.Controllers
     {
 
         public static List<Food> dataFood = new List<Food>{
-            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0002",FoodName="ไก่ทอด",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0003",FoodName="ลาบหมู",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0004",FoodName="หมูกรอบ",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0005",FoodName="โค้ก",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
-            new Food{FoodId = "F0006",FoodName="ส้มตำ",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
-            new Food{FoodId = "F0007",FoodName="เบียร์ช้าง",FoodAmount=0,FoodCost=25,FoodPrice=50,FoodProfit=25,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0001",FoodName="ข้าวผัด",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0002",FoodName="ไก่ทอด",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0003",FoodName="ลาบหมู",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0004",FoodName="หมูกรอบ",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0005",FoodName="โค้ก",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0006",FoodName="ส้มตำ",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="อาหาร",FoodStatus=""},
+            new Food{FoodId = "F0007",FoodName="เบียร์ช้าง",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0008",FoodName="เบียร์สิง",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F0009",FoodName="เบียร์ลีโฮ",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+            new Food{FoodId = "F00010",FoodName="เบียร์ลาว",FoodAmount=1,FoodCost=25,FoodCostTotal=25,FoodProfit=25,FoodProfitTotal=25,FoodPrice=50,FoodPriceTotal=50,FoodType="เครื่องดื่ม",FoodStatus=""},
+
 
         };
 
+        [HttpGet("{Type}")]
+        public ActionResult<IEnumerable<Food>> FilterTypeMenu(string Type)
+        {
+            for (var i = 0; i < dataFood.ToArray().Length; i++)
+            {
+                if (Type == "อาหาร")
+                {
+                    return dataFood.ToList().FindAll(it => it.FoodType == Type);
+
+                }
+                else if (Type == "เครื่องดื่ม")
+                {
+                    return dataFood.ToList().FindAll(it => it.FoodType == Type);
+
+                }
+
+            }
+            return dataFood.ToList();
+
+
+        }
+
+        
 
         [HttpGet]
         public ActionResult<IEnumerable<Food>> GetDataFood()
@@ -45,11 +72,13 @@ namespace RestaurantsApi.Controllers
                 FoodName = foodData.FoodName,
                 FoodAmount = foodData.FoodAmount,
                 FoodCost = foodData.FoodCost,
-                FoodPrice = foodData.FoodPrice,
+                FoodCostTotal = foodData.FoodCostTotal,
                 FoodProfit = foodData.FoodProfit,
+                FoodProfitTotal = foodData.FoodProfitTotal,
+                FoodPrice = foodData.FoodPrice,
                 FoodPriceTotal = foodData.FoodPriceTotal,
                 FoodType = foodData.FoodType,
-                FoodStatus = foodData.FoodStatus,
+                FoodStatus = "",
 
             };
             dataFood.Add(food);
@@ -66,11 +95,13 @@ namespace RestaurantsApi.Controllers
                 FoodName = foodData.FoodName,
                 FoodAmount = foodData.FoodAmount,
                 FoodCost = foodData.FoodCost,
-                FoodPrice = foodData.FoodPrice,
+                FoodCostTotal = foodData.FoodCostTotal,
                 FoodProfit = foodData.FoodProfit,
+                FoodProfitTotal = foodData.FoodProfitTotal,
+                FoodPrice = foodData.FoodPrice,
                 FoodPriceTotal = foodData.FoodPriceTotal,
                 FoodType = foodData.FoodType,
-                FoodStatus = foodData.FoodStatus,
+                FoodStatus = "",
 
 
             };

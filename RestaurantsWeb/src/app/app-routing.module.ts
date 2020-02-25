@@ -64,6 +64,10 @@ const routes: Routes = [
     path: 'bill-payment-detail',
     loadChildren: () => import('./bill-payment-detail/bill-payment-detail.module').then( m => m.BillPaymentDetailPageModule)
   },
+  {
+    path: 'payment',
+    loadChildren: () => import('./modal/payment/payment.module').then( m => m.PaymentPageModule)
+  },
 
 ];
 

@@ -17,6 +17,8 @@ export class DrinkOrderDetailPage implements OnInit {
   foodorder: any;
   orderCook: any;
 
+  table:any;
+
   constructor(public activate: ActivatedRoute, public resApi: ResApiService) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idbill);
@@ -34,6 +36,7 @@ export class DrinkOrderDetailPage implements OnInit {
     this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
       console.log(this.orderData.tableNumber);
+      this.table = this.orderData.tableNumber;
 
       for (let index = 0; index < Object.keys(this.orderData).length; index++) {
         this.orderCook = this.orderData.foodOrder.filter(it => it.foodType == "เครื่องดื่ม");

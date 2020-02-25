@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-row>
-    <ion-col style="font-size: 30px;">ครัว</ion-col>
-    <ion-col style="text-align: right;">
+  <ion-toolbar>
+    <ion-row>
+      <ion-title>ครัว</ion-title>
       <app-logout></app-logout>
-    </ion-col>
-  </ion-row>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -20,7 +20,7 @@
           <td>สถานะ</td>
           <td>ดูข้อมูล</td>
         </tr>
-        <tr *ngFor="let o of dataOrder">
+        <tr *ngFor="let o of dataOrder | paginate: { itemsPerPage: 10, currentPage: p }">
           <td>{{o.tableNumber}}</td>
           <td>{{o.amountCustomer}}</td>
           <td style="color: red;">{{o.orderStatusFood}}</td>
@@ -32,4 +32,9 @@
       </table>
     </ion-row>
   </ion-card>
+  <ion-row class="center">
+    <ion-col>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </ion-col>
+  </ion-row>
 </ion-content>

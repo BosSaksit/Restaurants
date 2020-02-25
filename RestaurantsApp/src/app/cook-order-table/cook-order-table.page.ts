@@ -17,6 +17,7 @@ export class CookOrderTablePage implements OnInit {
   cookOrder: order[] = [];
 
   cookStatus: any;
+  p:number = 1;
 
   ngOnInit() {
     this.getDataOrder();
@@ -56,6 +57,31 @@ export class CookOrderTablePage implements OnInit {
     });
 
   }
+
+  // checkStatusFood() {
+  //   this.resApi.getDataOrderById(this.idbill).subscribe(it => {
+  //     this.orderData = it;
+  //     console.log(this.orderData.foodOrder);
+
+  //     this.orderData.foodOrder.forEach(order => {
+  //       this.orderCookx = this.orderData.foodOrder.filter(it => it.foodType == "อาหาร")
+  //       console.log(this.orderCookx);
+
+  //       for (let i = 0; i < this.orderCookx.length; i++) {
+  //         if (this.orderCookx[i].foodStatus != "") {
+  //           this.cookSendFoodx.orderStatusFood = "เสริฟแล้ว";
+  //           this.dataOrderToCashier = this.cookSendFoodx.orderStatusFood;
+  //           this.resApi.cookSendFood(this.idbill, this.idfood, this.dataOrderToCashier).subscribe(it => {
+  //             console.log(it);
+
+  //           })
+  //         }
+  //       }
+
+  //     });
+
+  //   })
+  // }
 
   // getDataFoodFilter() {
   //   this.resApi.getDataFood().subscribe((it) => {

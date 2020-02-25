@@ -12,6 +12,7 @@ th {
   width: 20px;
   height: 20px;
   align-items: center;
+  color: lightseagreen;
 }
 
 .inputSize{
@@ -24,5 +25,11 @@ th {
   height: 100px;
   width: 75px;
 }
+
+.active{
+  color: red($color: red
+  );
+}
+
 
 

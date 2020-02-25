@@ -8,13 +8,16 @@
 </ion-header>
 
 <ion-content>
+
   <ion-grid>
     <ion-row color="primary" justify-content-center>
-      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-        <div text-center>
-          <h3>เพิ่มอาหาร</h3>
-        </div>
-        <ion-card class="colorw">
+      <ion-col align-self-center size-md="8" size-lg="5" size-xs="12">
+        <ion-card>
+          
+          <ion-row class="cardColor">
+            <ion-col style="font-size: 25px;">เพิ่มอาหาร</ion-col>
+          </ion-row>
+
           <form [formGroup]="dataFood" (ngSubmit)="addDataFood()">
 
             <ion-item [class.invalid]="submit && f.foodType.errors">

@@ -8,6 +8,7 @@ import { CookOrderTablePageRoutingModule } from './cook-order-table-routing.modu
 
 import { CookOrderTablePage } from './cook-order-table.page';
 import { ComponentsModule } from "../logout/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ComponentsModule } from "../logout/components.module";
     FormsModule,
     IonicModule,
     CookOrderTablePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ],
   declarations: [CookOrderTablePage]
 })

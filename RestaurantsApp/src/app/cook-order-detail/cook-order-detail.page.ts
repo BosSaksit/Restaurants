@@ -19,6 +19,8 @@ export class CookOrderDetailPage implements OnInit {
   orderCook: any;
   orderCookx: food[];
 
+  table:any;
+
   cookSendFoodx = {
     "billId": null,
     "orderId": null,
@@ -30,6 +32,8 @@ export class CookOrderDetailPage implements OnInit {
     "moneyCommute": 0,
     "orderDate": "",
     "orderStatus": null,
+    "orderStatusFood":null,
+    "orderStatusDrink":null,
     "orderReceived": []
   };
 
@@ -44,12 +48,14 @@ export class CookOrderDetailPage implements OnInit {
 
   ionViewWillEnter() {
     this.getOrderById();
+    // this.checkStatusFood();
   }
 
   getOrderById() {
     this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
       console.log(this.orderData.foodOrder);
+      this.table = this.orderData.tableNumber;
       this.orderCook = this.orderData.foodOrder.filter(it => it.foodType == "อาหาร");
       console.log(this.orderCook);
     });
@@ -61,17 +67,19 @@ export class CookOrderDetailPage implements OnInit {
     console.log(this.idfood);
     if (i.foodStatus == "") {
       console.log("yes");
-
+      // this.dataOrderToCashier = this.cookSendFoodx.orderStatusFood;
       this.resApi.cookSendFood(this.idbill, this.idfood).subscribe(it => {
         console.log(it);
         this.getOrderById();
       });
-      
+    }
 
-    } else {
+    else {
       alert("เสริฟอาหารแล้ว");
     }
 
   }
+
+  
 
 }

@@ -19,12 +19,15 @@ export class BillPaymentDetailPage implements OnInit {
   orderStatusPayment:any;
   moneyReceived:any;
   moneyCommute:any;
+  orderDate:any;
+  billTime:any;
 
   constructor(public router: Router,
     public resApi: ResApiService,
     public activate:ActivatedRoute) {
       this.idbill = this.activate.snapshot.paramMap.get('idb');
       console.log(this.idbill);
+
      }
 
   ngOnInit() {
@@ -41,6 +44,7 @@ export class BillPaymentDetailPage implements OnInit {
       console.log(this.orderData);
       this.moneyReceived = this.orderData.moneyReceived;
       this.moneyCommute = this.orderData.moneyCommute;
+      this.billTime = this.orderData.billTime;
       console.log(this.orderData.foodOrder);
       this.tableNumber = this.orderData.tableNumber;
 
@@ -49,7 +53,7 @@ export class BillPaymentDetailPage implements OnInit {
         this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
         // console.log(this.orderData.foodOrder[i]);
         this.foodorder = this.orderData.foodOrder;
-        console.log(this.foodorder);
+        // console.log(this.foodorder);
         
         this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
       }

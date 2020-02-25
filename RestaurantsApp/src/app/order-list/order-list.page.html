@@ -22,11 +22,11 @@
             <td>ดูข้อมูล/แก้ไข/ยกเลิก</td>
 
           </tr>
-          <tr *ngFor="let o of dataOrder">
+          <tr *ngFor="let o of dataOrder | paginate: { itemsPerPage: 10, currentPage: p }">
             <td>{{o.tableNumber}}</td>
             <td>{{o.amountCustomer}}</td>
             <td style="color: red;">{{o.orderStatus}}</td>
-            <td style="color: red;">{{o.orderStatusFood}}</td>
+            <td style="color: red;">{{o.orderStatusTotal}}</td>
             <td>
               <ion-button color="secondary" (click)="getDataOrderById(o.billId)">ดู</ion-button>
               <ion-button color="warning" (click)="gotoEditOrder(o.billId)">แก้ไข</ion-button>
@@ -36,5 +36,11 @@
 
         </table>
       </ion-row>
+
     </ion-card>
+    <ion-row class="center">
+      <ion-col>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </ion-col>
+    </ion-row>
 </ion-content>

@@ -55,7 +55,7 @@ ion-input td {
   text-align: center;
 }
 
-ion-select,
+
 ion-datetime,
 ion-select-option,
 ion-textarea {
@@ -69,9 +69,9 @@ ion-textarea {
   margin: auto;
 }
 
-.invalid {
-  border: 1px solid red;
-}
+// .invalid {
+//   border: 1px solid red;
+// }
 
 .invalid-msg {
   color: red;
@@ -126,4 +126,11 @@ tr {
   background-color: lightseagreen;
   color: white;
   padding: 2px;
+}
+
+.cardTable{
+  text-align: center;
+  color: white;
+  background: #E9967A;
+
 }

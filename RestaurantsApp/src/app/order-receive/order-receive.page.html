@@ -1,17 +1,17 @@
 <ion-header>
-  <ion-row>
-    <ion-col style="font-size: 30px;">รับออเดอร์</ion-col>
-    <ion-col style="text-align: right;">
+  <ion-toolbar>
+    <ion-row>
+      <ion-title>รับออเดอร์</ion-title>
       <app-logout></app-logout>
-    </ion-col>
-  </ion-row>
-
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-row>
     <ion-col>
-      <ion-button color="success" shape="round" fill="outline" (click)="getDataFoodFilter()">ทั้งหมด</ion-button>
+      <ion-button class="active" color="success" shape="round" fill="outline" (click)="getDataFoodFilter()">ทั้งหมด
+      </ion-button>
       <ion-button color="success" shape="round" fill="outline" (click)="foodFilter()">อาหาร</ion-button>
       <ion-button color="success" shape="round" fill="outline" (click)="drinkFilter()">น้ำ</ion-button>
       <ion-button color="success" shape="round" fill="outline">อื่นๆ</ion-button>
@@ -22,67 +22,96 @@
   <ion-row>
     <ion-col size="8" class="center">
 
-      <div class="colorW">
-        <ion-row>
-          <ion-col style="font-size: 25px;">รายการอาหาร</ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col *ngFor="let m of dataMenu2" size="4">
-            <ion-card (click)="addFoodToOrderList(m)">
-              <img src="/assets/p1.jfif" alt="Italian Trulli">
-              <ion-card-content>
-                {{m.foodName}}
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </div>
+
+      <ion-row class="cardColor">
+        <ion-col style="font-size: 25px;">เมนูอาหาร</ion-col>
+      </ion-row>
+      <ion-row class="colorW">
+        <ion-col *ngFor="let m of dataMenu" size="4">
+          <ion-card (click)="addFoodToOrderList(m)">
+            <img src="/assets/p1.jfif" alt="Italian Trulli">
+            <ion-card-content>
+              <ion-row>
+                <ion-col style="text-align: left;">
+                  {{m.foodName}}
+                </ion-col>
+                <ion-col style="text-align: right;">
+                  ฿ {{m.foodPrice}}
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
     </ion-col>
 
-    <ion-col size="4" class="center">
-      <div class="colorW">
-        <h3 class="center">รายการ</h3>
-        <table>
-          <tr>
-            <th>รายการ</th>
-            <th>จำนวน</th>
-            <th>ราคา</th>
-          </tr>
-          <tr *ngFor="let o of listDataOrder;let i = index">
-            <td>{{o.foodName}}</td>
-            <td>
-              <ion-item lines="none" text-center>
-                <ion-button class="btnSize1" fill="outline" (click)="minus(i)">-</ion-button>
-                <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input>
-                <ion-button class="btnSize1" fill="outline" (click)="add(i)">+</ion-button>
-              </ion-item>
-            </td>
-            <td>{{o.foodPriceTotal}}</td>
-          </tr>
-          <tr>
-            <td>รวม</td>
-            <td></td>
-            <td>{{totalMoneyOrder}}</td>
-          </tr>
+    <ion-col size="4">
 
-        </table>
+      <ion-row class="cardColor">
+        <ion-col style="font-size: 25px;">รายการอาหาร</ion-col>
+      </ion-row>
+      <div class="colorW">
+        <ion-row text-center>
+          <ion-col>รายการ</ion-col>
+          <ion-col>จำนวน</ion-col>
+          <ion-col>ราคา</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-list>
+              <ion-item-sliding *ngFor="let o of listDataOrder;let i = index">
+                <ion-item lines="none" text-center>
+                  <ion-col colspan="2 ">{{o.foodName}}</ion-col>
+
+                  <ion-col style="text-align: right;">
+                    <ion-button class="btnSize1" fill="outline" (click)="minus(i)">-</ion-button>
+                  </ion-col>
+
+                  <ion-col>
+                    <ion-input min="1" type="number" [(ngModel)]="o.foodAmount"></ion-input>
+                  </ion-col>
+
+                  <ion-col style="text-align: left;">
+                    <ion-button class="btnSize1" fill="outline" (click)="add(i)">+</ion-button>
+                  </ion-col>
+                  <ion-col>
+                    {{o.foodPriceTotal}}
+                  </ion-col>
+                </ion-item>
+                <ion-item-options side="end">
+                  <ion-item-option color="danger" (click)="cancelMenuInOrder(i)">ยกเลิก</ion-item-option>
+                </ion-item-options>
+
+              </ion-item-sliding>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            รวม
+          </ion-col>
+          <ion-col></ion-col>
+          <ion-col >
+            {{totalMoneyOrder}}
+          </ion-col>
+        </ion-row>
         <ion-row>
           <ion-col>
             <div *ngIf="btnStatus == 1">
-              <ion-button class="center" (click)="orderPriceFood()">รวมเงิน</ion-button>
+              <ion-button expand="full" class="center" (click)="orderPriceFood()">รวมเงิน</ion-button>
             </div>
             <div *ngIf="btnStatus == 2">
-              <ion-button color="success" class="center" (click)="addOrderToCashier()">ส่งอาหาร</ion-button>
+              <ion-button expand="full" color="success" class="center" (click)="addOrderToCashier()">ส่งอาหาร
+              </ion-button>
             </div>
           </ion-col>
           <ion-col>
-            <ion-button class="center" (click)="gotoMarket()">ตะกร้า</ion-button>
+            <ion-button expand="full" class="center" [routerLink]="['/order-list']">ตะกร้า</ion-button>
           </ion-col>
         </ion-row>
-
-
-
       </div>
+
     </ion-col>
   </ion-row>
 
