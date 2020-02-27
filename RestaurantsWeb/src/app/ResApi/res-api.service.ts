@@ -108,5 +108,10 @@ export class ResApiService {
   }
   // Summary
 
+  //owner
+  public clearOff() {
+    return this.http.get<order>(ResApiService.host + 'Order/ClearOff');
+  }
+  //owner
 }
 

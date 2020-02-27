@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResApiService } from '../ResApi/res-api.service';
 import { order } from '../Models/order';
+import { summary } from '../Models/summary';
 
 @Component({
   selector: 'app-cashier-order-table',
@@ -11,8 +12,13 @@ import { order } from '../Models/order';
 export class CashierOrderTablePage implements OnInit {
 
   listDataOrder: order;
+  dataSummary: summary;
 
-  constructor(public router: Router, public resApi: ResApiService) {
+  showDatabtn: any;
+
+  constructor(public router: Router,
+    public resApi: ResApiService) {
+    this.showDatabtn = "2";
 
   }
 
@@ -21,7 +27,8 @@ export class CashierOrderTablePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // this.checkStatusFood();
+    this.getDataOrder();
+    this.getDataSummary();
   }
 
   gotoDetailOrder(id) {
@@ -36,11 +43,32 @@ export class CashierOrderTablePage implements OnInit {
     this.resApi.getStatusOrderPayment().subscribe(it => {
       this.listDataOrder = it;
       console.log(it);
-      
-    })
-
-
+    });
   }
+
+
+  getDataSummary() {
+    this.resApi.getDataOrder().subscribe(it => {
+      this.dataSummary = it;
+      console.log(this.dataSummary);
+    }
+    );
+  }
+
+  showData() {
+    this.showDatabtn = "1";
+    if (this.showDatabtn = "1") {
+      this.getDataSummary();
+    } else {
+
+    }
+  }
+
+
+  showData2() {
+    this.showDatabtn = "2";
+  }
+
 
 
 }

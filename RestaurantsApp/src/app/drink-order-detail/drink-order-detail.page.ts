@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ResApiService } from '../ResApi/res-api.service';
 import { order } from '../Models/order';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-drink-order-detail',
@@ -17,9 +18,11 @@ export class DrinkOrderDetailPage implements OnInit {
   foodorder: any;
   orderCook: any;
 
-  table:any;
+  table: any;
 
-  constructor(public activate: ActivatedRoute, public resApi: ResApiService) {
+  constructor(public activate: ActivatedRoute,
+    public resApi: ResApiService,
+    public alertController: AlertController) {
     this.idbill = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idbill);
     this.getOrderById();
@@ -60,8 +63,23 @@ export class DrinkOrderDetailPage implements OnInit {
 
 
     } else {
-      alert("เสริฟอาหารแล้ว");
+      this.alertFood();
     }
   }
 
+  async alertFood() {
+    const alert = await this.alertController.create({
+      header: 'แจ้งเตือนการเสริฟอาหาร',
+
+      buttons: [{
+        text: 'Ok',
+        handler: data => {
+
+        }
+      }],
+
+    });
+    await alert.present();
+
+  }
 }

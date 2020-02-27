@@ -11,24 +11,24 @@ import { order } from '../Models/order';
 export class BillPaymentDetailPage implements OnInit {
   idbill: any;
   orderData: order;
-  dataOrderToCashier: order;
   foodorder: any;
   totalMoneyOrderx: number;
-  foodPriceTotal: any;
-  tableNumber:any;
-  orderStatusPayment:any;
-  moneyReceived:any;
-  moneyCommute:any;
-  orderDate:any;
-  billTime:any;
+  foodPriceTotal: number = 0;
+  tableNumber: any;
+  moneyReceived: any;
+  moneyCommute: any;
+  billTime: any;
+  discountPersen: any;
+  discountBath: any;
+  moneyDiscountTotal: any;
 
   constructor(public router: Router,
     public resApi: ResApiService,
-    public activate:ActivatedRoute) {
-      this.idbill = this.activate.snapshot.paramMap.get('idb');
-      console.log(this.idbill);
+    public activate: ActivatedRoute) {
+    this.idbill = this.activate.snapshot.paramMap.get('idb');
+    console.log(this.idbill);
 
-     }
+  }
 
   ngOnInit() {
     this.getOrderById();
@@ -44,17 +44,23 @@ export class BillPaymentDetailPage implements OnInit {
       console.log(this.orderData);
       this.moneyReceived = this.orderData.moneyReceived;
       this.moneyCommute = this.orderData.moneyCommute;
+      this.discountPersen = this.orderData.discountPersen;
+      this.discountBath = this.orderData.discountBath;
+      this.moneyDiscountTotal = this.orderData.moneyDiscountTotal;
+
       this.billTime = this.orderData.billTime;
       console.log(this.orderData.foodOrder);
       this.tableNumber = this.orderData.tableNumber;
 
       for (let i = 0; i < this.orderData.foodOrder.length; i++) {
         // console.log(this.orderData.foodOrder[i].foodPriceTotal);
-        this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
+        this.foodPriceTotal += this.orderData.foodOrder[i].foodPriceTotal;
+        // console.log(this.foodPriceTotal);
+
         // console.log(this.orderData.foodOrder[i]);
         this.foodorder = this.orderData.foodOrder;
         // console.log(this.foodorder);
-        
+
         this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
       }
     });

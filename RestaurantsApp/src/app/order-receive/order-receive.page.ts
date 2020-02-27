@@ -31,6 +31,7 @@ export class OrderReceivePage implements OnInit {
     "discountPersen":0,
     "discountBath":0,
     "moneyDiscount":0,
+    "moneyDiscountTotal":0,
     "orderDate": "",
     "billTime": "",
     "orderStatus": null,
@@ -82,6 +83,7 @@ export class OrderReceivePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.getDataMenu();
     this.listDataOrder = [];
     this.dataOrderBeforeToCashier.foodOrder = [];
     this.totalMoneyOrder = 0;

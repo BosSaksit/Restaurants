@@ -38,19 +38,31 @@
                 <td>{{o.foodPriceTotal}}.-</td>
               </tr>
               <tr>
-                <td>รวมเงินสุทธิ</td>
-                <td colspan="3" style="text-align: right;">{{totalMoneyOrderx}}</td>
+                <td style="font-size: 20px;"><strong>ยอดชำระ</strong></td>
+                <td colspan="3" style="text-align: right; font-size: 20px;"><strong>{{foodPriceTotal}}</strong></td>
               </tr>
               <tr>
-                <td>เงินที่ได้รับ</td>
+                <td style="text-align: left;">ส่วนลด %</td>
+                <td colspan="3" style="text-align: right; color: red;">({{discountPersen}} %)</td>
+              </tr>
+              <tr>
+                <td style="text-align: left;">ส่วนลดราคา</td>
+                <td colspan="3" style="text-align: right; color: red;">({{discountBath}})</td>
+              </tr>
+              <tr>
+                <td style="font-size: 20px;"><strong>ยอดสุทธิ</strong></td>
+                <td colspan="3" style="text-align: right; font-size: 20px;"><strong>{{moneyDiscountTotal}}</strong></td>
+              </tr>
+              <tr>
+                <td style="text-align: left;">เงินที่ได้รับ</td>
                 <td colspan="3" style="text-align: right;">{{moneyReceived}}</td>
               </tr>
               <tr>
-                <td>เงินทอน</td>
+                <td style="text-align: left;"> เงินทอน</td>
                 <td colspan="3" style="text-align: right;">{{moneyCommute}}</td>
               </tr>
               <tr>
-                <td>วันที่ออกบิล</td>
+                <td style="text-align: left;">วันที่ออกบิล</td>
               </tr>
               <tr>
                 <td>{{billTime}}</td>

@@ -132,7 +132,7 @@ namespace RestaurantsApi.Controllers
                 TableNumber = getBill.TableNumber,
                 FoodOrder = getFoodlist.ToList(),
                 AmountCustomer = getBill.AmountCustomer,
-                TotalMoneyOrder = getBill.TotalMoneyOrder,
+                TotalMoneyOrder = orderData.TotalMoneyOrder,
                 MoneyReceived = orderData.MoneyReceived,
                 MoneyCommute = orderData.MoneyCommute,
                 DiscountPersen = orderData.DiscountPersen,
@@ -381,6 +381,13 @@ namespace RestaurantsApi.Controllers
             // dataf.Remove(idf);
             // Console.WriteLine("B : "+dataf.Count);
 
+        }
+
+
+        [HttpGet]
+        public void ClearOff()
+        {
+            dataOrder.Clear();
         }
     }
 }

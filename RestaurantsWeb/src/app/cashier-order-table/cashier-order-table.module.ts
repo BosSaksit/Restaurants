@@ -7,6 +7,8 @@ import { CashierOrderTablePageRoutingModule } from './cashier-order-table-routin
 
 import { CashierOrderTablePage } from './cashier-order-table.page';
 import { ComponentsModule } from "../test/components.module";
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 
 
@@ -16,8 +18,9 @@ import { ComponentsModule } from "../test/components.module";
     FormsModule,
     IonicModule,
     CashierOrderTablePageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    NgxPaginationModule
   ],
-  declarations: [CashierOrderTablePage,]
+  declarations: [CashierOrderTablePage]
 })
 export class CashierOrderTablePageModule {}

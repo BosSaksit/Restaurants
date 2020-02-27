@@ -3,6 +3,7 @@ import { ModalController, NavParams, AlertController } from '@ionic/angular';
 import { order } from 'src/app/Models/order';
 import { summary } from 'src/app/Models/summary';
 import { ResApiService } from 'src/app/ResApi/res-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -36,6 +37,8 @@ export class PaymentPage implements OnInit {
   totalMoneyDiscoutPersen: number;
   totalMoneyDiscoutBath: number;
 
+  discountPersenAnddiscountBath: number;
+
   id: any;
 
   dataOrderBeforeToCashier = {
@@ -65,7 +68,8 @@ export class PaymentPage implements OnInit {
   constructor(public modal: ModalController,
     public resApi: ResApiService,
     public navParams: NavParams,
-    public alertController: AlertController) {
+    public alertController: AlertController,
+    public router: Router) {
 
     this.discoutPersen = false;
     this.discoutBath = false;
@@ -83,88 +87,6 @@ export class PaymentPage implements OnInit {
 
   async close() {
     await this.modal.dismiss();
-  }
-
-  payMent() {
-    this.resApi.getDataOrderById(this.id).subscribe(it => {
-      this.orderData = it;
-      console.log(this.orderData);
-      console.log(this.orderData.foodOrder);
-      this.tableNumber = this.orderData.tableNumber;
-
-      for (let i = 0; i < this.orderData.foodOrder.length; i++) {
-        // console.log(this.orderData.foodOrder[i].foodPriceTotal);
-        this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
-        // console.log(this.orderData.foodOrder[i]);
-        this.foodorder = this.orderData.foodOrder;
-        this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
-
-      }
-
-
-      if (this.discoutPersen == true) {
-        this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
-        this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx - this.totalDisPs;
-        this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs;
-        this.totalMoneyDiscoutPersen = this.totalMoneyOrderx - this.totalDisPs;
-        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalMoneyDiscoutPersen;
-        this.moneyCommute = this.moneyReceived - this.totalMoneyDiscoutPersen;
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.disPersenAlert();
-      } else if (this.discoutBath == true) {
-        this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
-        this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
-        this.dataOrderBeforeToCashier.moneyDiscount = this.discoutBathIp;
-        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalDisBth
-        this.moneyCommute = this.moneyReceived - this.totalDisBth
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.disBathAlert();
-
-
-      } else {
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.moneyCommute = this.moneyReceived - this.totalMoneyOrderx;
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.payMentAlert();
-      }
-
-
-      this.dataOrderBeforeToCashier.orderStatusPayment = this.orderStatusPayment;
-      this.dataOrderToCashier = this.dataOrderBeforeToCashier;
-
-      this.resApi.orderPayment(this.id, this.dataOrderToCashier).subscribe(it => {
-        this.dataSummaryPayment = it;
-        console.log(this.dataSummaryPayment);
-        this.resApi.addDataSummary(this.dataSummaryPayment).subscribe(it => {
-          console.log(it);
-
-        });
-
-      });
-    });
-    // this.router.navigate(['/bill-payment-detail', { idb: id }]);
-  }
-
-
-  getOrderById() {
-    this.resApi.getDataOrderById(this.id).subscribe(it => {
-      this.orderData = it;
-      console.log(this.orderData);
-      console.log(this.orderData.foodOrder);
-      this.tableNumber = this.orderData.tableNumber;
-
-      for (let i = 0; i < this.orderData.foodOrder.length; i++) {
-        // console.log(this.orderData.foodOrder[i].foodPriceTotal);
-        this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
-        // console.log(this.orderData.foodOrder[i]);
-        this.foodorder = this.orderData.foodOrder;
-        this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
-      }
-    });
   }
 
   async persen() {
@@ -224,14 +146,137 @@ export class PaymentPage implements OnInit {
           this.totalDisBth = this.totalMoneyOrderx - data.bath;
           this.totalMoneyDiscoutBath = this.totalMoneyOrderx - this.totalDisBth;
           console.log(this.totalMoneyDiscoutBath);
-          
+
           this.discoutBathIp = data.bath;
-          this.totalMoneyOrderx = this.totalDisBth ;
-          
+          this.totalMoneyOrderx = this.totalDisBth;
+
         }
       }],
 
     });
+    await alert.present();
+
+  }
+
+
+  payMent() {
+    this.resApi.getDataOrderById(this.id).subscribe(it => {
+      this.orderData = it;
+      console.log(this.orderData);
+      console.log(this.orderData.foodOrder);
+      this.tableNumber = this.orderData.tableNumber;
+
+      for (let i = 0; i < this.orderData.foodOrder.length; i++) {
+        // console.log(this.orderData.foodOrder[i].foodPriceTotal);
+        this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
+        // console.log(this.orderData.foodOrder[i]);
+        this.foodorder = this.orderData.foodOrder;
+        this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
+
+      }
+
+      if (this.discoutPersen != false && this.discoutBath != false) {
+        this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
+        this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
+        this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
+        this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
+        this.discountPersenAnddiscountBath = this.totalDisBth - this.totalDisPs;
+        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.discountPersenAnddiscountBath;
+        this.dataOrderBeforeToCashier.totalMoneyOrder = this.discountPersenAnddiscountBath;
+        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+        this.moneyCommute = this.moneyReceived - this.discountPersenAnddiscountBath;
+        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+        this.disPersenAnddisBathAlert();
+
+
+      }
+      else if (this.discoutPersen == true) {
+        this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
+        this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
+        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx - this.totalDisPs;
+        this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs;
+        this.totalMoneyDiscoutPersen = this.totalMoneyOrderx - this.totalDisPs;
+        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalMoneyDiscoutPersen;
+        this.moneyCommute = this.moneyReceived - this.totalMoneyDiscoutPersen;
+        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyDiscoutPersen;
+        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+        this.disPersenAlert();
+      } else if (this.discoutBath == true) {
+        this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
+        this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
+        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
+        this.dataOrderBeforeToCashier.moneyDiscount = this.discoutBathIp;
+        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalDisBth
+        this.moneyCommute = this.moneyReceived - this.totalDisBth
+        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
+        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+        this.disBathAlert();
+      }
+      else {
+        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+        this.moneyCommute = this.moneyReceived - this.totalMoneyOrderx;
+        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx;
+        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+        this.payMentAlert();
+      }
+
+
+      this.dataOrderBeforeToCashier.orderStatusPayment = this.orderStatusPayment;
+      this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+
+      this.resApi.orderPayment(this.id, this.dataOrderToCashier).subscribe(it => {
+        this.dataSummaryPayment = it;
+        console.log(this.dataSummaryPayment);
+        this.resApi.addDataSummary(this.dataSummaryPayment).subscribe(it => {
+          console.log(it);
+
+        });
+
+      });
+    });
+    // this.router.navigate(['/bill-payment-detail', { idb: id }]);
+  }
+
+
+  getOrderById() {
+    this.resApi.getDataOrderById(this.id).subscribe(it => {
+      this.orderData = it;
+      console.log(this.orderData);
+      console.log(this.orderData.foodOrder);
+      this.tableNumber = this.orderData.tableNumber;
+
+      for (let i = 0; i < this.orderData.foodOrder.length; i++) {
+        // console.log(this.orderData.foodOrder[i].foodPriceTotal);
+        this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
+        // console.log(this.orderData.foodOrder[i]);
+        this.foodorder = this.orderData.foodOrder;
+        this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
+      }
+    });
+  }
+
+
+  async disPersenAnddisBathAlert() {
+    const alert = await this.alertController.create({
+      header: 'แจ้งเตือนการชำระเงิน',
+      message: 'ยอดชำระ :' + this.totalMoneyOrderx + '<br>' +
+        'เงินที่ได้รับ : ' + this.moneyReceived + '<br>' +
+        'ส่วนลด % : ' + this.discoutPersenIp + '<br>' +
+        'ส่วนลดราคา : ' + this.discoutBathIp + '<br>' +
+        'ยอดสุทธิ : ' + this.discountPersenAnddiscountBath + '<br>' +
+        'เงินทอน : ' + this.moneyCommute + '<br>',
+      buttons: [{
+        text: 'Ok',
+        handler: data => {
+          this.closex();
+
+          this.router.navigate(['/cashier-order-table']);
+        }
+      }],
+    });
+
     await alert.present();
 
   }
@@ -244,10 +289,18 @@ export class PaymentPage implements OnInit {
         'ส่วนลด % : ' + this.discoutPersenIp + '<br>' +
         'ยอดสุทธิ : ' + this.totalMoneyDiscoutPersen + '<br>' +
         'เงินทอน : ' + this.moneyCommute + '<br>',
-      buttons: ['OK']
+      buttons: [{
+        text: 'Ok',
+        handler: data => {
+          this.closex();
+
+          this.router.navigate(['/cashier-order-table']);
+        }
+      }],
     });
 
     await alert.present();
+
   }
 
   async disBathAlert() {
@@ -259,10 +312,19 @@ export class PaymentPage implements OnInit {
         'ยอดสุทธิ : ' + this.totalDisBth + "<br>" +
         'เงินทอน : ' + this.moneyCommute + "<br>"
       ,
-      buttons: ['OK']
+      buttons: [{
+        text: 'Ok',
+        handler: data => {
+          this.closex();
+
+          this.router.navigate(['/cashier-order-table']);
+        }
+      }],
     });
 
     await alert.present();
+
+
   }
 
   async payMentAlert() {
@@ -272,10 +334,25 @@ export class PaymentPage implements OnInit {
         'เงินที่ได้รับ : ' + this.moneyReceived + "<br>" +
         'เงินทอน : ' + this.moneyCommute + "<br>"
       ,
-      buttons: ['OK']
+      buttons: [{
+        text: 'Ok',
+        handler: data => {
+          this.closex();
+          this.router.navigate(['/cashier-order-table']);
+        }
+      }],
     });
 
     await alert.present();
+
+
   }
+
+  async closex() {
+    await this.modal.dismiss();
+  }
+
+
+
 
 }

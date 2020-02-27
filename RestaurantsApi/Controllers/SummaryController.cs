@@ -34,7 +34,7 @@ namespace RestaurantsApi.Controllers
         [HttpGet("{day}/{month}")]
         public ActionResult<IEnumerable<Summary>> GetDataSummaryGetDay(string day, string month)
         {
-
+ 
             return dataSummary.ToList().FindAll(it => (DateTime.Parse(it.OrderDate).Day.ToString() == day) && (DateTime.Parse(it.OrderDate).Month.ToString() == month));
 
         }

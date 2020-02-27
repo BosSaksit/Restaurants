@@ -13,6 +13,7 @@ export class order {
     discountPersen:number;
     discountBath:number;
     moneyDiscount:number;
+    moneyDiscountTotal:number;
     orderDate: string;
     billTime:string;
     orderStatus: string;

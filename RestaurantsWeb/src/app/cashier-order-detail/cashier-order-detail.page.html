@@ -10,7 +10,7 @@
 <ion-content>
   <ion-card>
     <ion-row class="cardColor">
-      <ion-col style="font-size: 25px;">โต๊ะที่ {{tableNumber}}</ion-col>
+      <ion-col style="font-size: 25px;">โต๊ะที่ : {{tableNumber}}</ion-col>
     </ion-row>
     <ion-row class="colorW">
       <table>
@@ -25,9 +25,8 @@
         <tr *ngFor="let o of foodorder;let i = index">
           <td>{{o.foodName}}</td>
           <td>
-            <ion-input></ion-input>
           </td>
-          <td>{{o.foodStatus}}</td>
+          <td style="color: red;">{{o.foodStatus}}</td>
           <td>{{o.foodAmount}}</td>
           <td>{{o.foodPriceTotal}}</td>
         </tr>

@@ -22,11 +22,12 @@
                 <ion-col style="font-size: 25px;">{{o.tableNumber}}</ion-col>
               </ion-row>
               <ion-row>
+                <ion-col style="text-align: right; color: red;">{{o.orderStatusTotal}}</ion-col>
+              </ion-row>
+              <ion-row>
                 <ion-col text-center>
                   <ion-button color="light" (click)="gotoDetailBill(o.orderId)">ดูข้อมูล</ion-button>
                 </ion-col>
-              </ion-row>
-              <ion-row>
                 <ion-col text-center>
                   <ion-button color="success" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
                 </ion-col>
@@ -38,36 +39,74 @@
     </ion-col>
   </ion-row>
 
-  <!-- <ion-row>
+  <ion-row>
     <ion-col>
       <ion-card>
         <ion-row class="cardColor">
-          <ion-col style="font-size: 25px;">ชำระเงินแล้ว</ion-col>
-          
-        </ion-row>
-
-        <ion-row class="colorW">
-          <ion-col size="3" *ngFor="let o of listDataOrder">
-            <ion-card>
-              <ion-row class="cardTable">
-                <ion-col style="font-size: 25px;">{{o.tableNumber}}</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col text-center>
-                  <ion-button color="light" (click)="gotoDetailBill(o.orderId)">ดูข้อมูล</ion-button>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col text-center>
-                  <ion-button color="success" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-card>
+          <ion-col size="4"></ion-col>
+          <ion-col style="font-size: 25px;" text-center>ชำระเงินแล้ว</ion-col>
+          <ion-col style="font-size: 25px;" text-right>
+            <div *ngIf="showDatabtn == 2" style="padding-top: 5px;">
+              <ion-icon (click)="showData()" name="add"></ion-icon>
+            </div>
+            <div *ngIf="showDatabtn == 1" style="padding-top: 5px;">
+              <ion-icon (click)="showData2()" name="remove"></ion-icon>
+            </div>
           </ion-col>
         </ion-row>
+
+        <div *ngIf="showDatabtn == 1">
+          <ion-row text-center class="colorW">
+            <ion-col>
+              <ion-row>
+                <ion-col>โต๊ะที่</ion-col>
+                <ion-col>จำนวนคน</ion-col>
+                <ion-col>ยอดสุทธิ</ion-col>
+                <ion-col>เงินที่ได้รับ</ion-col>
+                <ion-col>เงินทอน</ion-col>
+                <ion-col>วัน/เวลาชำระเงิน</ion-col>
+                <ion-col>สถานะบิล</ion-col>
+                <ion-col>ดูข้อมูล</ion-col>
+              </ion-row>
+              <ion-row text-center size="3" *ngFor="let o of dataSummary | paginate: { itemsPerPage: 10, currentPage: p }">
+                <ion-col>
+                  {{o.tableNumber}}
+                </ion-col>
+                <ion-col>
+                  {{o.amountCustomer}}
+                </ion-col>
+                <ion-col>
+                  {{o.totalMoneyOrder}}
+                </ion-col>
+                <ion-col>
+                  {{o.moneyReceived}}
+                </ion-col>
+                <ion-col>
+                  {{o.moneyCommute}}
+                </ion-col>
+                <ion-col>
+                  {{o.billTime | date:"MM/dd/yy h:mm"}}
+                </ion-col>
+                <ion-col style="color: red;">
+                  {{o.orderStatus}}
+                </ion-col>
+                <ion-col>
+                  <ion-icon style="font-size: 25px;" name="ios-search" (click)="gotoDetailBill(o.orderId)"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
       </ion-card>
+      <div *ngIf="showDatabtn == 1" >
+      <ion-row class="center">
+        <ion-col>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </ion-col>
+      </ion-row>
+    </div>
     </ion-col>
-  </ion-row> -->
+  </ion-row>
 
 
 </ion-content>
