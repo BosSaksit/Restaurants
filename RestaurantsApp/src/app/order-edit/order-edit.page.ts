@@ -29,6 +29,7 @@ export class OrderEditPage implements OnInit {
     "discountPersen":0,
     "discountBath":0,
     "moneyDiscount":0,
+    "moneyDiscountTotal":0,
     "orderDate": "",
     "billTime": "",
     "orderStatus": null,
