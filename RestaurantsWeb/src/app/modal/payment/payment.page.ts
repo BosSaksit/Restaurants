@@ -20,6 +20,7 @@ export class PaymentPage implements OnInit {
 
   totalDisPs: number;
   totalDisBth: number;
+  discount: number;
 
   idbill: any;
   orderData: order;
@@ -180,12 +181,15 @@ export class PaymentPage implements OnInit {
         this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
         this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
         this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
+        console.log(this.totalDisPs);
+
         this.discountPersenAnddiscountBath = this.totalDisBth - this.totalDisPs;
         this.dataOrderBeforeToCashier.moneyDiscountTotal = this.discountPersenAnddiscountBath;
         this.dataOrderBeforeToCashier.totalMoneyOrder = this.discountPersenAnddiscountBath;
         this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
         this.moneyCommute = this.moneyReceived - this.discountPersenAnddiscountBath;
         this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+        this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs + this.totalMoneyDiscoutBath;
         this.disPersenAnddisBathAlert();
 
 

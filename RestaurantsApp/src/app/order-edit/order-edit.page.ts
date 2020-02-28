@@ -26,10 +26,10 @@ export class OrderEditPage implements OnInit {
     "totalMoneyOrder": 0,
     "moneyReceived": 0,
     "moneyCommute": 0,
-    "discountPersen":0,
-    "discountBath":0,
-    "moneyDiscount":0,
-    "moneyDiscountTotal":0,
+    "discountPersen": 0,
+    "discountBath": 0,
+    "moneyDiscount": 0,
+    "moneyDiscountTotal": 0,
     "orderDate": "",
     "billTime": "",
     "orderStatus": null,
@@ -59,10 +59,10 @@ export class OrderEditPage implements OnInit {
     public resApi: ResApiService,
     public router: Router,
     public activate: ActivatedRoute,
-    public loadingController:LoadingController) {
+    public loadingController: LoadingController) {
     this.idBillEdit = this.activate.snapshot.paramMap.get('idbill');
     console.log(this.idBillEdit);
-    
+
     this.btnStatus = 1;
 
 

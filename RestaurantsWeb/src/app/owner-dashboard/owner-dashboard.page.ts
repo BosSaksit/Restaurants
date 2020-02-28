@@ -24,6 +24,7 @@ export class OwnerDashboardPage implements OnInit {
 
 
 
+
   constructor(public router: Router,
     public resApi: ResApiService,
     public alertController: AlertController) { }
