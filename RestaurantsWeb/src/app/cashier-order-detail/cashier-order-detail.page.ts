@@ -46,7 +46,8 @@ export class CashierOrderDetailPage implements OnInit {
     "orderStatusPayment": null,
     "orderStatusFood": null,
     "orderStatusDrink": null,
-    "orderReceived": []
+    "orderReceived": [],
+    "orderFoodType":null
   };
 
   constructor(public resApi: ResApiService,

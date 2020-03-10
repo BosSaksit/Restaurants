@@ -19,13 +19,15 @@ export class OrderListPage implements OnInit {
   yy: any[] = [];
   statusEdit: any;
   p: number = 1;
-
+  showDatabtn: any
   totalItem: number = 0;
+  dataOrderPaid: any
+  dataOrdernoPaid: any
   constructor(public router: Router,
     public resApi: ResApiService,
     public alertController: AlertController,
     public loadingController: LoadingController) {
-
+    this.showDatabtn = "2"
   }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class OrderListPage implements OnInit {
 
   ionViewWillEnter() {
     // this.checkStatusFood();
+    this.getDataOrder();
   }
 
   gotoDetailOrder() {
@@ -53,20 +56,36 @@ export class OrderListPage implements OnInit {
     // this.statusEdit = "1";
     this.router.navigate(['/order-edit', { idbill: id }]);
   }
-
+  test: food[] = []
+  testorder: order[] = []
+  testorder2
   getDataOrder() {
     this.resApi.getDataOrder().subscribe(it => {
+      console.log(it);
 
       for (let index = 0; index < Object.keys(it).length; index++) {
         this.dataOrder[index] = it[index];
 
-        if (this.dataOrder[index].foodOrder[index].foodStatus != null) {
-          this.dataOrder[index].orderStatusTotal = this.dataOrder[index].foodOrder[index].foodStatus;
-
-        } else {
-          console.log("data null");
-
+        for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+          this.dataOrderPaid = this.dataOrder.filter(it => it.orderStatus == "ชำระเงินแล้ว")
         }
+
+        for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+          this.dataOrdernoPaid = this.dataOrder.filter(it => it.orderStatus != "ชำระเงินแล้ว")
+        }
+
+        this.dataOrder.forEach(foodorder => {
+          foodorder.foodOrder.forEach(it => {
+
+            if (it.foodStatus == "") {
+              foodorder.orderStatusTotal = ""
+              console.log("data null");
+              
+            }
+          })
+
+        });
+
       }
       // this.dataorder2 = this.xx.sort((a, b) => a.tableNumber.localeCompare(b.tableNumber));
       // console.log(this.dataorder2);
@@ -89,25 +108,29 @@ export class OrderListPage implements OnInit {
     });
   }
 
+  showData() {
+    this.showDatabtn = "1";
+    if (this.showDatabtn = "1") {
+      this.getDataOrder();
+    } else {
+
+    }
+  }
+  showData2() {
+    this.showDatabtn = "2";
+  }
+
   // async alertConfirmCancelOrder() {
   //   const alert = await this.alertController.create({
-  //     header: 'แจ้งเตือนการยกเลิกออเดอร์',
-  //     subHeader: 'ต้องการยกเลิกหรือไม่ ?',
+  //     header: 'แจ้งเตือน',
+  //     subHeader: 'โต๊ะนี้ยังไม่ได้ทำการชำระเงิน',
   //     buttons: [{
   //       text: 'Cancel',
-  //       role: 'cancel',
-  //       cssClass: 'secondary',
   //       handler: () => {
   //         console.log('Cancel');
   //       }
-  //     }, {
-  //       text: 'Ok',
-  //       handler: data => {
-  //         this.getDataOrder();
-  //         this.presentLoading();
+  //     }]
 
-  //       }
-  //     }],
 
   //   });
   //   await alert.present();

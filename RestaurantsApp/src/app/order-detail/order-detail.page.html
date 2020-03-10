@@ -30,7 +30,7 @@
                 <td>หน่วยละ</td>
                 <td>รวม</td>
               </tr>
-              <tr *ngFor="let o of foodorder">
+              <tr *ngFor="let o of foodbill">
                 <td>{{o.foodId}}</td>
                 <td>{{o.foodName}}</td>
                 <td>{{o.foodAmount}} </td>
@@ -39,7 +39,7 @@
               </tr>
               <tr>
                 <td style="font-size: 20px;"><strong>ยอดชำระ</strong></td>
-                <td colspan="3" style="text-align: right; font-size: 20px;"><strong>{{foodPriceTotal}}</strong></td>
+                <td colspan="3" style="text-align: right; font-size: 20px;"><strong>{{foodPriceTotalbill}}</strong></td>
               </tr>
               <tr>
                 <td style="text-align: left;">ส่วนลด %</td>

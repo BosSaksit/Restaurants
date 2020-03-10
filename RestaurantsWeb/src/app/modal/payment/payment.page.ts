@@ -34,7 +34,7 @@ export class PaymentPage implements OnInit {
   moneyCommute: any;
   dataSummaryPayment: summary;
 
-  moneyReceived: number;
+  moneyReceived: number = 0;
   totalMoneyDiscoutPersen: number;
   totalMoneyDiscoutBath: number;
 
@@ -62,7 +62,8 @@ export class PaymentPage implements OnInit {
     "orderStatusPayment": null,
     "orderStatusFood": null,
     "orderStatusDrink": null,
-    "orderReceived": []
+    "orderReceived": [],
+    "orderFoodType":null
   };
 
 
@@ -161,85 +162,97 @@ export class PaymentPage implements OnInit {
 
 
   payMent() {
-    this.resApi.getDataOrderById(this.id).subscribe(it => {
-      this.orderData = it;
-      console.log(this.orderData);
-      console.log(this.orderData.foodOrder);
-      this.tableNumber = this.orderData.tableNumber;
+    if (this.orderStatusPayment == null || this.orderStatusPayment == "" && this.moneyReceived == null || this.moneyReceived == 0) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน")
+      console.log(this.moneyReceived);
 
-      for (let i = 0; i < this.orderData.foodOrder.length; i++) {
-        // console.log(this.orderData.foodOrder[i].foodPriceTotal);
-        this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
-        // console.log(this.orderData.foodOrder[i]);
-        this.foodorder = this.orderData.foodOrder;
-        this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
-
-      }
-
-      if (this.discoutPersen != false && this.discoutBath != false) {
-        this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
-        this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
-        this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
-        this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
-        console.log(this.totalDisPs);
-
-        this.discountPersenAnddiscountBath = this.totalDisBth - this.totalDisPs;
-        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.discountPersenAnddiscountBath;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.discountPersenAnddiscountBath;
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.moneyCommute = this.moneyReceived - this.discountPersenAnddiscountBath;
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs + this.totalMoneyDiscoutBath;
-        this.disPersenAnddisBathAlert();
-
-
-      }
-      else if (this.discoutPersen == true) {
-        this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
-        this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx - this.totalDisPs;
-        this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs;
-        this.totalMoneyDiscoutPersen = this.totalMoneyOrderx - this.totalDisPs;
-        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalMoneyDiscoutPersen;
-        this.moneyCommute = this.moneyReceived - this.totalMoneyDiscoutPersen;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyDiscoutPersen;
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.disPersenAlert();
-      } else if (this.discoutBath == true) {
-        this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
-        this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
-        this.dataOrderBeforeToCashier.moneyDiscount = this.discoutBathIp;
-        this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalDisBth
-        this.moneyCommute = this.moneyReceived - this.totalDisBth
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.disBathAlert();
+    }
+    else {
+      if (this.moneyReceived <= this.totalMoneyOrderx) {
+      alert("กรุณากรอกจำนวนเงินให้ถูกต้อง")
       }
       else {
-        this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
-        this.moneyCommute = this.moneyReceived - this.totalMoneyOrderx;
-        this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx;
-        this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
-        this.payMentAlert();
-      }
+        this.resApi.getDataOrderById(this.id).subscribe(it => {
+          this.orderData = it;
+          console.log(this.orderData);
+          console.log(this.orderData.foodOrder);
+          this.tableNumber = this.orderData.tableNumber;
+
+          for (let i = 0; i < this.orderData.foodOrder.length; i++) {
+            // console.log(this.orderData.foodOrder[i].foodPriceTotal);
+            this.foodPriceTotal = this.orderData.foodOrder[i].foodPriceTotal;
+            // console.log(this.orderData.foodOrder[i]);
+            this.foodorder = this.orderData.foodOrder;
+            this.totalMoneyOrderx = this.orderData.totalMoneyOrder;
+
+          }
+
+          if (this.discoutPersen != false && this.discoutBath != false) {
+            this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
+            this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
+            this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
+            this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
+            console.log(this.totalDisPs);
+
+            this.discountPersenAnddiscountBath = this.totalDisBth - this.totalDisPs;
+            this.dataOrderBeforeToCashier.moneyDiscountTotal = this.discountPersenAnddiscountBath;
+            this.dataOrderBeforeToCashier.totalMoneyOrder = this.discountPersenAnddiscountBath;
+            this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+            this.moneyCommute = this.moneyReceived - this.discountPersenAnddiscountBath;
+            this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+            this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs + this.totalMoneyDiscoutBath;
+            this.disPersenAnddisBathAlert();
 
 
-      this.dataOrderBeforeToCashier.orderStatusPayment = this.orderStatusPayment;
-      this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+          }
+          else if (this.discoutPersen == true) {
+            this.dataOrderBeforeToCashier.discountPersen = this.discoutPersenIp;
+            this.totalDisPs = (this.totalMoneyOrderx * this.discoutPersenIp) / 100;
+            this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+            this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx - this.totalDisPs;
+            this.dataOrderBeforeToCashier.moneyDiscount = this.totalDisPs;
+            this.totalMoneyDiscoutPersen = this.totalMoneyOrderx - this.totalDisPs;
+            this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalMoneyDiscoutPersen;
+            this.moneyCommute = this.moneyReceived - this.totalMoneyDiscoutPersen;
+            this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyDiscoutPersen;
+            this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+            this.disPersenAlert();
+          } else if (this.discoutBath == true) {
+            this.totalDisBth = this.totalMoneyOrderx - this.discoutBathIp;
+            this.dataOrderBeforeToCashier.discountBath = this.discoutBathIp;
+            this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+            this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
+            this.dataOrderBeforeToCashier.moneyDiscount = this.discoutBathIp;
+            this.dataOrderBeforeToCashier.moneyDiscountTotal = this.totalDisBth
+            this.moneyCommute = this.moneyReceived - this.totalDisBth
+            this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalDisBth;
+            this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+            this.disBathAlert();
+          }
+          else {
+            this.dataOrderBeforeToCashier.moneyReceived = this.moneyReceived;
+            this.moneyCommute = this.moneyReceived - this.totalMoneyOrderx;
+            this.dataOrderBeforeToCashier.totalMoneyOrder = this.totalMoneyOrderx;
+            this.dataOrderBeforeToCashier.moneyCommute = this.moneyCommute;
+            this.payMentAlert();
+          }
 
-      this.resApi.orderPayment(this.id, this.dataOrderToCashier).subscribe(it => {
-        this.dataSummaryPayment = it;
-        console.log(this.dataSummaryPayment);
-        this.resApi.addDataSummary(this.dataSummaryPayment).subscribe(it => {
-          console.log(it);
 
+          this.dataOrderBeforeToCashier.orderStatusPayment = this.orderStatusPayment;
+          this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+
+          this.resApi.orderPayment(this.id, this.dataOrderToCashier).subscribe(it => {
+            this.dataSummaryPayment = it;
+            console.log(this.dataSummaryPayment);
+            this.resApi.addDataSummary(this.dataSummaryPayment).subscribe(it => {
+              console.log(it);
+
+            });
+
+          });
         });
-
-      });
-    });
+      }
+    }
     // this.router.navigate(['/bill-payment-detail', { idb: id }]);
   }
 

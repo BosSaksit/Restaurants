@@ -29,15 +29,18 @@ export class DrinkOrderDetailPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getOrderById();
   }
 
-  // ionViewWillEnter() {
-  //   this.getOrderById();
-  // }
+  ionViewWillEnter() {
+    this.getOrderById();
+  }
 
   getOrderById() {
     this.resApi.getDataOrderById(this.idbill).subscribe(it => {
       this.orderData = it;
+      console.log(this.orderData);
+
       console.log(this.orderData.tableNumber);
       this.table = this.orderData.tableNumber;
 
@@ -50,7 +53,7 @@ export class DrinkOrderDetailPage implements OnInit {
 
   drinkSendFood(i) {
     console.log(i);
-    this.idfood = i.foodId;
+    this.idfood = i.foodNumber;
     console.log(this.idfood);
     if (i.foodStatus == "") {
       console.log("yes");
@@ -70,7 +73,7 @@ export class DrinkOrderDetailPage implements OnInit {
   async alertFood() {
     const alert = await this.alertController.create({
       header: 'แจ้งเตือนการเสริฟอาหาร',
-
+      subHeader: 'เสริฟอาหารแล้ว',
       buttons: [{
         text: 'Ok',
         handler: data => {

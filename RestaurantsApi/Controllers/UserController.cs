@@ -33,6 +33,8 @@ namespace RestaurantsApi.Controllers
             return dataUser.FirstOrDefault(it => it.UserId == id.ToString());
         }
 
+    
+
         [HttpGet("{user}")]
         public ActionResult<User> login(string user)
         {

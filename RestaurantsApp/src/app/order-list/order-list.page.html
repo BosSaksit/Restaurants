@@ -20,9 +20,8 @@
             <td>สถานะบิล</td>
             <td>สถานะออเดอร์</td>
             <td>ดูข้อมูล/แก้ไข/ยกเลิก</td>
-
           </tr>
-          <tr *ngFor="let o of dataOrder | paginate: { itemsPerPage: 10, currentPage: p }">
+          <tr *ngFor="let o of dataOrdernoPaid ">
             <td>{{o.tableNumber}}</td>
             <td>{{o.amountCustomer}}</td>
             <td style="color: red;">{{o.orderStatus}}</td>
@@ -33,12 +32,54 @@
               <ion-button color="danger" (click)="cancelOrder(o.billId)">ยกเลิก</ion-button>
             </td>
           </tr>
-
         </table>
       </ion-row>
 
     </ion-card>
-    <ion-row class="center">
+
+
+    <ion-card>
+      <ion-row class="cardColor">
+        <ion-col size="4"></ion-col>
+      <ion-col>
+        <label style="font-size: 25px;">รายการ Order</label>
+        <label style="font-size: 10;">(ชำระเงินแล้ว)</label>
+      </ion-col>
+      <ion-col style="font-size: 25px;" text-right>
+        <div *ngIf="showDatabtn == 2" style="padding-top: 5px;">
+          <ion-icon (click)="showData()" name="add"></ion-icon>
+        </div>
+        <div *ngIf="showDatabtn == 1" style="padding-top: 5px;">
+          <ion-icon (click)="showData2()" name="remove"></ion-icon>
+        </div>
+      </ion-col>
+      </ion-row>
+      <ion-row *ngIf="showDatabtn == 1" class="colorW">
+        <table>
+          <tr>
+            <td>โต๊ะที่</td>
+            <td>จำนวนคน</td>
+            <td>สถานะบิล</td>
+            <td>สถานะออเดอร์</td>
+            <td>ดูข้อมูล</td>
+          </tr>
+          <tr *ngFor="let a of dataOrderPaid | paginate: { itemsPerPage: 10, currentPage: p }">
+            <td>{{a.tableNumber}}</td>
+            <td>{{a.amountCustomer}}</td>
+            <td style="color: red;">{{a.orderStatus}}</td>
+            <td style="color: red;">{{a.orderStatusTotal}}</td>
+            <td>
+              <ion-icon style="font-size: 25px;" name="ios-search" (click)="getDataOrderById(a.billId)"></ion-icon>
+              <!-- <ion-button color="secondary" (click)="getDataOrderById(a.billId)">ดู</ion-button> -->
+              <!-- <ion-button color="warning" (click)="gotoEditOrder(a.billId)">แก้ไข</ion-button>
+              <ion-button color="danger" (click)="cancelOrder(a.billId)">ยกเลิก</ion-button> -->
+            </td>
+          </tr>
+        </table>
+      </ion-row>
+    
+    </ion-card>
+    <ion-row class="center"  *ngIf="showDatabtn == 1">
       <ion-col>
         <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </ion-col>

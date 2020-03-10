@@ -33,15 +33,26 @@ namespace RestaurantsApi.Controllers
         public ActionResult<IEnumerable<Order>> GetDataOrder()
         {
             return dataOrder.ToList();
-
         }
 
         [HttpGet("{id}")]
         public ActionResult<Order> GetDataOrderById(string id)
         {
             return dataOrder.FirstOrDefault(it => it.BillId == id.ToString());
-
         }
+
+        [HttpGet("{data}")]
+        public ActionResult<Order> GetDataOrderBydata(string data)
+        {
+            return dataOrder.FirstOrDefault(it => it.TableNumber == data.ToString());
+        }
+        [HttpGet("{data}")]
+        public ActionResult<IEnumerable<Order>> GetOrderbyTable(string data)
+        {
+            return dataOrder.ToList().FindAll(it => it.TableNumber == data);
+        }
+
+
 
         [HttpGet]
         public ActionResult<IEnumerable<Order>> GetStatusOrder()
@@ -50,6 +61,9 @@ namespace RestaurantsApi.Controllers
             return dataOrder.ToList().FindAll(it => it.OrderStatus == null);
 
         }
+
+
+
 
 
         [HttpPost]
@@ -76,12 +90,85 @@ namespace RestaurantsApi.Controllers
                 OrderStatusDrink = orderData.OrderStatusDrink,
                 OrderStatusTotal = orderData.OrderStatusTotal,
                 OrderStatusPayment = orderData.OrderStatusPayment,
-                OrderReceived = orderData.OrderReceived
+                OrderReceived = orderData.OrderReceived,
+                OrderFoodType = orderData.OrderFoodType
 
             };
             dataOrder.Add(order);
             return orderData;
         }
+        [HttpPut("{idbill}")]
+        public Order EditDataOrdernoDrink(string idbill, [FromBody] Order orderData)
+        {
+            var getBill = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
+            var getFoodlist = getBill.FoodOrder.ToList();
+            // var getfood = getFoodlist.FirstOrDefault(it => it.FoodId == getFoodlist.ToString());
+            // var getFood = getFoodlist.FirstOrDefault(it => it.FoodId == idfood.ToString());
+
+            var order = new Order
+            {
+                BillId = idbill.ToString(),
+                OrderId = idbill.ToString(),
+                TableNumber = getBill.TableNumber,
+                FoodOrder = orderData.FoodOrder,
+                AmountCustomer = getBill.AmountCustomer,
+                TotalMoneyOrder = orderData.TotalMoneyOrder,
+                MoneyReceived = getBill.MoneyReceived,
+                MoneyCommute = getBill.MoneyCommute,
+                DiscountPersen = getBill.DiscountPersen,
+                DiscountBath = getBill.DiscountBath,
+                MoneyDiscount = getBill.MoneyDiscount,
+                MoneyDiscountTotal = getBill.MoneyDiscountTotal,
+                OrderDate = getBill.OrderDate,
+                OrderStatus = getBill.OrderStatus,
+                OrderStatusFood = "",
+                OrderStatusDrink = getBill.OrderStatusDrink,
+                OrderStatusTotal = "",
+                OrderStatusPayment = getBill.OrderStatusPayment,
+                OrderReceived = getBill.OrderReceived,
+                OrderFoodType = orderData.OrderFoodType
+            };
+            dataOrder.Remove(getBill);
+            dataOrder.Add(order);
+            return order;
+        }
+
+        [HttpPut("{idbill}")]
+        public Order EditDataOrdernofood(string idbill, [FromBody] Order orderData)
+        {
+            var getBill = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
+            var getFoodlist = getBill.FoodOrder.ToList();
+            // var getfood = getFoodlist.FirstOrDefault(it => it.FoodId == getFoodlist.ToString());
+            // var getFood = getFoodlist.FirstOrDefault(it => it.FoodId == idfood.ToString());
+
+            var order = new Order
+            {
+                BillId = idbill.ToString(),
+                OrderId = idbill.ToString(),
+                TableNumber = getBill.TableNumber,
+                FoodOrder = orderData.FoodOrder,
+                AmountCustomer = getBill.AmountCustomer,
+                TotalMoneyOrder = orderData.TotalMoneyOrder,
+                MoneyReceived = getBill.MoneyReceived,
+                MoneyCommute = getBill.MoneyCommute,
+                DiscountPersen = getBill.DiscountPersen,
+                DiscountBath = getBill.DiscountBath,
+                MoneyDiscount = getBill.MoneyDiscount,
+                MoneyDiscountTotal = getBill.MoneyDiscountTotal,
+                OrderDate = getBill.OrderDate,
+                OrderStatus = getBill.OrderStatus,
+                OrderStatusFood = getBill.OrderStatusFood,
+                OrderStatusDrink = "",
+                OrderStatusTotal = "",
+                OrderStatusPayment = getBill.OrderStatusPayment,
+                OrderReceived = getBill.OrderReceived,
+                OrderFoodType = orderData.OrderFoodType
+            };
+            dataOrder.Remove(getBill);
+            dataOrder.Add(order);
+            return order;
+        }
+
 
         [HttpPut("{idbill}")]
         public Order EditDataOrder(string idbill, [FromBody] Order orderData)
@@ -107,12 +194,12 @@ namespace RestaurantsApi.Controllers
                 MoneyDiscountTotal = getBill.MoneyDiscountTotal,
                 OrderDate = getBill.OrderDate,
                 OrderStatus = getBill.OrderStatus,
-                OrderStatusFood = getBill.OrderStatusFood,
-                OrderStatusDrink = getBill.OrderStatusDrink,
-                OrderStatusTotal = getBill.OrderStatusTotal,
+                OrderStatusFood = "",
+                OrderStatusDrink = "",
+                OrderStatusTotal = "",
                 OrderStatusPayment = getBill.OrderStatusPayment,
-                OrderReceived = getBill.OrderReceived
-
+                OrderReceived = getBill.OrderReceived,
+                OrderFoodType = orderData.OrderFoodType
             };
             dataOrder.Remove(getBill);
             dataOrder.Add(order);
@@ -146,8 +233,8 @@ namespace RestaurantsApi.Controllers
                 OrderStatusDrink = "เสริฟแล้ว",
                 OrderStatusTotal = getBill.OrderStatusTotal,
                 OrderStatusPayment = orderData.OrderStatusPayment,
-                OrderReceived = orderData.OrderReceived
-
+                OrderReceived = orderData.OrderReceived,
+                OrderFoodType = orderData.OrderFoodType
             };
             dataOrder.Remove(getBill);
             dataOrder.Add(order);
@@ -160,7 +247,7 @@ namespace RestaurantsApi.Controllers
             Order order = new Order();
             var getBill = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
             var getFoodlist = getBill.FoodOrder.ToList();
-            var getFood = getFoodlist.FirstOrDefault(it => it.FoodId == idfood.ToString());
+            var getFood = getFoodlist.FirstOrDefault(it => it.FoodNumber == idfood.ToString());
 
             var food = new Food
             {
@@ -174,7 +261,8 @@ namespace RestaurantsApi.Controllers
                 FoodPrice = getFood.FoodPrice,
                 FoodPriceTotal = getFood.FoodPriceTotal,
                 FoodType = getFood.FoodType,
-                FoodStatus = "เสริฟแล้ว"
+                FoodStatus = "เสริฟแล้ว",
+                FoodNumber = getFood.FoodNumber,
             };
             getFoodlist.Remove(getFood);
             getFoodlist.Add(food);
@@ -211,6 +299,8 @@ namespace RestaurantsApi.Controllers
                     OrderStatusDrink = getBill.OrderStatusDrink,
                     OrderStatusPayment = getBill.OrderStatusPayment,
                     OrderReceived = getBill.OrderReceived
+                    ,
+                    OrderFoodType = getBill.OrderFoodType
 
                 };
                 dataOrder.Remove(getBill);
@@ -239,8 +329,8 @@ namespace RestaurantsApi.Controllers
                     OrderStatusFood = "",
                     OrderStatusDrink = getBill.OrderStatusDrink,
                     OrderStatusPayment = getBill.OrderStatusPayment,
-                    OrderReceived = getBill.OrderReceived
-
+                    OrderReceived = getBill.OrderReceived,
+                    OrderFoodType = getBill.OrderFoodType
                 };
                 dataOrder.Remove(getBill);
                 dataOrder.Add(order);
@@ -257,7 +347,7 @@ namespace RestaurantsApi.Controllers
             var getBill = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
             var getFoodlist = getBill.FoodOrder.ToList();
 
-            var getFood = getFoodlist.FirstOrDefault(it => it.FoodId == idfood.ToString());
+            var getFood = getFoodlist.FirstOrDefault(it => it.FoodNumber == idfood.ToString());
 
             var food = new Food
             {
@@ -271,7 +361,8 @@ namespace RestaurantsApi.Controllers
                 FoodPrice = getFood.FoodPrice,
                 FoodPriceTotal = getFood.FoodPriceTotal,
                 FoodType = getFood.FoodType,
-                FoodStatus = "เสริฟแล้ว"
+                FoodStatus = "เสริฟแล้ว",
+                FoodNumber = getFood.FoodNumber,
             };
             getFoodlist.Remove(getFood);
             getFoodlist.Add(food);
@@ -307,8 +398,8 @@ namespace RestaurantsApi.Controllers
                     OrderStatusFood = getBill.OrderStatusFood,
                     OrderStatusDrink = "เสริฟแล้ว",
                     OrderStatusPayment = getBill.OrderStatusPayment,
-                    OrderReceived = getBill.OrderReceived
-
+                    OrderReceived = getBill.OrderReceived,
+                    OrderFoodType = getBill.OrderFoodType
                 };
                 dataOrder.Remove(getBill);
                 dataOrder.Add(order);
@@ -336,8 +427,8 @@ namespace RestaurantsApi.Controllers
                     OrderStatusFood = getBill.OrderStatusFood,
                     OrderStatusDrink = getBill.OrderStatusDrink,
                     OrderStatusPayment = getBill.OrderStatusPayment,
-                    OrderReceived = getBill.OrderReceived
-
+                    OrderReceived = getBill.OrderReceived,
+                    OrderFoodType = getBill.OrderFoodType
                 };
                 dataOrder.Remove(getBill);
                 dataOrder.Add(order);
@@ -360,8 +451,9 @@ namespace RestaurantsApi.Controllers
         {
             var getBill = dataOrder.FirstOrDefault(it => it.BillId == idbill);
             //var getindexBill = dataOrder.
+            
             var getFoodlist = getBill.FoodOrder.ToList();
-            var getFood = getFoodlist.FirstOrDefault(it => it.FoodId == idfood);
+            var getFood = getFoodlist.FirstOrDefault(it => it.FoodNumber == idfood);
             dataOrder[0].FoodOrder.Remove(getFood);
 
 
@@ -389,5 +481,17 @@ namespace RestaurantsApi.Controllers
         {
             dataOrder.Clear();
         }
+
+
+//    [HttpGet("{id}")]
+//         public ActionResult<Order> GetDataOrderFoodOrderById(string id )
+//         {
+          
+//                   var getBill = dataOrder.FirstOrDefault(it => it.BillId == idbill.ToString());
+//                   var getFoodlist = getBill.FoodOrder.ToList();
+//                    var food = new Food
+//                   {
+//                      };
+
     }
 }

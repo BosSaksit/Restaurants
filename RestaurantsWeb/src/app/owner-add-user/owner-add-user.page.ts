@@ -20,14 +20,14 @@ export class OwnerAddUserPage implements OnInit {
     public formBuilder: FormBuilder,
     public router: Router,
     public activate: ActivatedRoute
-    ) {
+  ) {
 
     this.dataUser = this.formBuilder.group({
-      'userId': [null, Validators.required],
-      'userName': [null, Validators.required],
-      'userType': [null, Validators.required],
-      'usernameLog': [null, Validators.required],
-      'userpassLog': [null, Validators.required],
+      'userId': ["", Validators.required],
+      'userName': ["", Validators.required],
+      'userType': ["", Validators.required],
+      'usernameLog': ["", Validators.required],
+      'userpassLog': ["", Validators.required],
     });
   }
 
@@ -38,13 +38,22 @@ export class OwnerAddUserPage implements OnInit {
   }
 
   addDataUser() {
-    this.submit = true;
-    console.log(this.dataUser.value);
-    this.user = this.dataUser.value;
-    this.resApi.addDataUser(this.user).subscribe(it => {
-      console.log(it);
-      this.router.navigate(['/user-list']);
-    });
+
+    if (this.dataUser.value.userId != "" && this.dataUser.value.userName != "" && this.dataUser.value.userType != "" && this.dataUser.value.usernameLog != ""
+      && this.dataUser.value.userpassLog != "") {
+   
+      console.log(this.dataUser.value);
+      this.user = this.dataUser.value;
+      this.resApi.addDataUser(this.user).subscribe(it => {
+        console.log(it);
+        this.router.navigate(['/user-list']);
+      });
+  
+    }
+    else {
+        this.submit = true;
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน")
+    }
   }
 
 }

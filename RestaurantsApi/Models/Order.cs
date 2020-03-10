@@ -24,6 +24,7 @@ namespace RestaurantsApi.Models
         public string OrderStatusPayment { get; set; }
         public string OrderStatusFood { get; set; }
         public string OrderStatusDrink { get; set; }
+        public string OrderFoodType {get;set;}
         public List<User> OrderReceived { get; set; }
 
     }

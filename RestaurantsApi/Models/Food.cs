@@ -13,7 +13,6 @@ namespace RestaurantsApi.Models
         public int FoodPriceTotal { get; set; }
         public string FoodType { get; set; }
         public string FoodStatus { get; set; }
-
-
+        public string FoodNumber { get; set; }
     }
 }

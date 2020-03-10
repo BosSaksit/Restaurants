@@ -45,7 +45,38 @@ export class OwnerDashboardPage implements OnInit {
     console.log(day);
     console.log(month);
     var xxx = day.substring(8, 10);
-    console.log(xxx);
+
+    if (xxx == "01") {
+      xxx = "1";
+      console.log(xxx);
+    } else if (xxx == "02") {
+      xxx = "2";
+      console.log(xxx);
+    }
+    else if (xxx == "03") {
+      xxx = "3";
+      console.log(xxx);
+    }
+    else if (xxx == "04") {
+      xxx = "4";
+      console.log(xxx);
+    }
+    else if (xxx == "05") {
+      xxx = "6";
+      console.log(xxx);
+    }
+    else if (xxx == "07") {
+      xxx = "7";
+      console.log(xxx);
+    }
+    else if (xxx == "08") {
+      xxx = "8";
+      console.log(xxx);
+    }
+    else if (xxx == "09") {
+      xxx = "9";
+      console.log(xxx);
+    }
 
     var yyy = month.substring(5, 7);
     if (yyy == "01") {
@@ -81,34 +112,46 @@ export class OwnerDashboardPage implements OnInit {
 
     console.log(yyy);
     this.resApi.getDataSummaryDay(xxx, yyy).subscribe(it => {
-      this.dataSummary = it;
-      console.log(this.dataSummary);
-      for (let index = 0; index < Object.keys(this.dataSummary).length; index++) {
-        console.log(this.dataSummary[index]);
-        if (this.dataSummary[index].foodOrder[index].orderStatus != "") {
-          this.foodPriceTotal += this.dataSummary[index].totalMoneyOrder;
-          this.discount += this.dataSummary[index].moneyDiscount;
+      if (Object.keys(it).length == 0) {
+        alert("ยังไม่มียอดภายในวันนี้")
+        this.foodProfit = 0
+        this.foodCost = 0 
+        this.discount = 0
+        this.foodPriceTotal = 0
+      }
+      else {
+        this.dataSummary = it;
+        console.log(this.dataSummary);
+        this.foodProfit = 0
+        this.foodCost = 0 
+        this.discount = 0
+        this.foodPriceTotal = 0
+        for (let index = 0; index < Object.keys(this.dataSummary).length; index++) {
+          console.log(this.dataSummary[index]);
+          if (this.dataSummary[index].foodOrder[index].orderStatus != "") {
+            this.foodPriceTotal += this.dataSummary[index].totalMoneyOrder;
+            this.discount += this.dataSummary[index].moneyDiscount;
 
-          this.dataSummary[index].foodOrder.forEach(order => {
-            // console.log(order.food);
+            this.dataSummary[index].foodOrder.forEach(order => {
+              // console.log(order.food);
 
-            this.foodCost += order.foodCostTotal;
-            // console.log(this.foodCost);
+              this.foodCost += order.foodCostTotal;
+              // console.log(this.foodCost);
 
-            // console.log(this.foodPriceTotal);
-            this.foodProfit = this.foodPriceTotal - this.foodCost;
-            // console.log(this.foodProfit);
+              // console.log(this.foodPriceTotal);
+              this.foodProfit = this.foodPriceTotal - this.foodCost;
+              // console.log(this.foodProfit);
 
-          });
+            });
+          }
+
+
+          // if(this.dataSummary[index].moneyDiscount != null){
+          //   this.foodPriceTotal - this.dataSummary[index].moneyDiscount
+          // }
         }
 
-
-        // if(this.dataSummary[index].moneyDiscount != null){
-        //   this.foodPriceTotal - this.dataSummary[index].moneyDiscount
-        // }
       }
-
-
     });
   }
 

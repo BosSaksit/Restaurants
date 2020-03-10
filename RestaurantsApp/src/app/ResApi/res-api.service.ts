@@ -86,12 +86,23 @@ export class ResApiService {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrderById/' + Id);
   }
 
+  public getDataOrderBydata(data: string) {
+    return this.http.get<order>(ResApiService.host + 'Order/GetOrderbyTable/' + data);
+  }
+
+
   public addDataOrderToCashier(data: order) {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
   }
 
   public editDataOrder(IdBill: string, data) {
     return this.http.put<order>(ResApiService.host + 'Order/EditDataOrder/' + IdBill, data);
+  }
+  public editDataOrdernofood(IdBill: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrdernofood/' + IdBill, data);
+  }
+  public EditDataOrdernoDrink(IdBill: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrdernoDrink/' + IdBill, data);
   }
 
   public cancelMenuList(IdBill: string, IdFood: string) {

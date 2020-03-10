@@ -5,7 +5,7 @@
         <ion-back-button></ion-back-button>
       </ion-buttons>
       <ion-title>แก้ไขออเดอร์</ion-title>
-      <app-logout></app-logout>
+  
     </ion-row>
   </ion-toolbar>
 </ion-header>
@@ -73,8 +73,11 @@
                     {{o.foodPriceTotal}}
                   </ion-col>
                 </ion-item>
-                <ion-item-options side="end">
-                  <ion-item-option color="danger" (click)="cancelMenuInOrder(o.foodNumber)" >ยกเลิก</ion-item-option>
+                <ion-item-options side="end" *ngIf ="o.foodStatus == 'เสริฟแล้ว'">
+                  <ion-item-option color="danger" (click)="cancelMenuInOrder(o.foodNumber)" disabled>ยกเลิก</ion-item-option>
+                </ion-item-options>
+                <ion-item-options side="end" *ngIf ="o.foodStatus != 'เสริฟแล้ว'">
+                  <ion-item-option color="danger" (click)="cancelMenuInOrder(o.foodNumber)">ยกเลิก</ion-item-option>
                 </ion-item-options>
               </ion-item-sliding>
             </ion-list>
@@ -102,10 +105,10 @@
                     {{a.foodPriceTotal}}
                   </ion-col>
                 </ion-item>
-                <ion-item-options side="end">
-                  <ion-item-option color="danger" (click)="cancelMenuInOrder1(a.foodNumber)">ยกเลิก</ion-item-option>
+                <ion-item-options side="end" >
+                  <ion-item-option color="danger" (click)="cancelMenuInOrder(a.foodNumber)" >ยกเลิก</ion-item-option>
                 </ion-item-options>
-
+    
               </ion-item-sliding>
             </ion-list>
           </ion-col>
@@ -127,9 +130,10 @@
             <div *ngIf="btnStatus == 2">
               <ion-button expand="full" color="success" class="center" (click)="editDataOrder()">ส่งอาหาร</ion-button>
             </div>
+       
           </ion-col>
           <ion-col>
-            <ion-button expand="full" class="center" [routerLink]="['/order-list']">ตะกร้า</ion-button>
+            <div> <ion-button expand="full" class="center" [routerLink]="['/cashier-order-table']">ย้อนกลับ</ion-button></div>
           </ion-col>
         </ion-row>
       </div>

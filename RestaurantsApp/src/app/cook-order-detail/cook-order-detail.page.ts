@@ -66,7 +66,7 @@ export class CookOrderDetailPage implements OnInit {
 
   cookSendFood(i) {
     console.log(i);
-    this.idfood = i.foodId;
+    this.idfood = i.foodNumber;
     console.log(this.idfood);
     if (i.foodStatus == "") {
       console.log("yes");

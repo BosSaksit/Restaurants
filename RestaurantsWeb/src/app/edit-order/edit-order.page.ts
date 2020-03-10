@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { food } from '../Models/food';
-import { order } from '../Models/order';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ResApiService } from '../ResApi/res-api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
+import { ActivatedRoute,Router } from '@angular/router';
+import { order } from '../Models/order';
 
 @Component({
-  selector: 'app-order-edit',
-  templateUrl: './order-edit.page.html',
-  styleUrls: ['./order-edit.page.scss'],
+  selector: 'app-edit-order',
+  templateUrl: './edit-order.page.html',
+  styleUrls: ['./edit-order.page.scss'],
 })
-export class OrderEditPage implements OnInit {
+export class EditOrderPage implements OnInit {
   datanew: food[] = null
   dataMenu: food;
   dataMenu2: any[] = [];
@@ -63,18 +64,15 @@ export class OrderEditPage implements OnInit {
     "orderReceived": []
   };
 
-
   dataOrderToCashier: order;
   listDataOrder: any[];
   foodorder: any;
   totalMoneyOrder: number = 0;
   btnStatus: any;
   idUser: any;
-
   idBillEdit: any;
   idFoodEdit: any;
   btnStatusEdit: any;
-
   table: any;
   food: any;
   drink: any;
@@ -181,7 +179,7 @@ export class OrderEditPage implements OnInit {
 
   getDataEditOrder() {
     this.resApi.getDataOrderById(this.idBillEdit).subscribe(it => {
-      this.dataOrderBeforeToCashier = it;
+      this.dataOrderBeforeToCashier = it
       console.log(this.dataOrderBeforeToCashier.tableNumber);
       this.table = this.dataOrderBeforeToCashier.tableNumber;
       for (let index = 0; index < Object.keys(this.dataOrderBeforeToCashier.foodOrder).length; index++) {
@@ -279,7 +277,7 @@ export class OrderEditPage implements OnInit {
           else {
             this.dataOrderBeforeToCashier.orderFoodType = ""
             console.log(this.dataOrderBeforeToCashier.orderFoodType);
-
+            
 
           }
           this.dataOrderToCashier = this.dataOrderBeforeToCashier;
@@ -327,7 +325,6 @@ export class OrderEditPage implements OnInit {
 
   cancelMenuInOrder(id) {
     console.log(id);
-    console.log(this.idBillEdit);
 
     this.resApi.cancelMenuList(this.idBillEdit, id).subscribe(it => {
       console.log(it);
@@ -376,7 +373,9 @@ export class OrderEditPage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    this.router.navigate(['/order-receive']);
+    this.router.navigate(['/cashier-order-table']);
   }
 
 }
+
+

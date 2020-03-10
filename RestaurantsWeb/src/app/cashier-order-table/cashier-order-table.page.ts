@@ -45,7 +45,9 @@ export class CashierOrderTablePage implements OnInit {
       console.log(it);
     });
   }
-
+  gotoEditOrder(id){
+    this.router.navigate(['/edit-order',{idbill :id}])
+  }
 
   getDataSummary() {
     this.resApi.getDataOrder().subscribe(it => {
@@ -63,8 +65,6 @@ export class CashierOrderTablePage implements OnInit {
 
     }
   }
-
-
   showData2() {
     this.showDatabtn = "2";
   }

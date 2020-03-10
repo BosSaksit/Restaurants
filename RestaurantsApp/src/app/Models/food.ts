@@ -10,4 +10,5 @@ export class food {
     foodPriceTotal: number;
     foodType: string;
     foodStatus: string;
+    foodNumber: string;
 }

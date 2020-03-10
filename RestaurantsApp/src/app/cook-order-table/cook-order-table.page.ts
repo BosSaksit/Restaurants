@@ -9,15 +9,19 @@ import { order } from '../Models/order';
   styleUrls: ['./cook-order-table.page.scss'],
 })
 export class CookOrderTablePage implements OnInit {
+  showDatabtn: any;
+  constructor(public router: Router, public resApi: ResApiService) {
 
-  constructor(public router: Router, public resApi: ResApiService) { }
-
+    this.showDatabtn = "2"
+  }
+  dataOrdertest:order[]=[]
   dataOrder: order;
   dataOrderCheckStatus: order;
   cookOrder: order[] = [];
-
+  dataOrderserved:any
+  dataOrderNoserved:any
   cookStatus: any;
-  p:number = 1;
+  p: number = 1;
 
   ngOnInit() {
     this.getDataOrder();
@@ -38,6 +42,19 @@ export class CookOrderTablePage implements OnInit {
     this.resApi.getDataOrder().subscribe(it => {
       this.dataOrder = it;
       console.log(this.dataOrder);
+      for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+        this.dataOrdertest[index] = this.dataOrder[index]
+      }
+      for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+       this.dataOrderserved =  this.dataOrdertest.filter(it => it.orderStatusFood == "เสริฟแล้ว")
+      }
+
+      for (let index = 0; index < Object.keys(this.dataOrder).length; index++) {
+        this.dataOrderNoserved =  this.dataOrdertest.filter(it => it.orderStatusFood != "เสริฟแล้ว")
+       }
+  
+       console.log(this.dataOrderserved);
+       console.log(this.dataOrderNoserved);
     });
   }
 
@@ -56,6 +73,21 @@ export class CookOrderTablePage implements OnInit {
       }
     });
 
+
+
+  }
+
+
+  showData() {
+    this.showDatabtn = "1";
+    if (this.showDatabtn = "1") {
+      this.getDataOrder();
+    } else {
+
+    }
+  }
+  showData2() {
+    this.showDatabtn = "2";
   }
 
   // checkStatusFood() {

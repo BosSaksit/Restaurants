@@ -37,6 +37,11 @@ export class ResApiService {
   public deleteDataFood(Id: string) {
     return this.http.delete<food>(ResApiService.host + 'Food/DeleteFood/' + Id);
   }
+
+  
+  public filterTypeMenu(data: any) {    
+    return this.http.get<food>(ResApiService.host + 'Food/FilterTypeMenu/' + data);
+  }
   // food
 
   // user
@@ -74,8 +79,32 @@ export class ResApiService {
     return this.http.get<order>(ResApiService.host + 'Order/GetDataOrderById/' + Id);
   }
 
+  public getDataOrderBydata(data: string) {
+    return this.http.get<order>(ResApiService.host + 'Order/GetOrderbyTable/' + data);
+  }
+
+
   public addDataOrderToCashier(data: order) {
     return this.http.post<order>(ResApiService.host + 'Order/AddDataOrder/', data);
+  }
+
+  public editDataOrder(IdBill: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrder/' + IdBill, data);
+  }
+  public editDataOrdernofood(IdBill: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrdernofood/' + IdBill, data);
+  }
+  public EditDataOrdernoDrink(IdBill: string, data) {
+    return this.http.put<order>(ResApiService.host + 'Order/EditDataOrdernoDrink/' + IdBill, data);
+  }
+
+  public cancelMenuList(IdBill: string, IdFood: string) {
+    
+    return this.http.delete<order>(ResApiService.host + 'Order/CancelMenuList/' + IdBill + "/" + IdFood);
+  }
+
+  public cancelOrder(Id: string) {
+    return this.http.delete<order>(ResApiService.host + 'Order/CancelOrder/' + Id);
   }
   // order
 

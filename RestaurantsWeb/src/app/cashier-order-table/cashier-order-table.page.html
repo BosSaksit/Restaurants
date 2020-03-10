@@ -17,7 +17,7 @@
 
         <ion-row class="colorW">
           <ion-col size="3" *ngFor="let o of listDataOrder">
-            <ion-card>
+            <ion-card *ngIf="o.orderStatusTotal == 'เสริฟแล้ว'">
               <ion-row class="cardTable">
                 <ion-col style="font-size: 25px;">{{o.tableNumber}}</ion-col>
               </ion-row>
@@ -30,6 +30,22 @@
                 </ion-col>
                 <ion-col text-center>
                   <ion-button color="success" (click)="gotoDetailOrder(o.orderId)">ชำระเงิน</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+            <ion-card *ngIf="o.orderStatusTotal != 'เสริฟแล้ว'">
+              <ion-row class="cardTable">
+                <ion-col style="font-size: 25px;">{{o.tableNumber}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col></ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-center>
+                  <ion-button color="light" (click)="gotoDetailBill(o.orderId)">ดูข้อมูล</ion-button>
+                </ion-col>
+                <ion-col text-center>
+                  <ion-button color="warning" (click)="gotoEditOrder(o.orderId)">แก้ไข</ion-button>
                 </ion-col>
               </ion-row>
             </ion-card>
@@ -85,7 +101,7 @@
                   {{o.moneyCommute}}
                 </ion-col>
                 <ion-col>
-                  {{o.billTime | date:"MM/dd/yy h:mm"}}
+                  {{o.billTime }}
                 </ion-col>
                 <ion-col style="color: red;">
                   {{o.orderStatus}}

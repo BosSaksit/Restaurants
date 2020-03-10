@@ -28,10 +28,10 @@ export class OrderReceivePage implements OnInit {
     "totalMoneyOrder": 0,
     "moneyReceived": 0,
     "moneyCommute": 0,
-    "discountPersen":0,
-    "discountBath":0,
-    "moneyDiscount":0,
-    "moneyDiscountTotal":0,
+    "discountPersen": 0,
+    "discountBath": 0,
+    "moneyDiscount": 0,
+    "moneyDiscountTotal": 0,
     "orderDate": "",
     "billTime": "",
     "orderStatus": null,
@@ -39,6 +39,7 @@ export class OrderReceivePage implements OnInit {
     "orderStatusPayment": null,
     "orderStatusFood": null,
     "orderStatusDrink": null,
+    "orderFoodType": null,
     "orderReceived": []
   };
 
@@ -98,15 +99,48 @@ export class OrderReceivePage implements OnInit {
 
     });
   }
+  data: food[] = null
+  check() {
+    console.log(this.listDataOrder);
 
+    for (let index = 0; index < this.dataOrderBeforeToCashier.foodOrder.length; index++) {
+      this.data = this.dataOrderBeforeToCashier.foodOrder.filter(it => it.foodType == "เครื่องดื่ม");
+    }
+    console.log(this.data);
+    if (Object.keys(this.data).length == 0) {
+      console.log("ไม่มี");
+
+    }
+
+
+  }
+  randomIDnumber: string = ""
+  numberfood: number = 1
 
   addFoodToOrderList(m) {
+    m.foodNumber = Math.random().toString(32).substr(2, 9);
+
+
+    // this.as = this.numberfood++
+    // console.log(this.as);
+    // m.foodNumber = this.as.toString()
+    // console.log(m.foodNumber);
+
+    // console.log(this.textidnumber);
+    // console.log(this.randomIDnumber);
+    // for (let index = 0; index <5; index++) {
+    //   this.randomIDnumber += Math.random().toString()
+    //   console.log(this.randomIDnumber);
+    // }
+
+
     console.log(m.foodId);
     m.foodAmount = 1;
     console.log(m.foodAmount);
     this.dataOrderBeforeToCashier.foodOrder.push(m);
     console.log(this.dataOrderBeforeToCashier.foodOrder);
     this.listDataOrder = this.dataOrderBeforeToCashier.foodOrder;
+
     // var get = this.dataOrderBeforeToCashier.foodOrder.filter(it => it.foodId == m.foodId);
     // console.log(get);
     // if (this.dataOrderBeforeToCashier.foodOrder.length == 0) {
@@ -148,9 +182,9 @@ export class OrderReceivePage implements OnInit {
 
   }
 
-  cancelMenuInOrder(i){
+  cancelMenuInOrder(i) {
     console.log(i);
-    
+
     this.dataOrderBeforeToCashier.foodOrder[i].pop;
 
   }
@@ -207,6 +241,10 @@ export class OrderReceivePage implements OnInit {
 
   }
 
+  dataorder: any = null
+  testdata: any[] = []
+  datachecktable: any
+  datacheck: order = null
   async addOrderToCashier() {
     const alert = await this.alertController.create({
       header: 'ยืนยันการส่งอาหาร',
@@ -233,17 +271,130 @@ export class OrderReceivePage implements OnInit {
       }, {
         text: 'Ok',
         handler: data => {
-          this.dataOrderBeforeToCashier.tableNumber = data.table;
-          this.dataOrderBeforeToCashier.amountCustomer = data.cus;
-          console.log(this.dataOrderBeforeToCashier);
-          this.dataOrderToCashier = this.dataOrderBeforeToCashier;
-          console.log(this.dataOrderToCashier);
-          this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
+          this.dataorder = null
+          this.datachecktable = []
+          this.resApi.getDataOrderBydata(data.table).subscribe(it => {
+            if (Object.keys(it).length == 0) {
+              console.log("pass");
+              this.dataOrderBeforeToCashier.tableNumber = data.table;
+              this.dataOrderBeforeToCashier.amountCustomer = data.cus;
+              console.log(this.dataOrderBeforeToCashier);
+              this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+              for (let index = 0; index < this.dataOrderBeforeToCashier.foodOrder.length; index++) {
+                this.data = this.dataOrderBeforeToCashier.foodOrder.filter(it => it.foodType == "เครื่องดื่ม");
+              }
+              console.log(this.data);
+              if (Object.keys(this.data).length == 0) {
+                this.dataOrderBeforeToCashier.orderFoodType = "ไม่มีเครื่องดื่ม"
+              }
+              else{
+                this.dataOrderBeforeToCashier.orderFoodType = ""
+              }
+              console.log(this.dataOrderToCashier);
+              console.log(this.dataOrderBeforeToCashier.orderFoodType);
 
-          this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
-            console.log(it);
-            this.router.navigate(['/order-list']);
+              this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
+
+              this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
+                console.log(it);
+                this.router.navigate(['/order-list']);
+              })
+            }
+            else {
+              for (let index = 0; index < Object.keys(it).length; index++) {
+                this.testdata[index] = it[index]
+              }
+              for (let index = 0; index < Object.keys(this.testdata).length; index++) {
+                this.datachecktable = this.testdata.filter(it => it.orderStatus == null)
+              }
+              console.log(this.datachecktable);
+              if (Object.keys(this.datachecktable).length == 0) {
+                console.log("pass");
+                this.dataOrderBeforeToCashier.tableNumber = data.table;
+                this.dataOrderBeforeToCashier.amountCustomer = data.cus;
+                console.log(this.dataOrderBeforeToCashier);
+                for (let index = 0; index < this.dataOrderBeforeToCashier.foodOrder.length; index++) {
+                  this.data = this.dataOrderBeforeToCashier.foodOrder.filter(it => it.foodType == "เครื่องดื่ม");
+                }
+                console.log(this.data);
+                if (Object.keys(this.data).length == 0) {
+                  this.dataOrderBeforeToCashier.orderFoodType = "ไม่มีเครื่องดื่ม"
+                }
+                else{
+                  this.dataOrderBeforeToCashier.orderFoodType = ""
+                }
+                this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+                console.log(this.dataOrderToCashier);
+                this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
+                
+                console.log(this.dataOrderBeforeToCashier.orderFoodType);
+                this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
+                  console.log(it);
+                  this.router.navigate(['/order-list']);
+                })
+              }
+              else {
+
+                this.alertConfirmCancelOrder()
+                console.log("nopass");
+              }
+            }
+
+            // else {
+            //   this.datachecktable = ""
+            //   this.dataorder = it
+            //   console.log(this.dataorder);
+            //   for (let index = 0; index < this.dataorder.length; index++) {
+            //     this.testdata[index] = this.dataorder[index]
+            //   }
+            //   for (let index = 0; index < Object.keys(this.testdata).length; index++) {
+            //     this.datachecktable = this.testdata.filter(it => it.orderStatus == null)
+
+            //   }
+            //   console.log(this.datachecktable);
+
+            //   if (this.datachecktable == "") {
+
+
+
+            //   }
+            //   else {
+            //   
+            //     this.dataorder = null
+            //     this.datachecktable = null
+
+            //     console.log("nopass");
+
+            //   }
+            // }
+
+
+            //   if (this.dataorder != null) {
+            //     if (this.dataorder.orderStatus == "ชำระเงินแล้ว") {
+            //       this.dataOrderBeforeToCashier.tableNumber = data.table;
+            //       this.dataOrderBeforeToCashier.amountCustomer = data.cus;
+            //       console.log(this.dataOrderBeforeToCashier);
+            //       this.dataOrderToCashier = this.dataOrderBeforeToCashier;
+            //       console.log(this.dataOrderToCashier);
+            //       this.dataOrderBeforeToCashier.orderReceived.push(this.idUser);
+
+            //       this.resApi.addDataOrderToCashier(this.dataOrderToCashier).subscribe(it => {
+            //         console.log(it);
+            //         this.router.navigate(['/order-list']);
+            //       })
+            //     }
+            //     else {
+            //       console.log("nopass");
+
+
+            //     }
+            //   }
+            //   else {
+
+
+            //   }
           })
+
         }
       }],
 
@@ -251,8 +402,6 @@ export class OrderReceivePage implements OnInit {
     await alert.present();
 
   }
-
-
   getDataFoodFilter() {
     this.resApi.getDataFood().subscribe((it) => {
       this.dataMenu = it;
@@ -284,10 +433,26 @@ export class OrderReceivePage implements OnInit {
     });
 
 
+
+
   }
 
+  async alertConfirmCancelOrder() {
+    const alert = await this.alertController.create({
+      header: 'แจ้งเตือน',
+      subHeader: 'โต๊ะนี้ยังไม่ได้ทำการชำระเงิน',
+      buttons: [{
+        text: 'Cancel',
+        handler: () => {
+          console.log('Cancel');
+        }
+      }]
 
 
+    });
+    await alert.present();
+
+  }
 
 
 }

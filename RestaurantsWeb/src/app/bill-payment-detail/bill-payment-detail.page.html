@@ -30,16 +30,16 @@
                 <td>หน่วยละ</td>
                 <td>รวม</td>
               </tr>
-              <tr *ngFor="let o of foodorder">
-                <td>{{o.foodId}}</td>
-                <td>{{o.foodName}}</td>
-                <td>{{o.foodAmount}} </td>
-                <td>{{o.foodPrice}}.-</td>
-                <td>{{o.foodPriceTotal}}.-</td>
+              <tr *ngFor="let a of foodbill">
+                <td>{{a.foodId}}</td>
+                <td>{{a.foodName}}</td>
+                <td>{{a.foodAmount}} </td>
+                <td>{{a.foodPrice}}.-</td>
+                <td>{{a.foodPriceTotal}}.-</td>
               </tr>
               <tr>
                 <td style="font-size: 20px;"><strong>ยอดชำระ</strong></td>
-                <td colspan="3" style="text-align: right; font-size: 20px;"><strong>{{foodPriceTotal}}</strong></td>
+                <td colspan="3" style="text-align: right; font-size: 20px;"><strong>{{foodPriceTotalbill}}</strong></td>
               </tr>
               <tr>
                 <td style="text-align: left;">ส่วนลด %</td>
@@ -71,6 +71,7 @@
 
           </ion-row>
         </ion-card>
+        <!-- <ion-button (click)="checkbutton1()"></ion-button> -->
       </ion-col>
     </ion-row>
   </ion-grid>
